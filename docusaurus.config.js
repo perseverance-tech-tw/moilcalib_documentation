@@ -38,6 +38,21 @@ const config = {
         docs: {
           sidebarPath: './sidebars.js',
           editUrl: 'https://github.com/perseverance-tech-tw/moilcalib_documentation/tree/main/',
+          // See VERSIONING.md at the repo root for the full folder map and
+          // how to cut a new version with `npx docusaurus docs:version X`.
+          lastVersion: '1.0', // the released version served at the site root
+          versions: {
+            // "current" = the live v2/ folder (in-progress, unreleased)
+            current: {
+              label: 'v2 (main_development)',
+              path: 'v2',
+              badge: true,
+            },
+            // frozen snapshot, lives in versioned_docs/version-1.0/
+            '1.0': {
+              label: 'v1.0 (Feature-AutoLoadCaliResult)',
+            },
+          },
         },
         blog: {
           showReadingTime: true,
@@ -80,6 +95,10 @@ const config = {
             to: '/blog',
             label: 'Blog',
             position: 'left',
+          },
+          {
+            type: 'docsVersionDropdown',
+            position: 'right',
           },
           {
             href: 'https://github.com/perseverance-tech-tw/moilcalib_documentation',
