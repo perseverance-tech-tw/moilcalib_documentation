@@ -11,11 +11,11 @@ const config = {
     v4: true,
   },
 
-  url: 'https://nasyahwulan.github.io',
-  baseUrl: '/moil-docs/',
+  url: 'https://perseverance-tech-tw.github.io',
+  baseUrl: '/moilcalib_documentation/',
 
-  organizationName: 'nasyahwulan',
-  projectName: 'moil-docs',
+  organizationName: 'perseverance-tech-tw',
+  projectName: 'moilcalib_documentation',
 
   onBrokenLinks: 'throw',
   onBrokenAnchors: 'ignore',
@@ -37,7 +37,7 @@ const config = {
       ({
         docs: {
           sidebarPath: './sidebars.js',
-          editUrl: 'https://github.com/nasyahwulan/moil-docs/tree/main/',
+          editUrl: 'https://github.com/perseverance-tech-tw/moilcalib_documentation/tree/main/',
         },
         blog: {
           showReadingTime: true,
@@ -45,7 +45,7 @@ const config = {
             type: ['rss', 'atom'],
             xslt: true,
           },
-          editUrl: 'https://github.com/nasyahwulan/moil-docs/tree/main/blog/',
+          editUrl: 'https://github.com/perseverance-tech-tw/moilcalib_documentation/tree/main/blog/',
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
           onUntruncatedBlogPosts: 'warn',
@@ -82,7 +82,7 @@ const config = {
             position: 'left',
           },
           {
-            href: 'https://github.com/nasyahwulan/moil-docs',
+            href: 'https://github.com/perseverance-tech-tw/moilcalib_documentation',
             label: 'GitHub',
             position: 'right',
           },
@@ -109,7 +109,7 @@ const config = {
               },
               {
                 label: 'GitHub',
-                href: 'https://github.com/nasyahwulan/moil-docs',
+                href: 'https://github.com/perseverance-tech-tw/moilcalib_documentation',
               },
             ],
           },
