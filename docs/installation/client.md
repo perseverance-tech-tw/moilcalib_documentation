@@ -1,8 +1,8 @@
 ---
 id: client-installation-guide
-slug: /installation/client-ubuntu-2204
-title: Calibration System Client Installation Guide (Ubuntu 22.04)
+slug: /installation/client
+title: Calibration System Client Installation Guide (C++ / Qt6)
 sidebar_label: Client Installation Guide
 ---
 
-_Content coming soon for v2._
+_Content coming soon for v2.0 (ROS C++)._

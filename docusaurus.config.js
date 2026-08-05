@@ -40,17 +40,27 @@ const config = {
           editUrl: 'https://github.com/perseverance-tech-tw/moilcalib_documentation/tree/main/',
           // See VERSIONING.md at the repo root for the full folder map and
           // how to cut a new version with `npx docusaurus docs:version X`.
-          lastVersion: '1.0', // the released version served at the site root
+          lastVersion: '1.1', // the latest released version (named by the "unreleased" banner on v2.0)
           versions: {
-            // "current" = the live v2/ folder (in-progress, unreleased)
+            // "current" = the live docs/ folder (in-progress, unreleased)
             current: {
-              label: 'v2 (main_development)',
-              path: 'v2',
+              label: 'v2.0 (ROS C++)',
+              path: 'v2.0',
               badge: true,
+            },
+            // frozen snapshot, lives in versioned_docs/version-1.1/
+            '1.1': {
+              label: 'v1.1 (HTTP C++)',
+              // Keep the /v1.1 URL it had while it was the current version —
+              // its pages cross-link with absolute /docs/v1.1/... paths.
+              // Explicit path keeps it here even as lastVersion, which would
+              // otherwise be served at the /docs/ root.
+              path: 'v1.1',
+              banner: 'none',
             },
             // frozen snapshot, lives in versioned_docs/version-1.0/
             '1.0': {
-              label: 'v1.0 (Feature-AutoLoadCaliResult)',
+              label: 'v1.0 (HTTP PYTHON)',
             },
           },
         },
@@ -115,7 +125,9 @@ const config = {
             items: [
               {
                 label: 'Introduction',
-                to: '/docs/intro',
+                // Points at the latest released version (v1.1). No version is
+                // served at the bare /docs/ root, because '1.1' pins path: 'v1.1'.
+                to: '/docs/v1.1/intro',
               },
             ],
           },
@@ -133,7 +145,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Nasyahwulan. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Perseverance Technology. Built with Docusaurus.`,
       },
       prism: {
         theme: prismThemes.github,

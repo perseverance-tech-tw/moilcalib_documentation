@@ -1,0 +1,73 @@
+{
+  "tutorialSidebar": [
+    "intro",
+    {
+      "type": "category",
+      "label": "Installation",
+      "collapsed": true,
+      "items": [
+        "installation/server",
+        "installation/client-installation-guide"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "System Overview",
+      "collapsed": false,
+      "items": [
+        "system-overview/main-window"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Calibration Workflow",
+      "collapsed": false,
+      "items": [
+        {
+          "type": "category",
+          "label": "1. Pattern Setup",
+          "collapsed": false,
+          "items": [
+            "calibration/pct-pattern-generator",
+            "calibration/monitor-viewer"
+          ]
+        },
+        "calibration/camera-calibration",
+        {
+          "type": "category",
+          "label": "3. Calibration Result",
+          "collapsed": false,
+          "link": {
+            "type": "doc",
+            "id": "calibration/cali-result/index"
+          },
+          "items": [
+            "calibration/cali-result/main-window-overview",
+            "calibration/cali-result/result-table-view",
+            "calibration/cali-result/parameter-view",
+            "calibration/cali-result/overlap-and-aggregation-view",
+            "calibration/cali-result/entrance-pupil-analysis"
+          ]
+        },
+        "calibration/reload-calibration-data"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Verification",
+      "collapsed": false,
+      "items": [
+        "verification/setup-center",
+        "verification/3d-verification"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Database",
+      "collapsed": true,
+      "items": [
+        "database/database-overview"
+      ]
+    }
+  ]
+}

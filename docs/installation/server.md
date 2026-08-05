@@ -5,4 +5,4 @@ title: Server Installation
 sidebar_label: Server Installation
 ---
 
-_Content coming soon for v2._
+_Content coming soon for v2.0 (ROS C++)._

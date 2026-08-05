@@ -5,4 +5,4 @@ title: Database Overview
 sidebar_label: Database Overview
 ---
 
-_Content coming soon for v2._
+_Content coming soon for v2.0 (ROS C++)._
