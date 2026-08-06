@@ -20,7 +20,7 @@ The **Main Window** is the central interface of the calibration system. It bring
 
 <a id="fig-1"></a>
 
-![Main Window overview](../assets/images/img_12.png)
+![Main Window overview](../assets/images/main-window-overview.png)
 
 <p><em><a href="#fig-1"><strong>Figure 1.</strong></a> Main Window overview.</em></p>
 
@@ -32,17 +32,21 @@ The **Main Window** is the central interface of the calibration system. It bring
 
 | No. | Panel | Purpose | Used during |
 |---:|---|---|---|
-| 1 | **Server URL Configuration** | HTTP connections to the Axis, Monitor, and Camera servers. | [Camera Calibration](/moilcalib_documentation/docs/v1.1/calibration/camera-calibration) |
-| 2 | **Axis Control** | 5-axis platform movement (X, Y, Z linear; Yaw, Pitch rotational) with sensor monitoring and safety interlocks. | [Camera Calibration](/moilcalib_documentation/docs/v1.1/calibration/camera-calibration) |
+| 1 | **HTTP Server URL** | HTTP connections to the Axis, Monitor, and Camera servers. | [Camera Calibration](/moilcalib_documentation/docs/v1.1/calibration/camera-calibration) |
+| 2 | **Axis Control Panel** | 5-axis platform movement (X, Y, Z linear; Yaw, Pitch rotational) with sensor monitoring and safety interlocks. | [Camera Calibration](/moilcalib_documentation/docs/v1.1/calibration/camera-calibration) |
 | 3 | **Monitor / Pattern** | Launches the Monitor Viewer and the PCT Pattern Generator. | [1. Pattern Setup](/moilcalib_documentation/docs/v1.1/calibration/pct-pattern-generator) |
-| 4 | **Camera** | Image capture from the camera server; positive / negative calibration shots. | [Camera Calibration](/moilcalib_documentation/docs/v1.1/calibration/camera-calibration) |
+| 4 | **Camera Panel** | Image capture from the camera server; positive / negative calibration shots. | [Camera Calibration](/moilcalib_documentation/docs/v1.1/calibration/camera-calibration) |
 | 5 | **Centering** | Automatic and manual fisheye centre-point detection with ROI and edge overlays. | [Camera Calibration](/moilcalib_documentation/docs/v1.1/calibration/camera-calibration) |
 | 6 | **Calibration Result / 3D Validation** | Opens the result analysis window, 3D verification, and Setup Center. | [3. Calibration Result](/moilcalib_documentation/docs/v1.1/calibration/cali-result) · [Verification](/moilcalib_documentation/docs/v1.1/verification/setup-center) |
-| 7 | **Histogram** | Grey-level intensity curves extracted from the calibration images. | [Camera Calibration](/moilcalib_documentation/docs/v1.1/calibration/camera-calibration) |
+| 7 | **Histogram1** | First grey-level intensity plot, with its own direction selection. | [Camera Calibration](/moilcalib_documentation/docs/v1.1/calibration/camera-calibration) |
+| 8 | **Histogram2** | Second grey-level intensity plot, identical controls, selected independently of Histogram1. | [Camera Calibration](/moilcalib_documentation/docs/v1.1/calibration/camera-calibration) |
+
+The two histograms are separate panels with the same control set, which is why they carry two numbers in Figure 1.
+They are functionally identical and stacked one above the other so that two different direction selections can be compared at a glance — see [7.1](#71-why-there-are-two-and-why-they-are-stacked) for the reasoning.
 
 ---
 
-## 1. Server URL Configuration Panel
+## 1. HTTP Server URL Panel
 
 Establishes the HTTP client connections to the three services the client depends on.
 
@@ -70,7 +74,7 @@ Pressing **Update** next to the **Axis URL** additionally re-runs the sensor-ini
 
 <a id="fig-2"></a>
 
-![Axis Control Panel](../assets/images/img_21.png)
+![Axis Control Panel](../assets/images/axis-control-panel.png)
 
 <p><em><a href="#fig-2"><strong>Figure 2.</strong></a> Axis Control Panel.</em></p>
 
@@ -88,25 +92,31 @@ Pressing **Update** next to the **Axis URL** additionally re-runs the sensor-ini
 
 ### 2.2 Controls
 
-| Control | Description |
-|---|---|
-| **ALL HOME** | Homes the axes in the order **Yaw → Pitch → X → Y → Z**, skipping any axis already at its origin, and writes position `0` for each axis as it completes. |
-| **Position display** | Live position read from the axis. |
-| **Speed** | Movement velocity for the relative move (High / Low). |
-| **Relative Move** + direction button | Moves the axis by the entered amount — mm for X/Y/Z, degrees for Yaw/Pitch. |
-| **Sensor indicators** | Limit, home, and movement state for that axis (see 2.3). |
-| **STOP** | Stops that axis immediately, then refreshes its sensors and position. |
-| **α / β** | Alpha and beta, computed live from the yaw and pitch positions. |
+The numbers match the callouts in [Figure 2](#fig-2).
+Every column applies to each of the five axis rows.
+
+| No. | Control | Description |
+|---:|---|---|
+| 1 | **All HOME** | Homes the axes in the order **Yaw → Pitch → X → Y → Z**, skipping any axis already at its origin, and writes position `0` for each axis as it completes. |
+| 2 | **Position display** | Live position read from that axis. |
+| 3 | **Sensor indicators** | Limit and home state for that axis: `L H R`, `D H U`, or `B H F` depending on the axis (see 2.3). |
+| 4 | **Speed** | Movement velocity for the relative move (High / Low). |
+| 5 | **Relative Move** + direction buttons | Moves the axis by the entered amount — mm for X/Y/Z, degrees for Yaw/Pitch. The button on each side of the value box gives the direction. |
+| 6 | **M (movement indicator)** | Blinks while that axis is running. It sits outside the sensor group because it reports motion, not position. |
+| 7 | **STOP** | Stops that axis immediately, then refreshes its sensors and position. |
+| 8 | **α / β** | Alpha and beta, computed live from the yaw and pitch positions. They are shown in the panel header and are not part of the per-axis rows. |
 
 ### 2.3 Sensor Status Indicators
 
-| Indicator | Meaning | Behaviour when triggered |
-|---|---|---|
-| **L / R** | Left / right limit | Movement in that direction is blocked. |
-| **D / U** | Down / up limit | Movement in that direction is blocked. |
-| **B / F** | Back / forward limit | Movement in that direction is blocked. |
-| **H** | Home (origin) sensor | Used by homing to zero the position. |
-| **M** | Movement | Blinks while the axis is running. |
+These are the three lamps inside callout **3**.
+Which set an axis shows depends on the direction it travels in.
+
+| Indicator | Axes | Meaning | Behaviour when triggered |
+|---|---|---|---|
+| **L / R** | X, Yaw | Left / right limit | Movement in that direction is blocked. |
+| **D / U** | Y, Pitch | Down / up limit | Movement in that direction is blocked. |
+| **B / F** | Z | Back / forward limit | Movement in that direction is blocked. |
+| **H** | All | Home (origin) sensor | Used by homing to zero the position. |
 
 ### 2.4 Safety Behaviour
 
@@ -115,7 +125,7 @@ Pressing **Update** next to the **Axis URL** additionally re-runs the sensor-ini
 | **Axis safety-lock** | While **any** axis is moving, every control except that axis's **STOP** button is disabled — a second command cannot be sent into a running stage. Controls unlock once the axis reports it has stopped. |
 | **Limit protection** | A triggered limit sensor blocks further movement in that direction. |
 | **Sensor-side lock after stopping** | When an axis stops on a sensor, the button for the sensor side that was touched stays locked. |
-| **Blocking homing** | `ALL HOME` waits for a confirmed stop on each axis before starting the next, showing a progress dialog. |
+| **Blocking homing** | `All HOME` waits for a confirmed stop on each axis before starting the next, showing a progress dialog. |
 | **Live axis monitor** | One background task per axis polls limit / origin / moving / position every **20 ms** and updates the LEDs, coordinates, and alpha / beta. It runs off the UI thread, so the window stays responsive, and times out after 60 s. |
 
 <div className="custom-note custom-warning">
@@ -133,16 +143,16 @@ Pressing **Update** next to the **Axis URL** additionally re-runs the sensor-ini
 
 <a id="fig-3"></a>
 
-![Monitor / Pattern Panel](../assets/images/img_15.png)
+![Monitor / Pattern Panel](../assets/images/monitor-pattern-panel.png)
 
 <p><em><a href="#fig-3"><strong>Figure 3.</strong></a> Monitor / Pattern Panel.</em></p>
 
 </div>
 
-| Button | Opens | Documented in |
-|---|---|---|
-| **Monitor Viewer** | `ControllerMonitor` — per-direction pattern preview and send | [Monitor Viewer](/moilcalib_documentation/docs/v1.1/calibration/monitor-viewer) |
-| **PCT (Pattern Generator)** | `ControllerPatternGenerator` — concentric and stripline pattern creation | [PCT Pattern Generator](/moilcalib_documentation/docs/v1.1/calibration/pct-pattern-generator) |
+| No. | Button | Opens | Documented in |
+|---|---|---|---|
+| 1 | **Monitor Viewer** | `ControllerMonitor` — per-direction pattern preview and send | [Monitor Viewer](/moilcalib_documentation/docs/v1.1/calibration/monitor-viewer) |
+| 2 | **PCT (Pattern Generator)** | `ControllerPatternGenerator` — concentric and stripline pattern creation | [PCT Pattern Generator](/moilcalib_documentation/docs/v1.1/calibration/pct-pattern-generator) |
 
 The two windows are linked: when the Pattern Generator sends **Update to Monitor**, the request is routed through the Monitor Viewer so that both the pattern *and* the brightness are applied.
 
@@ -154,7 +164,7 @@ The two windows are linked: when the Pattern Generator sends **Update to Monitor
 
 <a id="fig-4"></a>
 
-![Camera Panel](../assets/images/img_16.png)
+![Camera Panel](../assets/images/camera-control-panel.png)
 
 <p><em><a href="#fig-4"><strong>Figure 4.</strong></a> Camera Panel.</em></p>
 
@@ -162,17 +172,20 @@ The two windows are linked: when the Pattern Generator sends **Update to Monitor
 
 ### 4.1 Fields and Buttons
 
-| Control | Description |
-|---|---|
-| **Pattern Mode** | Current capture state: blank, `Positive`, or `Negative`. Set automatically by the shot buttons. |
-| **Img Path** | Full path of the image file that was last written. |
-| **Org Res** | Resolution of the captured image, as received from the camera. **Read-only.** |
-| **Cali Res** | Resolution of the scaled preview shown in the window. **Read-only.** |
-| **Open Img** | **Not active in version 1.1** — the handler is still an empty stub. |
-| **Image preview** | Single-click sets the centre (only in a pattern mode); double-click opens the zoomable viewer. |
-| **Capture** | Takes a single frame with no pattern mode. |
-| **Pos Shot** | Pushes the positive pattern, captures, auto-detects the centre. |
-| **Neg Shot** | Pushes the negative pattern, captures, auto-detects the centre. |
+The numbers match the callouts in [Figure 4](#fig-4).
+
+| No. | Control | Description |
+|---:|---|---|
+| 1 | **Pattern Mode** | Current capture state: blank, `Positive`, or `Negative`. Set automatically by the shot buttons. **Read-only.** |
+| 2 | **Img Path** | Full path of the image file that was last written. |
+| 3 | **Org Res** | Resolution of the captured image, as received from the camera. **Read-only.** |
+| 4 | **Cali Res** | Resolution of the scaled preview shown in the window. **Read-only.** |
+| 5 | **Open Img** | **Not active in version 1.1** — the handler is still an empty stub. |
+| 6 | **Image preview** | The captured frame, scaled to fit. Single-click sets the centre (only in a pattern mode); double-click opens the zoomable viewer (see 4.4). |
+| 7 | **Capture** | Takes a single frame with no pattern mode. |
+| 8 | **Pos Shot** | Pushes the positive pattern, captures, auto-detects the centre. |
+| 9 | **Neg Shot** | Pushes the negative pattern, captures, auto-detects the centre. |
+| 10 | **Unlabelled button** | Appears between **Capture** and **Pos Shot** with no caption. Its function is not documented for version 1.1. |
 
 ### 4.2 Image Files
 
@@ -214,7 +227,7 @@ The `image_cali/` folder is resolved against the directory the application was l
 
 <a id="fig-5"></a>
 
-![Centering Panel](../assets/images/img_22.png)
+![Centering Panel](../assets/images/centering-panel.png)
 
 <p><em><a href="#fig-5"><strong>Figure 5.</strong></a> Centering Panel.</em></p>
 
@@ -222,20 +235,25 @@ The `image_cali/` folder is resolved against the directory the application was l
 
 ### 5.1 Fields
 
-| Control | Description |
-|---|---|
-| **Auto / Manual / Locked** | Centre-point handling mode (see 5.2). |
-| **PosThr** | Threshold used to detect the centre of the **positive** image. |
-| **NegThr** | Threshold used to detect the centre of the **negative** image. |
-| **Center ROI** | Radius of the ROI box drawn around the centre on the preview. |
-| **CPX / CPY — Positive** | Centre coordinates of the positive image. |
-| **CPX / CPY — Negative** | Centre coordinates of the negative image. |
-| **Edge** (checkbox) | Draws a circle overlay at the given radius around the centre. |
-| **Radius** | Edge-circle radius. |
-| **Color** | Colour picker for the edge circle. |
-| **Thickness** | Edge-circle line thickness. |
+The numbers match the callouts in [Figure 5](#fig-5).
 
-The positive and negative centres are **independent** — each shot detects the centre of its own image.
+| No. | Control | Description |
+|---:|---|---|
+| 1 | **Auto / Manual / Locked** | Centre-point handling mode (see 5.2). |
+| 2 | **PosThr** | Threshold used to detect the centre of the **positive** image. |
+| 3 | **NegThr** | Threshold used to detect the centre of the **negative** image. |
+| 4 | **Center ROI** | Radius of the ROI box drawn around the centre on the preview. |
+| 5 | **CPX** | Column header: the horizontal centre coordinate, in original-image pixels. |
+| 6 | **CPY** | Column header: the vertical centre coordinate, in original-image pixels. |
+| 7 | **Positive** | The CPX / CPY pair detected from the positive image. |
+| 8 | **Negative** | The CPX / CPY pair detected from the negative image. |
+| 9 | **Edge** (checkbox) | Draws a circle overlay at the given radius around the centre. One row per pattern mode. |
+| 10 | **Radius** | Edge-circle radius. |
+| 11 | **Color** | Colour picker for the edge circle. |
+| 12 | **Thickness** | Edge-circle line thickness. |
+
+Rows **7** and **8** are **independent** — each shot detects the centre of its own image.
+The overlay block (**9** to **12**) likewise has one row per pattern mode, so the positive and negative circles can be styled separately.
 
 ### 5.2 Centre Detection Modes
 
@@ -270,46 +288,79 @@ The positive and negative centres are **independent** — each shot detects the 
 
 <a id="fig-6"></a>
 
-![Calibration Result / 3D Validation Panel](../assets/images/img_24.png)
+![Calibration Result / 3D Validation Panel](../assets/images/calibration-result.png)
 
-<p><em><a href="#fig-6"><strong>Figure 6.</strong></a> Calibration Result / 3D Validation Panel. This version 1.0 screenshot shows only two buttons — version 1.1 adds <strong>Setup Center</strong>.</em></p>
+<p><em><a href="#fig-6"><strong>Figure 6.</strong></a> Calibration Result / 3D Validation Panel.</em></p>
 
 </div>
 
-| Button | Opens | Documented in |
-|---|---|---|
-| **Moil Cali Result** | `ControllerCaliResult` — result tables, plots, and the range subsystem | [3. Calibration Result](/moilcalib_documentation/docs/v1.1/calibration/cali-result) |
-| **3D Verification** | `Controller3dMeasurement` — automated 3D distance measurement | [3D Verification](/moilcalib_documentation/docs/v1.1/verification/3d-verification) |
-| **Setup Center** 🆕 | `ControllerCenterSetup` — camera centre (iCx / iCy) verification | [Setup Center](/moilcalib_documentation/docs/v1.1/verification/setup-center) |
+| No. | Button | Opens | Documented in |
+|---:|---|---|---|
+| 1 | **Moil Cali Result** | `ControllerCaliResult` — result tables, plots, and the range subsystem | [3. Calibration Result](/moilcalib_documentation/docs/v1.1/calibration/cali-result) |
+| 2 | **3D Verification** | `Controller3dMeasurement` — automated 3D distance measurement | [3D Verification](/moilcalib_documentation/docs/v1.1/verification/3d-verification) |
+| 3 | **Setup Center** 🆕 | `ControllerCenterSetup` — camera centre (iCx / iCy) verification | [Setup Center](/moilcalib_documentation/docs/v1.1/verification/setup-center) |
 
 **Setup Center** is new in version 1.1. Opening it seeds the tool with the current positive capture automatically, if one exists.
 
 ---
 
-## 7. Histogram Panel
+## 7 and 8. Histogram Panels
 
 <div className="center">
 
 <a id="fig-7"></a>
 
-![Histogram Panel](../assets/images/img_25.png)
+![Histogram Panels](../assets/images/histogram-panel.png)
 
-<p><em><a href="#fig-7"><strong>Figure 7.</strong></a> Histogram Panel.</em></p>
+<p><em><a href="#fig-7"><strong>Figure 7.</strong></a> The two Histogram panels. The callouts are drawn on <strong>Histogram 1</strong>; <strong>Histogram 2</strong> below it carries the identical set of controls.</em></p>
 
 </div>
 
-Two independent plots, **Histogram1** and **Histogram2**, both plotting grey level against IH. In version 1.1 they are drawn by a C++ `HistogramPlot` widget; version 1.0 used PyQtGraph.
+These are the two panels numbered **7** and **8** in [Figure 1](#fig-1).
+In version 1.1 they are drawn by a C++ `HistogramPlot` widget; version 1.0 used PyQtGraph.
 
-### 7.1 Controls
+### 7.1 Why There Are Two, and Why They Are Stacked
 
-| Control | Description |
-|---|---|
-| **Show Curve** | Clears the plot and redraws the curves for the selected directions. |
-| **Curve Color** | Opens the curve-colour window (`ControllerCurveColor`). |
-| **Direction checkboxes** | Per histogram, a **Pos** and a **Neg** column with the eight directions. |
-| **Pop Up** | Opens that histogram in its own larger window. |
+**The two panels are functionally identical** — same axes, same default range, same controls.
+Neither is the positive plot, the negative plot, or a zoom of the other.
+The only thing that tells them apart is which direction checkboxes you tick in each, so the difference is one of **use, not function**.
 
-### 7.2 Analysis Directions
+They exist as a pair because a calibration judgement is rarely about one curve alone; it is about whether one set of directions behaves like another.
+With a single plot you would tick a set, read it, untick it, tick a second set, and compare against memory.
+Two plots hold both sets on screen at once.
+
+They are **stacked** because both share the same horizontal quantity, IH.
+Stacking aligns that axis down the screen, so you can read straight down from a feature in Histogram1 to the same IH position in Histogram2.
+Side by side would have halved the width each curve extends along and lost that shared reference.
+
+Useful splits, none of them enforced by the application:
+
+| Split | Histogram1 | Histogram2 |
+|---|---|---|
+| **Axis pair** | Vertical: N, S | Horizontal: W, E |
+| **Cardinal vs diagonal** | N, S, W, E | NW, NE, SW, SE |
+| **Reference vs suspect** | A direction known to be good | The direction that looks wrong |
+
+<div className="custom-note custom-tip">
+  <div className="custom-note-title">💡 A PRACTICAL DEFAULT</div>
+  <div>
+    Put the <strong>vertical</strong> pair (N, S) in Histogram1 and the <strong>horizontal</strong> pair (W, E) in Histogram2. An opposed pair is what a centre error pulls apart, so keeping each pair whole inside one plot makes that disagreement easy to spot.
+  </div>
+</div>
+
+### 7.2 Controls
+
+The numbers match the callouts in [Figure 7](#fig-7) and apply to both panels.
+
+| No. | Control | Description |
+|---:|---|---|
+| 1 | **Show Curve** | Clears the plot and redraws the curves for the selected directions. |
+| 2 | **Curve Color** | Opens the curve-colour window (`ControllerCurveColor`). |
+| 3 | **Direction checkboxes** | A **Pos** and a **Neg** column, each with the eight directions listed in 7.3. |
+| 4 | **Pop Up** | Opens that histogram in its own larger window. |
+| 5 | **Plot area** | Grey level on the vertical axis against IH on the horizontal axis. The axis ranges rescale to fit whatever curves are drawn. |
+
+### 7.3 Analysis Directions
 
 | Direction | Abbreviation | Notes |
 |---|---|---|
@@ -322,7 +373,7 @@ Two independent plots, **Histogram1** and **Histogram2**, both plotting grey lev
 | Southwest | **SW** | Diagonal, with √2 scaling |
 | Northeast | **NE** | Diagonal, with √2 scaling |
 
-### 7.3 Curve Rendering
+### 7.4 Curve Rendering
 
 | Selection | Result |
 |---|---|
@@ -344,7 +395,9 @@ Two independent plots, **Histogram1** and **Histogram2**, both plotting grey lev
 
 ---
 
-## 8. Menu Bar
+## Menu Bar
+
+The menu bar sits above the panels and is not numbered in [Figure 1](#fig-1).
 
 | Item | Description |
 |---|---|
@@ -361,7 +414,3 @@ Two independent plots, **Histogram1** and **Histogram2**, both plotting grey lev
 | Put patterns on the monitors | [Monitor Viewer](/moilcalib_documentation/docs/v1.1/calibration/monitor-viewer) |
 | Analyse the calibration values | [3. Calibration Result](/moilcalib_documentation/docs/v1.1/calibration/cali-result) |
 | Check the camera parameters | [Setup Center](/moilcalib_documentation/docs/v1.1/verification/setup-center) · [3D Verification](/moilcalib_documentation/docs/v1.1/verification/3d-verification) |
-
----
-
-_Screenshots on this page are reused from version 1.0 and will be replaced with version 1.1 captures._
