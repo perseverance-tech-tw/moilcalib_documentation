@@ -19,25 +19,17 @@ This page explains the **Overlap** tab in the Calibration Result window. This vi
 
 ## Overview Images
 
-<div className="center">
-
-<a id="fig-1"></a>
+<Figure id="fig-1" number="1" caption="Empty Overlap and Aggregation View with area labels.">
 
 ![Overlap and aggregation view area labels](../../assets/images/img_36.png)
 
-<p><em><a href="#fig-1"><strong>Figure 1.</strong></a> Empty Overlap and Aggregation View with area labels.</em></p>
+</Figure>
 
-</div>
-
-<div className="center">
-
-<a id="fig-2"></a>
+<Figure id="fig-2" number="2" caption="Overlap and Aggregation View after calibration data is loaded and updated.">
 
 ![Overlap and aggregation view with loaded calibration data](../../assets/images/img_71.png)
 
-<p><em><a href="#fig-2"><strong>Figure 2.</strong></a> Overlap and Aggregation View after calibration data is loaded and updated.</em></p>
-
-</div>
+</Figure>
 
 | No. | Area | Function |
 |---:|---|---|

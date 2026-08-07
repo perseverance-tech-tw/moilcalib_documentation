@@ -47,15 +47,11 @@ Setup Center works on **still images only** — there is no live camera or video
 
 The left side shows the image views; the right side is a control panel with four numbered sections.
 
-<div className="center">
-
-<a id="fig-1"></a>
+<Figure id="fig-1" number="1" caption="The Setup Center window — Original Fisheye with the guide rings and crosslines (left), Panorama Preview and Anypoint View (bottom), and the four-section control panel (right).">
 
 ![Setup Center window](../assets/images/img_101.png)
 
-<p><em><a href="#fig-1"><strong>Figure 1.</strong></a> The Setup Center window — Original Fisheye with the guide rings and crosslines (left), Panorama Preview and Anypoint View (bottom), and the four-section control panel (right).</em></p>
-
-</div>
+</Figure>
 
 ### Views
 

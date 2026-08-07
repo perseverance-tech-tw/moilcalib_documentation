@@ -18,15 +18,11 @@ The explanation in this document follows the behavior implemented in `controller
 
 ## Parameter View Overview
 
-<div className="center">
-
-<a id="fig-1"></a>
+<Figure id="fig-1" number="1" caption="Parameter View overview.">
 
 ![Parameter View Overview](../../assets/images/img_35.png)
 
-<p><em><a href="#fig-1"><strong>Figure 1.</strong></a> Parameter View overview.</em></p>
-
-</div>
+</Figure>
 
 The Parameter View is divided into three main areas:
 
@@ -59,25 +55,17 @@ Aggregation quality analysis
 
 ## 1. IH-Alpha Graph
 
-<div className="center">
-
-<a id="fig-2"></a>
+<Figure id="fig-2" number="2" caption="IH-Alpha graph area.">
 
 ![IH-Alpha Graph](../../assets/images/img_72.png)
 
-<p><em><a href="#fig-2"><strong>Figure 2.</strong></a> IH-Alpha graph area.</em></p>
+</Figure>
 
-</div>
-
-<div className="center">
-
-<a id="fig-3"></a>
+<Figure id="fig-3" number="3" caption="IH-Alpha graph example after calibration data is loaded and updated.">
 
 ![IH-Alpha Graph Example Result](../../assets/images/img_75.png)
 
-<p><em><a href="#fig-3"><strong>Figure 3.</strong></a> IH-Alpha graph example after calibration data is loaded and updated.</em></p>
-
-</div>
+</Figure>
 
 This example image shows the IH-Alpha graph after calibration points are plotted. The colored points represent enabled round data. A smooth and continuous curve means the Alpha values change consistently as IH increases. The cursor line and value fields below the graph show the selected Alpha and IH/Gray Scale reading.
 
@@ -237,25 +225,17 @@ IH = selected IH value
 
 ## 2. ZFL-IH Graph
 
-<div className="center">
-
-<a id="fig-4"></a>
+<Figure id="fig-4" number="4" caption="ZFL-IH graph area.">
 
 ![ZFL-IH Graph](../../assets/images/img_73.png)
 
-<p><em><a href="#fig-4"><strong>Figure 4.</strong></a> ZFL-IH graph area.</em></p>
+</Figure>
 
-</div>
-
-<div className="center">
-
-<a id="fig-5"></a>
+<Figure id="fig-5" number="5" caption="ZFL-IH graph example after selected rounds are plotted.">
 
 ![ZFL-IH Graph Example Result](../../assets/images/img_76.png)
 
-<p><em><a href="#fig-5"><strong>Figure 5.</strong></a> ZFL-IH graph example after selected rounds are plotted.</em></p>
-
-</div>
+</Figure>
 
 This example image shows the ZFL-IH graph after calibration results are calculated. The colored points represent enabled round data, while the vertical shaded regions represent IH range areas used for range-based aggregation analysis. A smooth ZFL-IH curve usually indicates a stable calibration result and lower aggregation behavior.
 
@@ -440,15 +420,11 @@ ZFL = selected ZFL value
 
 ## 3. Parameter Panel
 
-<div className="center">
-
-<a id="fig-6"></a>
+<Figure id="fig-6" number="6" caption="Parameter panel.">
 
 ![Parameter Panel](../../assets/images/img_74.png)
 
-<p><em><a href="#fig-6"><strong>Figure 6.</strong></a> Parameter panel.</em></p>
-
-</div>
+</Figure>
 
 The **Parameter Panel** is used to update calibration results, edit camera parameters, select calibration system configuration, set distance-per-round behavior, and save the configuration.
 

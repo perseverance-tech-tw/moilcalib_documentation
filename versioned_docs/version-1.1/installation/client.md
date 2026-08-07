@@ -62,15 +62,11 @@ sudo apt update
 sudo apt install -y git
 ```
 
-<div className="center">
-
-<a id="fig-1"></a>
+<Figure id="fig-1" number="1" caption="Install Git.">
 
 ![Install Git](../assets/images/img_1.png)
 
-<p><em><a href="#fig-1"><strong>Figure 1.</strong></a> Install Git.</em></p>
-
-</div>
+</Figure>
 
 **Windows** — install Git with:
 
@@ -286,15 +282,11 @@ The leading `.\` is **required** — without it PowerShell reports `The module '
 
 Or, in VS Code, press `Ctrl+Shift+D`, pick **"Run moilcali"**, and hit `F5` — `.vscode/launch.json` and `tasks.json` already build then launch Release.
 
-<div className="center">
-
-<a id="fig-2"></a>
+<Figure id="fig-2" number="2" caption="The Calibration System Client main window. (Screenshot from version 1.0 — to be updated for version 1.1.)">
 
 ![Calibration System Client Main Window](../assets/images/img_11.png)
 
-<p><em><a href="#fig-2"><strong>Figure 2.</strong></a> The Calibration System Client main window. (Screenshot from version 1.0 — to be updated for version 1.1.)</em></p>
-
-</div>
+</Figure>
 
 <div className="custom-note custom-important">
   <div className="custom-note-title">✅ SUCCESS CHECK</div>

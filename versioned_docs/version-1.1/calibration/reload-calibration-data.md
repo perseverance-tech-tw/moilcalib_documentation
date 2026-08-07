@@ -28,15 +28,11 @@ This page describes how to bring **previously saved calibration data** back into
 | Continuing work after closing the application | The whole main folder → **Load All Excel** |
 | Looking up which calibrations exist | **Load Database** (metadata only — see below) |
 
-<div className="center">
-
-<a id="fig-1"></a>
+<Figure id="fig-1" number="1" caption="The Header & Data Management area — every load control lives here.">
 
 ![Header and Data Management area of the Cali Result window](../assets/images/img_28.png)
 
-<p><em><a href="#fig-1"><strong>Figure 1.</strong></a> The Header & Data Management area — every load control lives here.</em></p>
-
-</div>
+</Figure>
 
 ---
 
@@ -102,15 +98,11 @@ Mark that round's tab with a star
   </div>
 </div>
 
-<div className="center">
-
-<a id="fig-2"></a>
+<Figure id="fig-2" number="2" caption="The window after a successful load — round tabs and the result table filled.">
 
 ![Cali Result window after data is loaded](../assets/images/img_48.png)
 
-<p><em><a href="#fig-2"><strong>Figure 2.</strong></a> The window after a successful load — round tabs and the result table filled.</em></p>
-
-</div>
+</Figure>
 
 ---
 

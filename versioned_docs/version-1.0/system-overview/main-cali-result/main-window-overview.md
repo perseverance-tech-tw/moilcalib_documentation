@@ -10,15 +10,11 @@ sidebar_position: 2
 
 The **Main Cali Result** window is used to load calibration data, manage round tables, calculate calibration results, inspect graph behavior, and search the best distance based on aggregation values.
 
-<div className="center">
-
-<a id="fig-main-cali-result-overview"></a>
+<Figure id="fig-main-cali-result-overview" number="1" title="Main Cali Result Overview" caption="Main Cali Result window divided into 8 main functional areas.">
 
 ![Main Cali Result overview with 8 main sections](../../assets/images/img_27.png)
 
-<p><em><a href="#fig-main-cali-result-overview"><strong>Figure 1. Main Cali Result Overview.</strong></a> Main Cali Result window divided into 8 main functional areas.</em></p>
-
-</div>
+</Figure>
 
 ---
 
@@ -92,25 +88,28 @@ Use the links below when you want to reference a figure from another part of thi
 | [Figure 27](#fig-zfl-ih-popup) | ZFL-IH Popup Graph | `img_63.png` |
 | [Figure 28](#fig-overlap-popup) | Overlap Popup Graph | `img_64.png` |
 | [Figure 29](#fig-result-table-view) | Result Table View | `img_38.png` |
-| [Figure 30](#fig-vgap-hgap-settings) | V_Gap & H_Gap Settings | `img_39.png` |
-| [Figure 31](#fig-pixel-size-distance-round) | Pixel Size & Distance / Round | `img_40.png` |
-| [Figure 32](#fig-min-aggregation-by-interval) | Min Aggregation by Interval | `img_41.png` |
-| [Figure 33](#fig-aggr-by-range-distance) | Aggr by Range and Distance | `img_42.png` |
-| [Figure 34](#fig-range-analysis-matrix) | Range Analysis Matrix | `img_43.png` |
+| [Figure 30](#fig-result-table-after-interval) | Result Table Output from Min Aggregation by Interval | `img_68.png` |
+| [Figure 31](#fig-vgap-hgap-settings) | V_Gap & H_Gap Settings | `img_39.png` |
+| [Figure 32](#fig-pixel-size-distance-round) | Pixel Size & Distance / Round | `img_40.png` |
+| [Figure 33](#fig-min-aggregation-by-interval) | Min Aggregation by Interval | `img_41.png` |
+| [Figure 34](#fig-min-aggregation-input-example) | Min Aggregation by Interval Input Example | `img_69.png` |
+| [Figure 35](#fig-result-table-output-from-interval) | Result Table Generated from Interval Setup | `img_68.png` |
+| [Figure 36](#fig-interval-save-dialog) | Interval CSV Save Dialog | `img_65.png` |
+| [Figure 37](#fig-interval-save-confirmation) | Interval CSV Saved Confirmation | `img_66.png` |
+| [Figure 38](#fig-interval-csv-libreoffice) | Interval CSV Opened in LibreOffice Calc | `img_67.png` |
+| [Figure 39](#fig-aggr-by-range-distance) | Aggr by Range and Distance | `img_42.png` |
+| [Figure 40](#fig-aggr-range-distance-example) | Aggr by Range and Distance Example | `img_70.png` |
+| [Figure 41](#fig-range-analysis-matrix) | Range Analysis Matrix | `img_43.png` |
 
 ---
 
 ## 1. Header & Data Management
 
-<div className="center">
-
-<a id="fig-header-data-management"></a>
+<Figure id="fig-header-data-management" number="2" title="Header & Data Management" caption="Header & Data Management area with 15 main UI functions.">
 
 ![Header and Data Management section with 15 numbered UI elements](../../assets/images/img_28.png)
 
-<p><em><a href="#fig-header-data-management"><strong>Figure 2. Header & Data Management.</strong></a> Header & Data Management area with 15 main UI functions.</em></p>
-
-</div>
+</Figure>
 
 The **Header & Data Management** area is the top control section in the **Main Cali Result** window. This area is used to load calibration data, browse calibration folders, import or export Excel files, update table values, clear data, stop running calculations, open supporting graphs, and select the calibration system configuration.
 
@@ -118,15 +117,11 @@ The **Header & Data Management** area is the top control section in the **Main C
 
 The screenshot below shows the **Header & Data Management** area after a complete calibration result folder has been loaded. The tree view shows folders `1` to `10`, the round tabs show `*` marks, and the active table contains PCT, ICT, alpha, and ZFL result columns.
 
-<div className="center">
-
-<a id="fig-loaded-data-example"></a>
+<Figure id="fig-loaded-data-example" number="3" title="Loaded Data Example" caption="Example of loaded calibration data with round tabs and result table.">
 
 ![Main Cali Result window after calibration data is loaded](../../assets/images/img_48.png)
 
-<p><em><a href="#fig-loaded-data-example"><strong>Figure 3. Loaded Data Example.</strong></a> Example of loaded calibration data with round tabs and result table.</em></p>
-
-</div>
+</Figure>
 
 ---
 
@@ -221,39 +216,27 @@ The **Cali Folder** field is used to manually enter the calibration data source.
 
 When a remote file or folder URL is pasted into **Cali Folder**, the user should press **Enter** to let the system process the input.
 
-<div className="center">
-
-<a id="fig-cali-folder-url-input"></a>
+<Figure id="fig-cali-folder-url-input" number="4" title="Cali Folder URL Input" caption="Remote URL pasted into the Cali Folder field.">
 
 ![Cali Folder field with a remote URL pasted](../../assets/images/img_29.png)
 
-<p><em><a href="#fig-cali-folder-url-input"><strong>Figure 4. Cali Folder URL Input.</strong></a> Remote URL pasted into the Cali Folder field.</em></p>
-
-</div>
+</Figure>
 
 The URL can also appear selected inside the input field before the system finishes processing it.
 
-<div className="center">
-
-<a id="fig-cali-folder-selected-url"></a>
+<Figure id="fig-cali-folder-selected-url" number="5" title="Selected URL Input" caption="Selected remote URL before the system finishes processing.">
 
 ![Cali Folder field showing selected remote URL input](../../assets/images/img_30.png)
 
-<p><em><a href="#fig-cali-folder-selected-url"><strong>Figure 5. Selected URL Input.</strong></a> Selected remote URL before the system finishes processing.</em></p>
-
-</div>
+</Figure>
 
 After the URL is resolved or downloaded, the field can be changed automatically to a local cache folder path. This means the remote data has been prepared locally and can now be loaded from the computer.
 
-<div className="center">
-
-<a id="fig-cali-folder-local-cache"></a>
+<Figure id="fig-cali-folder-local-cache" number="6" title="Local Cache Path" caption="Local cache path after the URL is resolved or downloaded.">
 
 ![Cali Folder field showing local cache download path after URL processing](../../assets/images/img_31.png)
 
-<p><em><a href="#fig-cali-folder-local-cache"><strong>Figure 6. Local Cache Path.</strong></a> Local cache path after the URL is resolved or downloaded.</em></p>
-
-</div>
+</Figure>
 
 #### Related Code
 
@@ -320,15 +303,11 @@ A folder path only updates the tree view root. To load data into the round table
 
 The **Tree View** displays the selected calibration folder structure. It helps the user browse downloaded or local calibration data without manually searching through the file manager.
 
-<div className="center">
-
-<a id="fig-tree-view-folder"></a>
+<Figure id="fig-tree-view-folder" number="7" title="Tree View Folder Browser" caption="Tree View showing calibration folder structure after loading a folder or URL.">
 
 ![Tree View showing calibration folder after loading from Cali Folder](../../assets/images/img_32.png)
 
-<p><em><a href="#fig-tree-view-folder"><strong>Figure 7. Tree View Folder Browser.</strong></a> Tree View showing calibration folder structure after loading a folder or URL.</em></p>
-
-</div>
+</Figure>
 
 #### Related Code
 
@@ -383,15 +362,11 @@ The **Load All Excel** button loads calibration result Excel files from round fo
 
 When the button is clicked, the system opens a folder selection dialog. Select the main calibration result folder that contains the round folders.
 
-<div className="center">
-
-<a id="fig-load-all-excel-dialog"></a>
+<Figure id="fig-load-all-excel-dialog" number="8" title="Load All Excel Dialog" caption="Folder selection dialog used to load all Excel files from round folders.">
 
 ![Folder selection dialog for Load All Excel](../../assets/images/img_46.png)
 
-<p><em><a href="#fig-load-all-excel-dialog"><strong>Figure 8. Load All Excel Dialog.</strong></a> Folder selection dialog used to load all Excel files from round folders.</em></p>
-
-</div>
+</Figure>
 
 #### Related Code
 
@@ -550,15 +525,11 @@ The **Save to Excel** button exports the currently active table to an `.xlsx` fi
 
 The save dialog allows the user to choose the output folder and file name before exporting the active result table.
 
-<div className="center">
-
-<a id="fig-save-to-excel-dialog"></a>
+<Figure id="fig-save-to-excel-dialog" number="9" title="Save to Excel Dialog" caption="Save dialog used to export the active calibration result table.">
 
 ![Save to Excel dialog for exporting calibration result table](../../assets/images/img_44.png)
 
-<p><em><a href="#fig-save-to-excel-dialog"><strong>Figure 9. Save to Excel Dialog.</strong></a> Save dialog used to export the active calibration result table.</em></p>
-
-</div>
+</Figure>
 
 #### Related Code
 
@@ -630,15 +601,11 @@ ict_ne
 
 The **Load Excel** button loads one `.xlsx` file into the active table. This is used when only one round needs to be loaded or replaced.
 
-<div className="center">
-
-<a id="fig-load-excel-dialog"></a>
+<Figure id="fig-load-excel-dialog" number="10" title="Load Excel Dialog" caption="File selection dialog used to load one Excel file into the active round table.">
 
 ![Load Excel dialog with one xlsx file selected](../../assets/images/img_45.png)
 
-<p><em><a href="#fig-load-excel-dialog"><strong>Figure 10. Load Excel Dialog.</strong></a> File selection dialog used to load one Excel file into the active round table.</em></p>
-
-</div>
+</Figure>
 
 #### Related Code
 
@@ -695,15 +662,11 @@ The Excel file should contain the calibration result columns used by the table. 
 
 The screenshot below shows an example Excel file layout that can be loaded into the calibration result table.
 
-<div className="center">
-
-<a id="fig-excel-layout-example"></a>
+<Figure id="fig-excel-layout-example" number="11" title="Excel Layout Example" caption="Example Excel layout containing Round, Side, PCT, and ICT direction columns.">
 
 ![Example Excel layout for calibration result data](../../assets/images/img_47.png)
 
-<p><em><a href="#fig-excel-layout-example"><strong>Figure 11. Excel Layout Example.</strong></a> Example Excel layout containing Round, Side, PCT, and ICT direction columns.</em></p>
-
-</div>
+</Figure>
 
 ```text
 Recommended sheet name: Sheet
@@ -740,15 +703,11 @@ self.btn_clear_all_table.clicked.connect(self.onclick_btn_clear_all_table)
 
 Before deleting all round data, the system shows a confirmation dialog.
 
-<div className="center">
-
-<a id="fig-clear-all-table-confirmation"></a>
+<Figure id="fig-clear-all-table-confirmation" number="12" title="Clear All Table Confirmation" caption="Confirmation dialog before clearing all round tables.">
 
 ![Clear All Table confirmation dialog](../../assets/images/img_33.png)
 
-<p><em><a href="#fig-clear-all-table-confirmation"><strong>Figure 12. Clear All Table Confirmation.</strong></a> Confirmation dialog before clearing all round tables.</em></p>
-
-</div>
+</Figure>
 
 The confirmation message is:
 
@@ -896,15 +855,11 @@ self.btn_stop.clicked.connect(self.onclick_btn_stop)
 
 The screenshot below shows the terminal output after the **Stop** button is pressed during range processing.
 
-<div className="center">
-
-<a id="fig-stop-terminal-output"></a>
+<Figure id="fig-stop-terminal-output" number="13" title="Stop Process Terminal Output" caption="Terminal message after cancelling range or aggregation processing.">
 
 ![Terminal output after pressing the Stop button during range processing](../../assets/images/img_52.png)
 
-<p><em><a href="#fig-stop-terminal-output"><strong>Figure 13. Stop Process Terminal Output.</strong></a> Terminal message after cancelling range or aggregation processing.</em></p>
-
-</div>
+</Figure>
 
 In this example, the system was still counting IH range data. After the stop request was received, the terminal displayed:
 
@@ -999,15 +954,11 @@ from .controller_db_cali_result import ControllerDBCaliResult
 
 After clicking **Load Database**, the **Calibration Data** window appears.
 
-<div className="center">
-
-<a id="fig-calibration-data-window"></a>
+<Figure id="fig-calibration-data-window" number="14" title="Calibration Data Window" caption="Database window used to search and select calibration result records.">
 
 ![Calibration Data database window with search filters and calibration data list](../../assets/images/img_55.png)
 
-<p><em><a href="#fig-calibration-data-window"><strong>Figure 14. Calibration Data Window.</strong></a> Database window used to search and select calibration result records.</em></p>
-
-</div>
+</Figure>
 
 The database window is divided into two main areas:
 
@@ -1027,15 +978,11 @@ The database window is divided into two main areas:
 
 After selecting a row in the database table, right-click the row to open the action menu.
 
-<div className="center">
-
-<a id="fig-database-right-click-menu"></a>
+<Figure id="fig-database-right-click-menu" number="15" title="Database Right-Click Menu" caption="Right-click menu for loading calibration data or opening its URL.">
 
 ![Database right-click menu showing Load to System and Open URL actions](../../assets/images/img_56.png)
 
-<p><em><a href="#fig-database-right-click-menu"><strong>Figure 15. Database Right-Click Menu.</strong></a> Right-click menu for loading calibration data or opening its URL.</em></p>
-
-</div>
+</Figure>
 
 The menu provides two main actions:
 
@@ -1048,15 +995,11 @@ The menu provides two main actions:
 
 When **Open URL** is selected, the related dataset location opens in the browser.
 
-<div className="center">
-
-<a id="fig-database-open-url"></a>
+<Figure id="fig-database-open-url" number="16" title="Database Open URL Result" caption="Cloud folder opened from the selected database URL.">
 
 ![OneDrive folder opened from the database URL](../../assets/images/img_53.png)
 
-<p><em><a href="#fig-database-open-url"><strong>Figure 16. Database Open URL Result.</strong></a> Cloud folder opened from the selected database URL.</em></p>
-
-</div>
+</Figure>
 
 This page usually contains the calibration dataset folders, JSON configuration file, and Excel result file.
 
@@ -1071,15 +1014,11 @@ calibration result Excel file
 
 When the system needs the user to choose which source should be opened, a selection dialog appears.
 
-<div className="center">
-
-<a id="fig-database-select-source-dialog"></a>
+<Figure id="fig-database-select-source-dialog" number="17" title="Database Source Selection Dialog" caption="Dialog used to choose which file or folder should be opened from the database record.">
 
 ![Dialog for selecting which camera folder or file should be opened from the database](../../assets/images/img_54.png)
 
-<p><em><a href="#fig-database-select-source-dialog"><strong>Figure 17. Database Source Selection Dialog.</strong></a> Dialog used to choose which file or folder should be opened from the database record.</em></p>
-
-</div>
+</Figure>
 
 Use this dialog when one database record has more than one related source or when the system needs confirmation before opening the selected camera folder or file.
 
@@ -1200,15 +1139,11 @@ The **Show shift of entrance pupil** button opens a visualization related to ent
 
 The screenshot below shows the **Range Window** and **History Distance** information used as the source data for the entrance pupil visualization and the graph buttons.
 
-<div className="center">
-
-<a id="fig-range-history-source-data"></a>
+<Figure id="fig-range-history-source-data" number="18" title="Range Window and History Distance Source Data" caption="Range and history-distance values used by graph and entrance-pupil visualization tools.">
 
 ![Range Window and History Distance values used as graph source data](../../assets/images/img_57.png)
 
-<p><em><a href="#fig-range-history-source-data"><strong>Figure 18. Range Window and History Distance Source Data.</strong></a> Range and history-distance values used by graph and entrance-pupil visualization tools.</em></p>
-
-</div>
+</Figure>
 
 This area contains the calculated values for each range group. These values are used by:
 
@@ -1233,15 +1168,11 @@ The **Show shift of entrance pupil**, **Show graph Dist vs IH Range**, and **Sho
 
 This visualization helps the user inspect how the entrance pupil changes based on calibration data. The output window can show a ray curve based on distance and alpha values for each range or round.
 
-<div className="center">
-
-<a id="fig-entrance-pupil-ray-curve"></a>
+<Figure id="fig-entrance-pupil-ray-curve" number="19" title="Entrance Pupil Ray Curve" caption="Ray curve visualization generated from distance and alpha values.">
 
 ![Ray curve from distance and alpha visualization](../../assets/images/img_49.png)
 
-<p><em><a href="#fig-entrance-pupil-ray-curve"><strong>Figure 19. Entrance Pupil Ray Curve.</strong></a> Ray curve visualization generated from distance and alpha values.</em></p>
-
-</div>
+</Figure>
 
 In this graph, each ray represents one range or round result. The label shows the angle `θ` and the distance `d`, so the user can compare whether the ray direction and distance distribution are reasonable.
 
@@ -1273,15 +1204,11 @@ Use this function when checking:
 
 The **Show graph Dist vs IH Range** button opens a graph that compares distance with IH range.
 
-<div className="center">
-
-<a id="fig-distance-vs-ih-range"></a>
+<Figure id="fig-distance-vs-ih-range" number="20" title="Distance vs IH Range Graph" caption="Graph showing distance changes across IH range mean values.">
 
 ![Distance versus IH range mean graph](../../assets/images/img_50.png)
 
-<p><em><a href="#fig-distance-vs-ih-range"><strong>Figure 20. Distance vs IH Range Graph.</strong></a> Graph showing distance changes across IH range mean values.</em></p>
-
-</div>
+</Figure>
 
 The graph shows the distance value for each IH range group. The X-axis is **IH Range Mean (%)**, and the Y-axis is **Distance**. Each point is labeled by range number, such as `R1`, `R2`, and so on.
 
@@ -1324,15 +1251,11 @@ This graph helps check:
 
 The **Show graph Dist vs Alpha** button opens a graph that compares distance with alpha.
 
-<div className="center">
-
-<a id="fig-distance-vs-alpha"></a>
+<Figure id="fig-distance-vs-alpha" number="21" title="Distance vs Alpha Graph" caption="Graph showing the relationship between alpha mean and distance.">
 
 ![Distance versus alpha mean graph](../../assets/images/img_51.png)
 
-<p><em><a href="#fig-distance-vs-alpha"><strong>Figure 21. Distance vs Alpha Graph.</strong></a> Graph showing the relationship between alpha mean and distance.</em></p>
-
-</div>
+</Figure>
 
 The graph shows the relationship between **Alpha Mean (degree)** and **Distance**. Each point is labeled by range number, so abnormal alpha or distance changes can be checked visually.
 
@@ -1396,15 +1319,11 @@ The selected calibration system is directly related to:
 | **Dis / Round** | This value controls how distance changes between calibration rounds. |
 | **Alpha and ZFL Calculation** | V_Gap, H_Gap, pixel size, and distance are all used together to calculate alpha and ZFL. |
 
-<div className="center">
-
-<a id="fig-select-cali-system-dropdown"></a>
+<Figure id="fig-select-cali-system-dropdown" number="22" title="Select Cali System Dropdown" caption="Dropdown options for choosing the calibration system configuration.">
 
 ![Select Cali System dropdown options](../../assets/images/img_58.png)
 
-<p><em><a href="#fig-select-cali-system-dropdown"><strong>Figure 22. Select Cali System Dropdown.</strong></a> Dropdown options for choosing the calibration system configuration.</em></p>
-
-</div>
+</Figure>
 
 The dropdown options shown in the screenshot include **Yuanman - SIDE (EV2785)**, **Yuanman - SIDE (EV2730Q)**, **Yinda**, and **Broland C++**.
 
@@ -1495,15 +1414,11 @@ Do not treat **Select Cali System**, **V_Gap / H_Gap**, and **Pixel Size** as se
 
 The **Round & Tab Selection** area is used to switch between calibration rounds, parameter pages, overlap visualization, aggregation analysis, and testing pages.
 
-<div className="center">
-
-<a id="fig-round-tab-selection"></a>
+<Figure id="fig-round-tab-selection" number="23" title="Round & Tab Selection" caption="Tab selection area for current, round, parameter, overlap, aggregation, and test pages.">
 
 ![Round and tab selection](../../assets/images/img_37.png)
 
-<p><em><a href="#fig-round-tab-selection"><strong>Figure 23. Round & Tab Selection.</strong></a> Tab selection area for current, round, parameter, overlap, aggregation, and test pages.</em></p>
-
-</div>
+</Figure>
 
 ### 2.1 Main Functions
 
@@ -1522,15 +1437,11 @@ The **Round & Tab Selection** area is used to switch between calibration rounds,
 
 When calibration data is loaded successfully, the related round tab is marked using the `*` symbol.
 
-<div className="center">
-
-<a id="fig-round-loaded"></a>
+<Figure id="fig-round-loaded" number="24" title="Loaded Round Indicator" caption={<>Round tabs marked with <code>*</code> after calibration data is loaded.</>}>
 
 ![Loaded round indicator](../../assets/images/img_60.png)
 
-<p><em><a href="#fig-round-loaded"><strong>Figure 24. Loaded Round Indicator.</strong></a> Round tabs marked with <code>*</code> after calibration data is loaded.</em></p>
-
-</div>
+</Figure>
 
 #### Meaning of `*`
 
@@ -1555,15 +1466,11 @@ Rounds can also be disabled from calculation and visualization.
 
 When disabled, the tab displays `[OFF]`.
 
-<div className="center">
-
-<a id="fig-round-off"></a>
+<Figure id="fig-round-off" number="25" title="Disabled Round State" caption={<>Round disabled using the <code>[OFF]</code> status.</>}>
 
 ![Disabled round state](../../assets/images/img_61.png)
 
-<p><em><a href="#fig-round-off"><strong>Figure 25. Disabled Round State.</strong></a> Round disabled using the <code>[OFF]</code> status.</em></p>
-
-</div>
+</Figure>
 
 #### Disabled Round Behavior
 
@@ -1580,15 +1487,11 @@ When disabled, the tab displays `[OFF]`.
 
 Each round tab supports a custom right-click menu.
 
-<div className="center">
-
-<a id="fig-round-context-menu"></a>
+<Figure id="fig-round-context-menu" number="26" title="Round Tab Right-Click Menu" caption="Context menu used to control round behavior and graphs.">
 
 ![Round context menu](../../assets/images/img_62.png)
 
-<p><em><a href="#fig-round-context-menu"><strong>Figure 26. Round Tab Right-Click Menu.</strong></a> Context menu used to control round behavior and graphs.</em></p>
-
-</div>
+</Figure>
 
 #### Available Menu Actions
 
@@ -1610,15 +1513,11 @@ self.tabwidget.customContextMenuRequested.connect(self.show_round_context_menu)
 
 The **Show ZFL-IH Graph** menu opens a popup graph for the selected round.
 
-<div className="center">
-
-<a id="fig-zfl-ih-popup"></a>
+<Figure id="fig-zfl-ih-popup" number="27" title="ZFL-IH Popup Graph" caption="Popup graph showing IH versus ZFL behavior for one calibration round.">
 
 ![ZFL-IH popup graph](../../assets/images/img_63.png)
 
-<p><em><a href="#fig-zfl-ih-popup"><strong>Figure 27. ZFL-IH Popup Graph.</strong></a> Popup graph showing IH versus ZFL behavior for one calibration round.</em></p>
-
-</div>
+</Figure>
 
 #### Graph Information
 
@@ -1642,15 +1541,11 @@ The **Show ZFL-IH Graph** menu opens a popup graph for the selected round.
 
 The **Show Overlap Graph** menu opens an overlap visualization for the selected round.
 
-<div className="center">
-
-<a id="fig-overlap-popup"></a>
+<Figure id="fig-overlap-popup" number="28" title="Overlap Popup Graph" caption="Overlap graph visualization for one calibration round.">
 
 ![Overlap popup graph](../../assets/images/img_64.png)
 
-<p><em><a href="#fig-overlap-popup"><strong>Figure 28. Overlap Popup Graph.</strong></a> Overlap graph visualization for one calibration round.</em></p>
-
-</div>
+</Figure>
 
 #### Graph Information
 
@@ -1691,15 +1586,11 @@ The **Show Overlap Graph** menu opens an overlap visualization for the selected 
 
 <a id="result-table-view"></a>
 
-<div className="center">
-
-<a id="fig-result-table-view"></a>
+<Figure id="fig-result-table-view" number="29" title="Result Table View" caption="Summary table showing IH range, minimum aggregation, best distance, and total sampling.">
 
 ![Result table view](../../assets/images/img_38.png)
 
-<p><em><a href="#fig-result-table-view"><strong>Figure 29. Result Table View.</strong></a> Summary table showing IH range, minimum aggregation, best distance, and total sampling.</em></p>
-
-</div>
+</Figure>
 
 The **Result Table View** is the output table for the interval aggregation process. This table is closely connected to **[Section 6. Min Aggregation by Interval](#6-min-aggregation-by-interval)**.
 
@@ -1728,15 +1619,11 @@ The values shown in **Result Table View** are generated from the settings in **M
 
 The screenshot below shows the result table after the interval calculation has been executed. The table contains the generated IH interval rows and the calculated output values.
 
-<div className="center">
-
-<a id="fig-result-table-after-interval"></a>
+<Figure id="fig-result-table-after-interval" number="30" title="Result Table Output from Min Aggregation by Interval" caption="Result table filled after the interval aggregation calculation is completed.">
 
 ![Result table output after running Min Aggregation by Interval](../../assets/images/img_68.png)
 
-<p><em><a href="#fig-result-table-after-interval"><strong>Figure 30. Result Table Output from Min Aggregation by Interval.</strong></a> Result table filled after the interval aggregation calculation is completed.</em></p>
-
-</div>
+</Figure>
 
 ### 3.2 Visible Columns
 
@@ -1815,15 +1702,11 @@ IH Range (%), Alpha Range, Distance, Aggr, Total Sampling
 
 <a id="vgap-hgap-settings"></a>
 
-<div className="center">
-
-<a id="fig-vgap-hgap-settings"></a>
+<Figure id="fig-vgap-hgap-settings" number="31" title="V_Gap & H_Gap Settings" caption="Physical gap settings used together with the selected calibration system.">
 
 ![V Gap and H Gap settings](../../assets/images/img_39.png)
 
-<p><em><a href="#fig-vgap-hgap-settings"><strong>Figure 25. V_Gap & H_Gap Settings.</strong></a> Physical gap settings used together with the selected calibration system.</em></p>
-
-</div>
+</Figure>
 
 The **V_Gap & H_Gap** section is part of the calibration system geometry configuration. These values should match the selected system in **Select Cali System**.
 
@@ -1924,15 +1807,11 @@ Incorrect V_Gap or H_Gap values can produce wrong alpha and ZFL results, especia
 
 <a id="pixel-size-distance-round"></a>
 
-<div className="center">
-
-<a id="fig-pixel-size-distance-round"></a>
+<Figure id="fig-pixel-size-distance-round" number="32" title="Pixel Size & Distance / Round" caption="Pixel size and distance settings used together with V_Gap, H_Gap, and the selected calibration system.">
 
 ![Pixel size and distance per round settings](../../assets/images/img_40.png)
 
-<p><em><a href="#fig-pixel-size-distance-round"><strong>Figure 26. Pixel Size & Distance / Round.</strong></a> Pixel size and distance settings used together with V_Gap, H_Gap, and the selected calibration system.</em></p>
-
-</div>
+</Figure>
 
 The **Pixel Size & Distance / Round** section is also part of the same calibration system configuration group. It should be checked together with **Select Cali System** and **V_Gap & H_Gap**.
 
@@ -2055,15 +1934,11 @@ Use **Pixel Size**, **Dis / Round**, **V_Gap**, **H_Gap**, and **Select Cali Sys
 
 <a id="min-aggregation-by-interval"></a>
 
-<div className="center">
-
-<a id="fig-min-aggregation-by-interval"></a>
+<Figure id="fig-min-aggregation-by-interval" number="33" title="Min Aggregation by Interval" caption="Interval settings used to search minimum aggregation across IH percentage ranges.">
 
 ![Min aggregation by interval settings](../../assets/images/img_41.png)
 
-<p><em><a href="#fig-min-aggregation-by-interval"><strong>Figure 27. Min Aggregation by Interval.</strong></a> Interval settings used to search minimum aggregation across IH percentage ranges.</em></p>
-
-</div>
+</Figure>
 
 The **Min Aggregation by Interval** panel is the setup and process area used to generate the values displayed in **[Section 3. Result Table View](#3-result-table-view)**.
 
@@ -2084,15 +1959,11 @@ Save result to CSV
 
 The screenshot below shows an example setup:
 
-<div className="center">
-
-<a id="fig-min-aggregation-input-example"></a>
+<Figure id="fig-min-aggregation-input-example" number="34" title="Min Aggregation by Interval Input Example" caption="Example settings using IH Min = 0, IH Max = 100, Window = 20, and Step = 10.">
 
 ![Min Aggregation by Interval input example](../../assets/images/img_69.png)
 
-<p><em><a href="#fig-min-aggregation-input-example"><strong>Figure 31. Min Aggregation by Interval Input Example.</strong></a> Example settings using IH Min = 0, IH Max = 100, Window = 20, and Step = 10.</em></p>
-
-</div>
+</Figure>
 
 In this example:
 
@@ -2180,15 +2051,11 @@ Save interval result to CSV
 
 After the process is complete, the output is shown in **Result Table View**.
 
-<div className="center">
-
-<a id="fig-result-table-output-from-interval"></a>
+<Figure id="fig-result-table-output-from-interval" number="35" title="Result Table Generated from Interval Setup" caption="The result table is filled using the interval setup from this section.">
 
 ![Result table output generated by Min Aggregation by Interval](../../assets/images/img_68.png)
 
-<p><em><a href="#fig-result-table-output-from-interval"><strong>Figure 32. Result Table Generated from Interval Setup.</strong></a> The result table is filled using the interval setup from this section.</em></p>
-
-</div>
+</Figure>
 
 The output columns are:
 
@@ -2204,15 +2071,11 @@ The output columns are:
 
 After the interval calculation, the system can ask the user to save the result as a CSV file.
 
-<div className="center">
-
-<a id="fig-interval-save-dialog"></a>
+<Figure id="fig-interval-save-dialog" number="36" title="Interval CSV Save Dialog" caption="Save dialog used to choose the output location and CSV file name.">
 
 ![Save dialog for interval CSV output](../../assets/images/img_65.png)
 
-<p><em><a href="#fig-interval-save-dialog"><strong>Figure 33. Interval CSV Save Dialog.</strong></a> Save dialog used to choose the output location and CSV file name.</em></p>
-
-</div>
+</Figure>
 
 Use this dialog to choose where the interval result should be saved.
 
@@ -2225,15 +2088,11 @@ interval.csv
 
 After the CSV file is saved, a confirmation message is displayed.
 
-<div className="center">
-
-<a id="fig-interval-save-confirmation"></a>
+<Figure id="fig-interval-save-confirmation" number="37" title="Interval CSV Saved Confirmation" caption="Confirmation message showing that the CSV file has been saved successfully.">
 
 ![Confirmation message after saving interval CSV](../../assets/images/img_66.png)
 
-<p><em><a href="#fig-interval-save-confirmation"><strong>Figure 34. Interval CSV Saved Confirmation.</strong></a> Confirmation message showing that the CSV file has been saved successfully.</em></p>
-
-</div>
+</Figure>
 
 The message shows the final save path, for example:
 
@@ -2244,15 +2103,11 @@ The message shows the final save path, for example:
 
 The saved CSV can be opened using spreadsheet software such as LibreOffice Calc.
 
-<div className="center">
-
-<a id="fig-interval-csv-libreoffice"></a>
+<Figure id="fig-interval-csv-libreoffice" number="38" title="Interval CSV Opened in LibreOffice Calc" caption="Saved interval result opened as a CSV spreadsheet.">
 
 ![Interval CSV opened in LibreOffice Calc](../../assets/images/img_67.png)
 
-<p><em><a href="#fig-interval-csv-libreoffice"><strong>Figure 35. Interval CSV Opened in LibreOffice Calc.</strong></a> Saved interval result opened as a CSV spreadsheet.</em></p>
-
-</div>
+</Figure>
 
 The CSV output contains the same result columns as the Result Table View:
 
@@ -2299,15 +2154,11 @@ This tool is commonly used when the user wants to:
 
 ---
 
-<div className="center">
-
-<a id="fig-aggr-by-range-distance"></a>
+<Figure id="fig-aggr-by-range-distance" number="39" title="Aggr by Range and Distance" caption="Main calculation panel used to calculate aggregation from IH range and distance.">
 
 ![Aggregation by range and distance panel](../../assets/images/img_42.png)
 
-<p><em><a href="#fig-aggr-by-range-distance"><strong>Figure 13. Aggr by Range and Distance.</strong></a> Main calculation panel used to calculate aggregation from IH range and distance.</em></p>
-
-</div>
+</Figure>
 
 ---
 
@@ -2327,17 +2178,13 @@ This tool is commonly used when the user wants to:
 
 The image below shows an example result generated by the system.
 
-<div className="center">
-
-<a id="fig-aggr-range-distance-example"></a>
+<Figure id="fig-aggr-range-distance-example" number="40" title="Aggr by Range and Distance Example" caption="Example showing aggregation result calculated from IH range and distance.">
 
 ![Aggregation by range and distance example result](../../assets/images/img_70.png)
 
-<p><em><a href="#fig-aggr-range-distance-example"><strong>Figure 14. Aggr by Range and Distance Example.</strong></a> Example showing aggregation result calculated from IH range and distance.</em></p>
+</Figure>
 
-</div>
-
-Based on Figure 14:
+Based on Figure 40:
 
 | Field | Value | Meaning |
 |---|---:|---|
@@ -2507,15 +2354,11 @@ If the calibration data is incomplete or unstable, the aggregation result may al
 
 <a id="range-analysis-matrix"></a>
 
-<div className="center">
-
-<a id="fig-range-analysis-matrix"></a>
+<Figure id="fig-range-analysis-matrix" number="41" title="Range Analysis Matrix" caption="Matrix used to calculate global and range-based distance and aggregation results.">
 
 ![Range analysis matrix](../../assets/images/img_43.png)
 
-<p><em><a href="#fig-range-analysis-matrix"><strong>Figure 34. Range Analysis Matrix.</strong></a> Matrix used to calculate global and range-based distance and aggregation results.</em></p>
-
-</div>
+</Figure>
 
 The **Range Analysis Matrix** is used to manage multiple IH range calculations from **Global** and `Range_1` to `Range_20`. This is the main area for finding best distances and minimum aggregation values across IH percentage ranges.
 

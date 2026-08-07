@@ -24,15 +24,11 @@ This overview is divided into **4 main views** based on the provided UI images.
 ## 1. Main Window Overview
 
 
-<div className="center">
-
-<a id="fig-1"></a>
+<Figure id="fig-1" number="1" caption="Main Cali Result window overview with 8 main functional areas.">
 
 ![Main Cali Result window overview with 8 numbered areas](../../assets/images/img_27.png)
 
-<p><em><a href="#fig-1"><strong>Figure 1.</strong></a> Main Cali Result window overview with 8 main functional areas.</em></p>
-
-</div>
+</Figure>
 
 The **Main Window Overview** shows the full structure of the Main Cali Result window. This first view should only be understood as a general map of the interface. The detailed explanation for the table, parameters, overlap, and aggregation graphs is provided in the next sections.
 
@@ -213,15 +209,11 @@ This area also supports **right-click on range labels** to open a ZFL-IH graph f
 ## 2. Result Table View
 
 
-<div className="center">
-
-<a id="fig-2"></a>
+<Figure id="fig-2" number="2" caption="Result Table View showing the control input row, result table, and calculation formula panel.">
 
 ![Result Table View with control input row, result table, and calculation formula panel](../../assets/images/img_34.png)
 
-<p><em><a href="#fig-2"><strong>Figure 2.</strong></a> Result Table View showing the control input row, result table, and calculation formula panel.</em></p>
-
-</div>
+</Figure>
 
 The **Result Table View** is used to inspect one selected round. This view is usually used when the user wants to check the loaded data, verify calculated values, or manually review the calibration result before moving to graphs or aggregation analysis.
 
@@ -324,15 +316,11 @@ In the code, `IH` is taken from the related ICT direction value. The system calc
 ## 3. Parameter View
 
 
-<div className="center">
-
-<a id="fig-3"></a>
+<Figure id="fig-3" number="3" caption="Parameter View showing the IH-Alpha graph, ZFL-IH graph, and parameter panel.">
 
 ![Parameter View with IH-Alpha graph, ZFL-IH graph, and parameter panel](../../assets/images/img_35.png)
 
-<p><em><a href="#fig-3"><strong>Figure 3.</strong></a> Parameter View showing the IH-Alpha graph, ZFL-IH graph, and parameter panel.</em></p>
-
-</div>
+</Figure>
 
 The **Parameter View** is used to check graph results and manage camera parameter values. This view is usually opened from the `parameter` tab.
 
@@ -421,15 +409,11 @@ In the code, parameter saving is handled by `onclick_btn_save_parameter()`, whil
 ## 4. Overlap & Aggregation View
 
 
-<div className="center">
-
-<a id="fig-4"></a>
+<Figure id="fig-4" number="4" caption="Overlap & Aggregation View showing the overlap graph and aggregation-vs-distance graph.">
 
 ![Overlap and Aggregation View with overlap graph and aggregation versus distance graph](../../assets/images/img_36.png)
 
-<p><em><a href="#fig-4"><strong>Figure 4.</strong></a> Overlap & Aggregation View showing the overlap graph and aggregation-vs-distance graph.</em></p>
-
-</div>
+</Figure>
 
 The **Overlap & Aggregation View** is used to visually check calibration consistency and observe how aggregation changes when distance changes.
 

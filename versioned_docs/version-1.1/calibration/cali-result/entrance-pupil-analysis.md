@@ -27,15 +27,11 @@ An ideal pinhole lens has one fixed **entrance pupil** — the single point the 
 
 A fish-eye lens does **not** behave this way. As the off-axis angle of the incoming ray grows, the point the camera effectively looks from *slides along the optical axis*. The lens has no single viewpoint; it has a **locus** of viewpoints.
 
-<div className="center">
-
-<a id="fig-1"></a>
+<Figure id="fig-1" number="1" caption={<>Gennery (2006), Figure 2. <strong>c</strong> is the entrance pupil for on-axis rays; the thick dashed line is the locus of the entrance pupil as the incident chief-ray angle changes. Each ray's intersection with the optical axis is the shifted point <strong>c′<sub>i</sub></strong>.</>}>
 
 ![Gennery Figure 2 — illustration of shift of entrance pupil](../../assets/images/img_103.png)
 
-<p><em><a href="#fig-1"><strong>Figure 1.</strong></a> Gennery (2006), Figure 2. <strong>c</strong> is the entrance pupil for on-axis rays; the thick dashed line is the locus of the entrance pupil as the incident chief-ray angle changes. Each ray's intersection with the optical axis is the shifted point <strong>c′<sub>i</sub></strong>.</em></p>
-
-</div>
+</Figure>
 
 Gennery models this as a displacement along the optical-axis direction `o`:
 
@@ -54,7 +50,7 @@ with `ζ_i` and `λ_i` taken from a ray trace of the lens prescription.
 <div className="custom-note custom-warning">
   <div className="custom-note-title">⚠️ EQ. 3 CANNOT BE USED DIRECTLY</div>
   <div>
-    It requires the optical prescription of the lens, which we do not have. What we <em>do</em> have is a set of measurements of where the camera looks from at different angles — and the shift can be recovered directly from those. That is the estimator in §3.
+    It requires the optical prescription of the lens, which we do not have. What we <em>do</em> have is a set of measurements of where the camera looks from at different angles — and the shift can be recovered directly from those. That is the estimator in Section 3.
   </div>
 </div>
 
@@ -174,15 +170,11 @@ They must be read **together** — the interesting cases are the mixed ones.
 
 ## 4. Reading the Three Graphs
 
-<div className="center">
-
-<a id="fig-2"></a>
+<Figure id="fig-2" number="2" caption={<>The <strong>Ray Curve from Distance &amp; Alpha</strong> graph, opened with <strong>Show shift of entrance pupil</strong> — the same ray fan as Figure 1, drawn from measured calibration data. Each ray is labelled with its range's mid-angle and distance.</>}>
 
 ![Ray Curve from Distance and Alpha graph in the Cali Result window](../../assets/images/img_102.png)
 
-<p><em><a href="#fig-2"><strong>Figure 2.</strong></a> The <strong>Ray Curve from Distance &amp; Alpha</strong> graph, opened with <strong>Show shift of entrance pupil</strong> — the same ray fan as Figure 1, drawn from measured calibration data. Each ray is labelled with its range's mid-angle and distance.</em></p>
-
-</div>
+</Figure>
 
 ### 4.1 Shift of Entrance Pupil
 
@@ -202,7 +194,7 @@ This is the ray fan of Gennery's Figure 2 — but every ray's origin and angle c
   <div>
     Each dot sits on the optical axis at that range's distance — the point that range looks from. The dots <em>are</em> the shifted points of Eq. 1, and the dashed entrance-pupil locus of Figure 1 is the curve through them.
     <br /><br />
-    So <strong>the vertical spread of the white dots is Δs, read straight off the plot</strong>. A single tight cluster means a stable viewpoint; a spread-out column means the pupil is travelling. Everything in §3 is a way of putting a number on the length of that column.
+    So <strong>the vertical spread of the white dots is Δs, read straight off the plot</strong>. A single tight cluster means a stable viewpoint; a spread-out column means the pupil is travelling. Everything in Section 3 is a way of putting a number on the length of that column.
   </div>
 </div>
 
@@ -234,7 +226,7 @@ The same distances plotted against **image height** instead of angle — where t
 3. **Press "Show shift of entrance pupil"** to draw the ray fan from the current data.
 4. **Check Distance vs Alpha first.** If it is noise, stop and fix the capture — the other two graphs will only launder the same bad numbers.
 5. **Read Δs off the vertical spread of the white dots** in the shift plot.
-6. **Compute `d_0`, the shift, Δs and RMS** per §3.3 for the numeric result.
+6. **Compute `d_0`, the shift, Δs and RMS** per Section 3.3 for the numeric result.
 
 <div className="custom-note custom-warning">
   <div className="custom-note-title">⚠️ BLANK FIELDS FAIL SILENTLY</div>
@@ -247,7 +239,7 @@ The same distances plotted against **image height** instead of angle — where t
 
 ## 6. Implementation Status
 
-The graphs in §4 are implemented. **The estimator in §3 is not** — it is specified here, not coded.
+The graphs in Section 4 are implemented. **The estimator in Section 3 is not** — it is specified here, not coded.
 
 | Piece | Status |
 |---|---|
@@ -258,7 +250,7 @@ The graphs in §4 are implemented. **The estimator in §3 is not** — it is spe
 | Inputs — alpha and PCT-to-Pupil distance | ✅ Implemented |
 | `d_0`, `s(θ)`, Δs, RMS | ❌ **Not implemented** |
 
-Nothing in the application currently computes the shift values or fits Gennery's Eq. 2 — the tooling draws the fan and leaves the axis crossings to visual inspection. Until the estimator is added, **Δs is read by eye from the spread of the white dots**, and the numeric procedure in §3.3 has to be done outside the application.
+Nothing in the application currently computes the shift values or fits Gennery's Eq. 2 — the tooling draws the fan and leaves the axis crossings to visual inspection. Until the estimator is added, **Δs is read by eye from the spread of the white dots**, and the numeric procedure in Section 3.3 has to be done outside the application.
 
 <div className="custom-note custom-tip">
   <div className="custom-note-title">💡 ADDING IT NEEDS NO NEW CAPTURE</div>

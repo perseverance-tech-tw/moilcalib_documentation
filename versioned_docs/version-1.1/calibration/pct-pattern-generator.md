@@ -20,15 +20,11 @@ The generated pattern is also used by the calibration result window as PCT refer
 
 ## 1. Window Overview
 
-<div className="center">
-
-<a id="fig-1"></a>
+<Figure id="fig-1" number="1" caption="PCT Pattern Generator main window overview.">
 
 ![PCT Pattern Generator overview](../assets/images/pattern-generator.png)
 
-<p><em><a href="#fig-1"><strong>Figure 1.</strong></a> PCT Pattern Generator main window overview.</em></p>
-
-</div>
+</Figure>
 
 The Pattern Generator window is divided into six main areas.
 
@@ -115,16 +111,11 @@ When a JSON file is imported, the system updates:
 
 ## 4. Concentric Pattern Preview & Control
 
-<div className="center">
-
-<a id="fig-2"></a>
-
+<Figure id="fig-2" number="2" caption="Concentric Pattern Preview & Control area.">
 
 ![Concentric pattern preview and control](../assets/images/concentric-pattern.png)
 
-<p><em><a href="#fig-2"><strong>Figure 2.</strong></a> Concentric Pattern Preview & Control area.</em></p>
-
-</div>
+</Figure>
 
 This area controls the generated concentric pattern preview.
 
@@ -200,15 +191,11 @@ For concentric patterns, the controller loops through layers `1` to `25` and app
 
 ## 5. Concentric Pattern Table
 
-<div className="center">
-
-<a id="fig-3"></a>
+<Figure id="fig-3" number="3" caption="Concentric Pattern Table.">
 
 ![Concentric pattern table](../assets/images/concentric-pattern-table.png)
 
-<p><em><a href="#fig-3"><strong>Figure 3.</strong></a> Concentric Pattern Table.</em></p>
-
-</div>
+</Figure>
 
 The concentric table controls each circular or square layer. The table contains up to **25 layers**, although only part of the list is visible at one time because the table is scrollable.
 
@@ -273,15 +260,11 @@ If the values are left as `0`, the layer uses the default center behavior from t
 
 ## 6. Stripline Pattern Preview & Control
 
-<div className="center">
-
-<a id="fig-4"></a>
+<Figure id="fig-4" number="4" caption="Stripline Pattern Preview & Control area.">
 
 ![Stripline pattern preview and control](../assets/images/stripline-pattern.png)
 
-<p><em><a href="#fig-4"><strong>Figure 4.</strong></a> Stripline Pattern Preview & Control area.</em></p>
-
-</div>
+</Figure>
 
 This area controls the generated stripline pattern preview.
 
@@ -354,15 +337,11 @@ For stripline patterns, the controller loops through layers `1` to `50` and appl
 
 ## 7. Stripline Pattern Table
 
-<div className="center">
-
-<a id="fig-5"></a>
+<Figure id="fig-5" number="5" caption="Stripline Pattern Table.">
 
 ![Stripline pattern table](../assets/images/stripline-pattern-table.png)
 
-<p><em><a href="#fig-5"><strong>Figure 5.</strong></a> Stripline Pattern Table.</em></p>
-
-</div>
+</Figure>
 
 The stripline table controls each stripe layer. The table contains up to **50 layers**, although only part of the list is visible at one time because the table is scrollable.
 
@@ -463,15 +442,11 @@ The pattern is not shown on the target monitor until **Update** is pressed.
 
 ## 9. Generated Pattern Example
 
-<div className="center">
-
-<a id="fig-6"></a>
+<Figure id="fig-6" number="6" caption="Example after concentric and stripline values are filled and rendered.">
 
 ![Generated pattern example](../assets/images/img_91.png)
 
-<p><em><a href="#fig-6"><strong>Figure 6.</strong></a> Example after concentric and stripline values are filled and rendered.</em></p>
-
-</div>
+</Figure>
 
 In this example:
 
@@ -486,25 +461,17 @@ The concentric and stripline behaviour shown is the same as in the current windo
 
 After the pattern is sent to the monitor and captured by the fisheye camera, the captured image shows the concentric pattern at the center and the stripline patterns at the top, bottom, left, and right sides.
 
-<div className="center">
-
-<a id="fig-7"></a>
+<Figure id="fig-7" number="7" caption="Captured positive pattern: concentric pattern at the center and stripline patterns at the four sides.">
 
 ![Captured positive pattern from fisheye camera](../assets/images/img_97.png)
 
-<p><em><a href="#fig-7"><strong>Figure 7.</strong></a> Captured positive pattern: concentric pattern at the center and stripline patterns at the four sides.</em></p>
+</Figure>
 
-</div>
-
-<div className="center">
-
-<a id="fig-8"></a>
+<Figure id="fig-8" number="8" caption="Captured negative pattern: same layout as the positive pattern with inverted colors.">
 
 ![Captured negative pattern from fisheye camera](../assets/images/img_98.png)
 
-<p><em><a href="#fig-8"><strong>Figure 8.</strong></a> Captured negative pattern: same layout as the positive pattern with inverted colors.</em></p>
-
-</div>
+</Figure>
 
 The positive and negative captures are used together by the calibration process to detect intersection points (ICT) and extract calibration data.
 

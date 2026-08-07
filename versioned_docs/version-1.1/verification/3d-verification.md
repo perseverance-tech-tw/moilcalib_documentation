@@ -73,15 +73,11 @@ The left-hand column is shared by both methods:
 
 The fisheye is remapped to a flat, rectilinear view before the checkerboard is detected, so the detector never has to cope with fisheye distortion.
 
-<div className="center">
-
-<a id="fig-1"></a>
+<Figure id="fig-1" number="1" caption={<>Anypoint detection — the five direction views (WEST, EAST, CENTER, NORTH, SOUTH), each with its own Alpha, Beta, and Zoom, a <strong>Detect</strong> button, and a detected-point readout.</>}>
 
 ![Anypoint detection on the Camera Right tab](../assets/images/img_99.png)
 
-<p><em><a href="#fig-1"><strong>Figure 1.</strong></a> Anypoint detection — the five direction views (WEST, EAST, CENTER, NORTH, SOUTH), each with its own Alpha, Beta, and Zoom, a <strong>Detect</strong> button, and a detected-point readout.</em></p>
-
-</div>
+</Figure>
 
 ### How It Works
 
@@ -123,15 +119,11 @@ The remap tables are **cached per camera and direction**, so the cost is paid th
 
 Nothing is remapped. You mark each plane by hand on the original fisheye image, and the corner grid is recovered from those four points.
 
-<div className="center">
-
-<a id="fig-2"></a>
+<Figure id="fig-2" number="2" caption="ORI_DET — the instruction bar names the plane and the exact corner to click next, with the LEFT and RIGHT original fisheye images side by side.">
 
 ![ORI_DET manual corner picking on the original images](../assets/images/img_100.png)
 
-<p><em><a href="#fig-2"><strong>Figure 2.</strong></a> ORI_DET — the instruction bar names the plane and the exact corner to click next, with the LEFT and RIGHT original fisheye images side by side.</em></p>
-
-</div>
+</Figure>
 
 ### How It Works
 

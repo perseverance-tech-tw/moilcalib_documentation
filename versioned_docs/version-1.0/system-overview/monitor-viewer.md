@@ -5,13 +5,6 @@ title: Monitor Viewer
 sidebar_label: Monitor Viewer
 ---
 
-import img82 from '../assets/images/img_82.png';
-import img92 from '../assets/images/img_92.png';
-import img93 from '../assets/images/img_93.png';
-import img94 from '../assets/images/img_94.png';
-import img95 from '../assets/images/img_95.png';
-import img96 from '../assets/images/img_96.png';
-
 # Monitor Viewer
 
 The **Monitor Viewer** window is used to manage calibration pattern images displayed on the monitor setup. It provides five monitor sections: **TOP**, **N**, **W**, **S**, and **E**. Each section has its own preview area, image path field, browse button, brightness setting, update button, and turn-off button.
@@ -22,10 +15,11 @@ This window is normally used together with the **PCT Pattern Generator**. The Pa
 
 ## 1. Monitor Viewer Overview
 
-<div className="center">
-  <img src={img82} alt="Monitor Viewer overview" />
-  <p><em><strong>Figure 1.</strong> Monitor Viewer main window overview.</em></p>
-</div>
+<Figure number="1" caption="Monitor Viewer main window overview.">
+
+![Monitor Viewer overview](../assets/images/img_82.png)
+
+</Figure>
 
 The Monitor Viewer contains five display panels arranged from left to right.
 
@@ -48,10 +42,11 @@ The Monitor Viewer contains five display panels arranged from left to right.
 
 Each monitor section uses the same basic layout. The example below shows the **N** monitor panel.
 
-<div className="center">
-  <img src={img92} alt="Monitor Viewer N panel" />
-  <p><em><strong>Figure 2.</strong> Monitor Viewer panel structure using the N direction as an example.</em></p>
-</div>
+<Figure number="2" caption="Monitor Viewer panel structure using the N direction as an example.">
+
+![Monitor Viewer N panel](../assets/images/img_92.png)
+
+</Figure>
 
 Each direction panel contains four main areas.
 
@@ -66,10 +61,11 @@ Each direction panel contains four main areas.
 
 ## 3. TOP Monitor Panel
 
-<div className="center">
-  <img src={img94} alt="Monitor Viewer TOP panel" />
-  <p><em><strong>Figure 3.</strong> TOP monitor panel.</em></p>
-</div>
+<Figure number="3" caption="TOP monitor panel.">
+
+![Monitor Viewer TOP panel](../assets/images/img_94.png)
+
+</Figure>
 
 The **TOP** panel is used for the top monitor display. In the calibration setup, this panel is commonly used to show the central concentric pattern.
 
@@ -87,10 +83,11 @@ The **TOP** panel is used for the top monitor display. In the calibration setup,
 
 ## 4. North Monitor Panel
 
-<div className="center">
-  <img src={img92} alt="Monitor Viewer North panel" />
-  <p><em><strong>Figure 4.</strong> North monitor panel.</em></p>
-</div>
+<Figure number="4" caption="North monitor panel.">
+
+![Monitor Viewer North panel](../assets/images/img_92.png)
+
+</Figure>
 
 The **N** panel controls the north monitor direction.
 
@@ -108,10 +105,11 @@ The **N** panel controls the north monitor direction.
 
 ## 5. South Monitor Panel
 
-<div className="center">
-  <img src={img93} alt="Monitor Viewer South panel" />
-  <p><em><strong>Figure 5.</strong> South monitor panel.</em></p>
-</div>
+<Figure number="5" caption="South monitor panel.">
+
+![Monitor Viewer South panel](../assets/images/img_93.png)
+
+</Figure>
 
 The **S** panel controls the south monitor direction.
 
@@ -129,10 +127,11 @@ The **S** panel controls the south monitor direction.
 
 ## 6. East Monitor Panel
 
-<div className="center">
-  <img src={img95} alt="Monitor Viewer East panel" />
-  <p><em><strong>Figure 6.</strong> East monitor panel.</em></p>
-</div>
+<Figure number="6" caption="East monitor panel.">
+
+![Monitor Viewer East panel](../assets/images/img_95.png)
+
+</Figure>
 
 The **E** panel controls the east monitor direction.
 
@@ -150,10 +149,11 @@ The **E** panel controls the east monitor direction.
 
 ## 7. West Monitor Panel
 
-<div className="center">
-  <img src={img96} alt="Monitor Viewer West panel" />
-  <p><em><strong>Figure 7.</strong> West monitor panel.</em></p>
-</div>
+<Figure number="7" caption="West monitor panel.">
+
+![Monitor Viewer West panel](../assets/images/img_96.png)
+
+</Figure>
 
 The **W** panel controls the west monitor direction.
 

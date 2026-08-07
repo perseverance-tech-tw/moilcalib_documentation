@@ -21,15 +21,11 @@ This page explains the window based on the actual behavior in `controller_cali_r
 
 ## 1. Main Window Layout
 
-<div className="center">
-
-<a id="fig-1"></a>
+<Figure id="fig-1" number="1" caption="Main Cali Result Window.">
 
 ![Main Cali Result Window](../../assets/images/img_34.png)
 
-<p><em><a href="#fig-1"><strong>Figure 1.</strong></a> Main Cali Result Window.</em></p>
-
-</div>
+</Figure>
 
 The Main Cali Result window is divided into three main areas.
 
@@ -45,15 +41,11 @@ The result table is the center of the calculation. The top row controls the inpu
 
 ## 2. Control & Input Row
 
-<div className="center">
-
-<a id="fig-2"></a>
+<Figure id="fig-2" number="2" caption="Control and Input Row.">
 
 ![Control and Input Row](../../assets/images/img_80.png)
 
-<p><em><a href="#fig-2"><strong>Figure 2.</strong></a> Control and Input Row.</em></p>
-
-</div>
+</Figure>
 
 The control row contains the input and output fields that are directly related to the table calculation.
 
@@ -177,15 +169,11 @@ Aggregation changes
 
 ## 3. Result Table Column Structure
 
-<div className="center">
-
-<a id="fig-3"></a>
+<Figure id="fig-3" number="3" caption="Calibration Result Table Column Structure.">
 
 ![Calibration Result Table Column Structure](../../assets/images/img_89.png)
 
-<p><em><a href="#fig-3"><strong>Figure 3.</strong></a> Calibration Result Table Column Structure.</em></p>
-
-</div>
+</Figure>
 
 The result table uses fixed internal column indexes. In the code, these indexes are defined in `_dict_column_index`.
 
@@ -228,15 +216,11 @@ The result table uses fixed internal column indexes. In the code, these indexes 
 
 ## 4. Empty Result Table
 
-<div className="center">
-
-<a id="fig-4"></a>
+<Figure id="fig-4" number="4" caption="Empty Calibration Result Table.">
 
 ![Empty Calibration Result Table](../../assets/images/img_79.png)
 
-<p><em><a href="#fig-4"><strong>Figure 4.</strong></a> Empty Calibration Result Table.</em></p>
-
-</div>
+</Figure>
 
 When the table is empty, only the structure is visible. The controller still initializes the table with row numbers and side numbers.
 
@@ -274,15 +258,11 @@ get_index_row_by_layer(-1)
 
 ## 5. Filled Result Table
 
-<div className="center">
-
-<a id="fig-5"></a>
+<Figure id="fig-5" number="5" caption="Filled Calibration Result Table.">
 
 ![Filled Calibration Result Table](../../assets/images/img_88.png)
 
-<p><em><a href="#fig-5"><strong>Figure 5.</strong></a> Filled Calibration Result Table.</em></p>
-
-</div>
+</Figure>
 
 After data is loaded or calculated, the table contains:
 
@@ -612,15 +592,11 @@ If direction is NW / SE / SW / NE and layer >= side_layer:
 ```
 ### 12.1 Top-Screen Alpha Formula
 
-<div className="center">
-
-<a id="fig-6"></a>
+<Figure id="fig-6" number="6" caption="Calculate Result Formula.">
 
 ![Calculate Result Formula](../../assets/images/img_81.png)
 
-<p><em><a href="#fig-6"><strong>Figure 6.</strong></a> Calculate Result Formula.</em></p>
-
-</div>
+</Figure>
 
 For rows before the side layer, Alpha is calculated using:
 

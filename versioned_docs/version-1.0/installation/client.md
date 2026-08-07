@@ -42,15 +42,11 @@ Open a terminal and run:
 sudo apt update
 sudo apt install -y git
 ```
-<div className="center">
-
-<a id="fig-1"></a>
+<Figure id="fig-1" number="1" caption="Install Git.">
 
 ![Install Git](../assets/images/img_1.png)
 
-<p><em><a href="#fig-1"><strong>Figure 1.</strong></a> Install Git.</em></p>
-
-</div>
+</Figure>
 
 ### 1.1 Check the Installation
 
@@ -83,15 +79,11 @@ cd Python-3.8.10/
 make -j8
 sudo make altinstall
 ```
-<div className="center">
-
-<a id="fig-2"></a>
+<Figure id="fig-2" number="2" caption="Install Python 3.8.10.">
 
 ![Install Python 3.8.10](../assets/images/img_3.png)
 
-<p><em><a href="#fig-2"><strong>Figure 2.</strong></a> Install Python 3.8.10.</em></p>
-
-</div>
+</Figure>
 
 After the installation is complete, verify the Python version:
 
@@ -103,15 +95,11 @@ Expected output:
 ```bash
 Python 3.8.10
 ```
-<div className="center">
-
-<a id="fig-3"></a>
+<Figure id="fig-3" number="3" caption="Verify Python Version.">
 
 ![Verify Python Version](../assets/images/img_4.png)
 
-<p><em><a href="#fig-3"><strong>Figure 3.</strong></a> Verify Python Version.</em></p>
-
-</div>
+</Figure>
 
 <div className="custom-note custom-tip">
   <div className="custom-note-title">💡 NOTE</div>
@@ -155,15 +143,11 @@ Go to the `Documents` folder and clone the project repository:
 cd ~/Documents/
 git clone --recurse-submodules https://github.com/perseverance-tech-tw/moil-fisheye-calisys.git
 ```
-<div className="center">
-
-<a id="fig-4"></a>
+<Figure id="fig-4" number="4" caption="Clone Repository.">
 
 ![Clone Repository](../assets/images/img_5.png)
 
-<p><em><a href="#fig-4"><strong>Figure 4.</strong></a> Clone Repository.</em></p>
-
-</div>
+</Figure>
 
 ### 4.1 GitHub Authentication
 
@@ -191,15 +175,11 @@ After cloning the repository, move into the project folder and update the submod
 cd ~/Documents/moil-fisheye-calisys
 git submodule update --remote
 ```
-<div className="center">
-
-<a id="fig-5"></a>
+<Figure id="fig-5" number="5" caption="Update Submodules.">
 
 ![Update Submodules](../assets/images/img_6.png)
 
-<p><em><a href="#fig-5"><strong>Figure 5.</strong></a> Update Submodules.</em></p>
-
-</div>
+</Figure>
 
 <div className="custom-note custom-important">
   <div className="custom-note-title">📌 WHY THIS STEP IS NEEDED</div>
@@ -231,15 +211,11 @@ source ./venv/bin/activate
 ```
 After activation, your terminal prompt should start with `(venv)`.
 
-<div className="center">
-
-<a id="fig-6"></a>
+<Figure id="fig-6" number="6" caption="Activate Virtual Environment.">
 
 ![Activate Virtual Environment](../assets/images/img_7.png)
 
-<p><em><a href="#fig-6"><strong>Figure 6.</strong></a> Activate Virtual Environment.</em></p>
-
-</div>
+</Figure>
 
 <div className="custom-note custom-important">
   <div className="custom-note-title">✅ CHECKPOINT</div>
@@ -266,15 +242,11 @@ pip install --upgrade pip==22.0
 pip install setuptools==59.6
 pip install -r requirements.client
 ```
-<div className="center">
-
-<a id="fig-7"></a>
+<Figure id="fig-7" number="7" caption="Install Python Packages.">
 
 ![Install Python Packages](../assets/images/img_8.png)
 
-<p><em><a href="#fig-7"><strong>Figure 7.</strong></a> Install Python Packages.</em></p>
-
-</div>
+</Figure>
 
 <div className="custom-note custom-warning">
   <div className="custom-note-title">⚠️ IMPORTANT</div>
@@ -292,15 +264,11 @@ Install the `moildev` package inside the same virtual environment:
 ```bash
 pip install moildev
 ```
-<div className="center">
-
-<a id="fig-8"></a>
+<Figure id="fig-8" number="8" caption="Install Moildev.">
 
 ![Install Moildev](../assets/images/img_9.png)
 
-<p><em><a href="#fig-8"><strong>Figure 8.</strong></a> Install Moildev.</em></p>
-
-</div>
+</Figure>
 
 ### 8.1 Check the Installation
 
@@ -332,15 +300,11 @@ After installation, open PyCharm and select the project folder:
 ```bash
 ~/Documents/moil-fisheye-calisys
 ```
-<div className="center">
-
-<a id="fig-9"></a>
+<Figure id="fig-9" number="9" caption="Install PyCharm.">
 
 ![Install PyCharm](../assets/images/img_10.png)
 
-<p><em><a href="#fig-9"><strong>Figure 9.</strong></a> Install PyCharm.</em></p>
-
-</div>
+</Figure>
 
 <div className="custom-note custom-tip">
   <div className="custom-note-title">💡 OPTIONAL STEP</div>
@@ -360,15 +324,11 @@ cd ~/Documents/moil-fisheye-calisys
 source ./venv/bin/activate
 python main.py
 ```
-<div className="center">
-
-<a id="fig-10"></a>
+<Figure id="fig-10" number="10" caption="Run Client UI.">
 
 ![Run Client UI](../assets/images/img_11.png)
 
-<p><em><a href="#fig-10"><strong>Figure 10.</strong></a> Run Client UI.</em></p>
-
-</div>
+</Figure>
 
 <div className="custom-note custom-important">
   <div className="custom-note-title">✅ SUCCESS CHECK</div>

@@ -16,15 +16,11 @@ The **Main Window** is the central interface of the calibration system. It bring
   </div>
 </div>
 
-<div className="center">
-
-<a id="fig-1"></a>
+<Figure id="fig-1" number="1" caption="Main Window overview.">
 
 ![Main Window overview](../assets/images/main-window-overview.png)
 
-<p><em><a href="#fig-1"><strong>Figure 1.</strong></a> Main Window overview.</em></p>
-
-</div>
+</Figure>
 
 ---
 
@@ -70,15 +66,11 @@ Pressing **Update** next to the **Axis URL** additionally re-runs the sensor-ini
 
 ## 2. Axis Control Panel
 
-<div className="center">
-
-<a id="fig-2"></a>
+<Figure id="fig-2" number="2" caption="Axis Control Panel.">
 
 ![Axis Control Panel](../assets/images/axis-control-panel.png)
 
-<p><em><a href="#fig-2"><strong>Figure 2.</strong></a> Axis Control Panel.</em></p>
-
-</div>
+</Figure>
 
 ### 2.1 Controlled Axes
 
@@ -125,7 +117,7 @@ Which set an axis shows depends on the direction it travels in.
 | **Axis safety-lock** | While **any** axis is moving, every control except that axis's **STOP** button is disabled — a second command cannot be sent into a running stage. Controls unlock once the axis reports it has stopped. |
 | **Limit protection** | A triggered limit sensor blocks further movement in that direction. |
 | **Sensor-side lock after stopping** | When an axis stops on a sensor, the button for the sensor side that was touched stays locked. |
-| **Blocking homing** | `All HOME` waits for a confirmed stop on each axis before starting the next, showing a progress dialog. |
+| **Blocking homing** | `All HOME` first probes the origin sensors in a short modal dialog that closes itself, then waits for a confirmed stop on each axis before starting the next. |
 | **Live axis monitor** | One background task per axis polls limit / origin / moving / position every **20 ms** and updates the LEDs, coordinates, and alpha / beta. It runs off the UI thread, so the window stays responsive, and times out after 60 s. |
 
 <div className="custom-note custom-warning">
@@ -139,15 +131,11 @@ Which set an axis shows depends on the direction it travels in.
 
 ## 3. Monitor / Pattern Panel
 
-<div className="center">
-
-<a id="fig-3"></a>
+<Figure id="fig-3" number="3" caption="Monitor / Pattern Panel.">
 
 ![Monitor / Pattern Panel](../assets/images/monitor-pattern-panel.png)
 
-<p><em><a href="#fig-3"><strong>Figure 3.</strong></a> Monitor / Pattern Panel.</em></p>
-
-</div>
+</Figure>
 
 | No. | Button | Opens | Documented in |
 |---|---|---|---|
@@ -160,15 +148,11 @@ The two windows are linked: when the Pattern Generator sends **Update to Monitor
 
 ## 4. Camera Panel
 
-<div className="center">
-
-<a id="fig-4"></a>
+<Figure id="fig-4" number="4" caption="Camera Panel.">
 
 ![Camera Panel](../assets/images/camera-control-panel.png)
 
-<p><em><a href="#fig-4"><strong>Figure 4.</strong></a> Camera Panel.</em></p>
-
-</div>
+</Figure>
 
 ### 4.1 Fields and Buttons
 
@@ -185,7 +169,7 @@ The numbers match the callouts in [Figure 4](#fig-4).
 | 7 | **Capture** | Takes a single frame with no pattern mode. |
 | 8 | **Pos Shot** | Pushes the positive pattern, captures, auto-detects the centre. |
 | 9 | **Neg Shot** | Pushes the negative pattern, captures, auto-detects the centre. |
-| 10 | **Unlabelled button** | Appears between **Capture** and **Pos Shot** with no caption. Its function is not documented for version 1.1. |
+| 10 | **?** (direction difference) | Sits between **Capture** and **Pos Shot**. Detects the ICT nodes along all eight directions of the latest positive and negative shots and opens a dialog comparing the opposite pairs (N-S, W-E, NW-SE, SW-NE) node by node, with the mean and maximum difference per pair. Differences of 5 px or more are shown in red. Requires both shots to exist. |
 
 ### 4.2 Image Files
 
@@ -216,22 +200,18 @@ The `image_cali/` folder is resolved against the directory the application was l
 
 | Gesture | Result |
 |---|---|
-| **Single click** | In **Manual** mode, sets the centre for the active pattern mode, then returns to **Auto** so the value is refined. Ignored when Pattern Mode is empty. |
+| **Single click** | In **Manual** mode, sets the centre for the active pattern mode exactly where you clicked, then switches the panel back to **Auto**. In **Auto** mode, refines the existing centre using the threshold (the click position is not used). Ignored in **Locked** mode and when Pattern Mode is empty. |
 | **Double click** | Opens the capture in a zoomable viewer — wheel to zoom, drag to pan, `F` or double-click to fit, `Esc` / `Q` to close. |
 
 ---
 
 ## 5. Centering Panel
 
-<div className="center">
-
-<a id="fig-5"></a>
+<Figure id="fig-5" number="5" caption="Centering Panel.">
 
 ![Centering Panel](../assets/images/centering-panel.png)
 
-<p><em><a href="#fig-5"><strong>Figure 5.</strong></a> Centering Panel.</em></p>
-
-</div>
+</Figure>
 
 ### 5.1 Fields
 
@@ -259,8 +239,8 @@ The overlay block (**9** to **12**) likewise has one row per pattern mode, so th
 
 | Mode | Behaviour |
 |---|---|
-| **Auto** | The centre is refined from the current value and threshold, repeating until it stops moving (maximum 20 iterations). |
-| **Manual** | A click on the preview sets CPX / CPY for the active pattern mode; the panel then returns to **Auto**. |
+| **Auto** | After a shot, the centre is found by a least-squares fit of the radial gradient lines on the concentric pattern — the thresholds are not used. A click on the preview instead refines the existing centre with **PosThr** / **NegThr**, repeating until it stops moving (maximum 20 iterations); the same threshold path is the fallback when the gradient fit fails. |
+| **Manual** | A click on the preview sets CPX / CPY for the active pattern mode to the clicked point; the panel then returns to **Auto**. Nothing is refined until you click again. |
 | **Locked** | The centre is frozen and captures no longer change it. |
 
 ### 5.3 What Triggers a Re-detection
@@ -284,15 +264,11 @@ The overlay block (**9** to **12**) likewise has one row per pattern mode, so th
 
 ## 6. Calibration Result / 3D Validation Panel
 
-<div className="center">
-
-<a id="fig-6"></a>
+<Figure id="fig-6" number="6" caption="Calibration Result / 3D Validation Panel.">
 
 ![Calibration Result / 3D Validation Panel](../assets/images/calibration-result.png)
 
-<p><em><a href="#fig-6"><strong>Figure 6.</strong></a> Calibration Result / 3D Validation Panel.</em></p>
-
-</div>
+</Figure>
 
 | No. | Button | Opens | Documented in |
 |---:|---|---|---|
@@ -306,15 +282,11 @@ The overlay block (**9** to **12**) likewise has one row per pattern mode, so th
 
 ## 7 and 8. Histogram Panels
 
-<div className="center">
-
-<a id="fig-7"></a>
+<Figure id="fig-7" number="7" caption={<>The two Histogram panels. The callouts are drawn on <strong>Histogram 1</strong>; <strong>Histogram 2</strong> below it carries the identical set of controls.</>}>
 
 ![Histogram Panels](../assets/images/histogram-panel.png)
 
-<p><em><a href="#fig-7"><strong>Figure 7.</strong></a> The two Histogram panels. The callouts are drawn on <strong>Histogram 1</strong>; <strong>Histogram 2</strong> below it carries the identical set of controls.</em></p>
-
-</div>
+</Figure>
 
 These are the two panels numbered **7** and **8** in [Figure 1](#fig-1).
 In version 1.1 they are drawn by a C++ `HistogramPlot` widget; version 1.0 used PyQtGraph.
@@ -355,9 +327,9 @@ The numbers match the callouts in [Figure 7](#fig-7) and apply to both panels.
 | No. | Control | Description |
 |---:|---|---|
 | 1 | **Show Curve** | Clears the plot and redraws the curves for the selected directions. |
-| 2 | **Curve Color** | Opens the curve-colour window (`ControllerCurveColor`). |
+| 2 | **Curve Color** | Opens the curve-colour window (`ControllerCurveColor`), a grid of colour slots. The plot itself draws from a fixed palette, so choices made there are not applied to the curves in version 1.1. |
 | 3 | **Direction checkboxes** | A **Pos** and a **Neg** column, each with the eight directions listed in 7.3. |
-| 4 | **Pop Up** | Opens that histogram in its own larger window. |
+| 4 | **Pop Up** | **Not active in version 1.1** — the button is present but not connected to any handler. |
 | 5 | **Plot area** | Grey level on the vertical axis against IH on the horizontal axis. The axis ranges rescale to fit whatever curves are drawn. |
 
 ### 7.3 Analysis Directions
@@ -377,9 +349,9 @@ The numbers match the callouts in [Figure 7](#fig-7) and apply to both panels.
 
 | Selection | Result |
 |---|---|
-| **Positive only** | Curves from `capture_positive_shot.png`, using the Positive CPX / CPY. |
+| **Positive only** | Curves from `capture_positive_shot.png`, using the Positive CPX / CPY. One colour per direction, from a fixed eight-colour palette. |
 | **Negative only** | Curves from `capture_negative_shot.png`, using the Negative CPX / CPY. |
-| **Same direction, both** | Positive and negative curves are overlaid and the intersection points are marked. |
+| **Same direction, both** | **Comparison mode**, and it takes over the whole plot: the positive curve is drawn red, the negative green, and each intersection node (ICT) between them gets a white vertical line. Only the **first** direction ticked in both columns is drawn — every other ticked direction is ignored. |
 | **Diagonal directions** | A √2 distance scaling is applied. |
 
 <div className="custom-note custom-tip">

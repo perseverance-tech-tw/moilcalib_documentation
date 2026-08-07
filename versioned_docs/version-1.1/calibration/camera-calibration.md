@@ -25,15 +25,11 @@ This is **step 2** of the calibration workflow — the capture run itself. You u
   </ol>
 </div>
 
-<div className="center">
+<Figure id="fig-1" number="1" caption="The Main Window — every step on this page happens here.">
 
-<a id="fig-1"></a>
+![Main Window overview](../assets/images/main-window-overview.png)
 
-![Main Window overview](../assets/images/img_12.png)
-
-<p><em><a href="#fig-1"><strong>Figure 1.</strong></a> The Main Window — every step on this page happens here.</em></p>
-
-</div>
+</Figure>
 
 For a panel-by-panel reference of this window, see [Main Window Overview](/moilcalib_documentation/docs/v1.1/system-overview/main-window). This page is the **procedure**.
 
@@ -100,26 +96,25 @@ In the **HTTP Server URL** panel, enter the three server addresses and press **U
 
 ## 2. Home the Axes
 
-<div className="center">
+<Figure id="fig-2" number="2" caption="Axis Control Panel.">
 
-<a id="fig-2"></a>
+![Axis Control Panel](../assets/images/axis-control-panel.png)
 
-![Axis Control Panel](../assets/images/img_21.png)
+</Figure>
 
-<p><em><a href="#fig-2"><strong>Figure 2.</strong></a> Axis Control Panel.</em></p>
+Press **All HOME** before the first capture of a session.
 
-</div>
+A short dialog opens first and probes the origin sensor of all five axes, then closes by itself. Homing then runs in a fixed order — **Yaw → Pitch → X → Y → Z** — skipping any axis the probe found already at its origin, and waiting for a confirmed stop on one axis before starting the next. Each axis reads `0.000` when it finishes.
 
-Press **ALL HOME** before the first capture of a session.
+Two things move while this happens. The **X** and **Y** coordinate fields blink the word `Homing` on and off, and the round **M** lamp on an axis row blinks yellow whenever that axis is running. The three lamps beside it (`L H R`, `D H U`, or `B H F`) are the limit and home sensors and do not blink.
 
-Homing runs in a fixed order — **yaw → pitch → X → Y → Z** — skips any axis that is already at its origin, and writes position `0` for each axis as it finishes. The coordinate fields blink while an axis is homing.
-
-Then move the stage to the position for this round using **Relative Move** and the direction buttons, and read the resulting **α / β** values.
+Then move the stage to the position for this round: pick a **Speed**, type the distance into the **Relative Move** box of the axis you want — millimetres for X / Y / Z, degrees for Yaw / Pitch — and press the direction button on either side of it.
+The resulting **α / β** values are shown in the panel header, top right, and update live.
 
 <div className="custom-note custom-important">
   <div className="custom-note-title">📌 CONTROLS GREY OUT WHILE AN AXIS MOVES — THIS IS NORMAL</div>
   <div>
-    The safety lock disables everything except that axis's <strong>STOP</strong> button until the stage reports it has stopped. Wait, do not click repeatedly. Full description of the sensor LEDs, speed selector, and interlocks: <a href="/moilcalib_documentation/docs/v1.1/system-overview/main-window#2-axis-control-panel">Main Window Reference §2</a>.
+    The safety lock disables everything except that axis's <strong>STOP</strong> button until the stage reports it has stopped. Wait, do not click repeatedly. Full description of the sensor LEDs, speed selector, and interlocks: <a href="/moilcalib_documentation/docs/v1.1/system-overview/main-window#2-axis-control-panel">Main Window Reference, Section 2</a>.
   </div>
 </div>
 
@@ -127,15 +122,11 @@ Then move the stage to the position for this round using **Relative Move** and t
 
 ## 3. Show the Pattern and Check the Camera
 
-<div className="center">
+<Figure id="fig-3" number="3" caption="Camera Panel.">
 
-<a id="fig-3"></a>
+![Camera Panel](../assets/images/camera-control-panel.png)
 
-![Camera Panel](../assets/images/img_16.png)
-
-<p><em><a href="#fig-3"><strong>Figure 3.</strong></a> Camera Panel.</em></p>
-
-</div>
+</Figure>
 
 Press **Capture** to take a plain preview frame. Use it to confirm three things before the real shots:
 
@@ -143,7 +134,14 @@ Press **Capture** to take a plain preview frame. Use it to confirm three things 
 2. The fisheye circle is inside the frame and roughly centred.
 3. The monitors are showing the pattern, at a brightness that is neither washed out nor too dark (adjust in the [Monitor Viewer](/moilcalib_documentation/docs/v1.1/calibration/monitor-viewer)).
 
-**Org Res** and **Cali Res** fill in by themselves from the captured image — they are readouts, not settings, so there is nothing to configure here. Field-by-field description of this panel: [Main Window Reference §4](/moilcalib_documentation/docs/v1.1/system-overview/main-window#4-camera-panel).
+Everything above the preview is a readout, not a setting: **Pattern Mode** shows which shot the current image came from (blank after a plain **Capture**), **Img Path** shows the file that was just written, **Org Res** is the resolution the camera sent, and **Cali Res** is the resolution of the scaled preview inside the window. There is nothing to configure here. Field-by-field description of this panel: [Main Window Reference, Section 4](/moilcalib_documentation/docs/v1.1/system-overview/main-window#4-camera-panel).
+
+<div className="custom-note custom-tip">
+  <div className="custom-note-title">💡 THE <strong>?</strong> BUTTON BETWEEN <strong>Capture</strong> AND <strong>Pos Shot</strong></div>
+  <div>
+    It is the <strong>direction-difference check</strong>, and it only works once both shots exist. It is described in step 5 below — ignore it for now.
+  </div>
+</div>
 
 <div className="custom-note custom-tip">
   <div className="custom-note-title">💡 DO NOT RELY ON <strong>Open Img</strong></div>
@@ -173,8 +171,9 @@ Image is saved to image_cali/capture_positive_shot.png
                   or image_cali/capture_negative_shot.png
    ↓
 The pattern centre is auto-detected from THIS image → CPX / CPY
+   (only when the Centering panel is in Auto mode)
    ↓
-The edge circle overlay is drawn
+The ROI marker, and the edge circle if Edge is ticked, are drawn
    ↓
 Both histograms refresh
 ```
@@ -195,51 +194,41 @@ Both histograms refresh
 
 The captured pair looks like this — the concentric pattern in the middle and the stripline patterns on the four sides:
 
-<div className="center">
-
-<a id="fig-4"></a>
+<Figure id="fig-4" number="4" caption={<>Positive shot — <code>image_cali/capture_positive_shot.png</code>.</>}>
 
 ![Captured positive shot](../assets/images/img_97.png)
 
-<p><em><a href="#fig-4"><strong>Figure 4.</strong></a> Positive shot — <code>image_cali/capture_positive_shot.png</code>.</em></p>
+</Figure>
 
-</div>
-
-<div className="center">
-
-<a id="fig-5"></a>
+<Figure id="fig-5" number="5" caption={<>Negative shot — <code>image_cali/capture_negative_shot.png</code>, the same layout with inverted colours.</>}>
 
 ![Captured negative shot](../assets/images/img_98.png)
 
-<p><em><a href="#fig-5"><strong>Figure 5.</strong></a> Negative shot — <code>image_cali/capture_negative_shot.png</code>, the same layout with inverted colours.</em></p>
-
-</div>
+</Figure>
 
 ---
 
 ## 5. Check and Correct the Centre
 
-<div className="center">
+<Figure id="fig-6" number="6" caption="Centering Panel.">
 
-<a id="fig-6"></a>
+![Centering Panel](../assets/images/centering-panel.png)
 
-![Centering Panel](../assets/images/img_22.png)
-
-<p><em><a href="#fig-6"><strong>Figure 6.</strong></a> Centering Panel.</em></p>
-
-</div>
+</Figure>
 
 The centre point is the most important value in this step — everything downstream inherits an error in it. Each shot has already filled its own CPX / CPY; your job here is to confirm them, and to fix them if they are wrong.
 
-**Confirm.** Double-click the preview to open the zoomable viewer and check that the marked centre really sits on the middle of the concentric pattern. Tick **Edge** and set a radius to compare the centre against the outer edge of the fisheye circle.
+The panel reads as a grid: the **CPX** and **CPY** columns hold the horizontal and vertical centre in original-image pixels, and the **Positive** and **Negative** rows hold the pair detected from each of the two shots. **Center ROI** is the radius of the ROI box drawn around the centre on the preview — raise it if the marker box is too small to judge.
 
-**If the centre is wrong**, choose one of two fixes:
+**Confirm.** Double-click the preview to open the zoomable viewer and check that the marked centre really sits on the middle of the concentric pattern. Tick **Edge** and set a **Radius** to draw a circle overlay and compare the centre against the outer edge of the fisheye circle. The overlay block has one row per pattern mode, so the positive and negative circles can be given their own **Color** and **Thickness**.
+
+**If the centre is wrong**, choose one of these fixes:
 
 | Situation | Do this |
 |---|---|
-| Auto-detection landed close but not exactly right | Adjust **PosThr** (for the positive image) or **NegThr** (for the negative image) and let Auto run again. |
-| Auto-detection is far off — wrong lobe of the pattern entirely | Switch to **Manual**, click the correct centre on the preview, and the panel returns to **Auto** to refine from that point. |
-| The centre is correct and you do not want captures to move it | Switch to **Locked**. |
+| Auto-detection landed close but not exactly right | Set **PosThr** (for the positive image) or **NegThr** (for the negative image), then click once on the preview while the panel is in **Auto**. The centre is refined from its current value with that threshold, repeated until it stops moving. |
+| Auto-detection is far off — wrong lobe of the pattern entirely | Switch to **Manual** and click the correct centre on the preview. The clicked point becomes CPX / CPY exactly as clicked, and the panel switches itself back to **Auto**. Click again to refine from there. |
+| The centre is correct and you do not want captures to move it | Switch to **Locked**. Clicks are ignored and later shots leave the values alone. |
 
 Do this for **both** images — the positive and negative centres are independent and are corrected separately.
 
@@ -250,40 +239,67 @@ Do this for **both** images — the positive and negative centres are independen
   </div>
 </div>
 
-Full description of every field and mode in this panel: [Main Window Reference §5](/moilcalib_documentation/docs/v1.1/system-overview/main-window#5-centering-panel).
+<div className="custom-note custom-important">
+  <div className="custom-note-title">📌 THE THRESHOLDS DO NOT AFFECT THE SHOT ITSELF</div>
+  <div>
+    The centre detected right after a <strong>Pos Shot</strong> or <strong>Neg Shot</strong> comes from a gradient fit on the concentric rings, which does not read <strong>PosThr</strong> or <strong>NegThr</strong> at all. Those two values are used by the click-refine described above, and as a fallback when the gradient fit fails. Changing a threshold therefore does nothing until you click the preview.
+  </div>
+</div>
+
+### The `?` Button: Direction Difference
+
+Once both shots exist, the **?** button in the Camera Panel gives a numeric check on the centre. It detects the intersection nodes (ICT) along all eight directions of the latest positive and negative shots, then compares the opposite pairs — **N - S**, **W - E**, **NW - SE**, **SW - NE** — node by node.
+
+A dialog lists each pair's nodes with the two values and their difference, and prints the mean and maximum difference per pair. A well-centred capture is symmetric, so the differences sit near zero; the dialog paints any difference of **5 px or more** in red. Large differences point back at a wrong centre, so fix the centre and take the shots again.
+
+If the button reports that it needs a positive and a negative shot first, take both, then try again.
+
+Full description of every field and mode in this panel: [Main Window Reference, Section 5](/moilcalib_documentation/docs/v1.1/system-overview/main-window#5-centering-panel).
 
 ---
 
 ## 6. Read the Histograms
 
-<div className="center">
+<Figure id="fig-7" number="7" caption="Histogram panel.">
 
-<a id="fig-7"></a>
+![Histogram Panel](../assets/images/histogram-panel.png)
 
-![Histogram Panel](../assets/images/img_25.png)
-
-<p><em><a href="#fig-7"><strong>Figure 7.</strong></a> Histogram panel.</em></p>
-
-</div>
+</Figure>
 
 Both histograms refresh automatically after a positive or negative shot. This is the quality gate for the capture — read them before you move on.
 
-Tick the directions you want to check (**Pos** and **Neg** columns, eight directions each), press **Show Curve**, and use **Pop Up** if the plot is too small to judge.
+There are two identical panels, **Histogram1** and **Histogram2**, each with its own set of tick boxes, so you can keep two different comparisons on screen at once. In either one, tick directions in the **Pos** and **Neg** columns (eight each: N, S, W, E, NW, SE, SW, NE) and press **Show Curve**. The plot draws grey level up the vertical axis against distance from the centre along that direction, and rescales to fit whatever is drawn.
+
+**How the plot is drawn depends on what you tick, and this matters:**
+
+| What you tick | What you get |
+|---|---|
+| The **same direction in both** the Pos and Neg columns | **Comparison mode.** Only that one direction is drawn: the positive curve in red, the negative in green, and a white vertical line at every intersection node (ICT) between them. If several directions qualify, only the first is drawn and the rest are ignored. |
+| Directions in one column only, or different directions in each | One curve per ticked direction, each in its own colour, positives first and then negatives. No intersection lines. |
+
+To compare the positive and negative of one direction, tick that direction in both columns. To compare several directions against each other, keep to one column.
+
+<div className="custom-note custom-warning">
+  <div className="custom-note-title">⚠️ <strong>Pop Up</strong> DOES NOTHING IN VERSION 1.1</div>
+  <div>
+    The <strong>Pop Up</strong> button at the top right of each histogram is present but not connected to anything — there is no larger window behind it. Read the curves in place, or enlarge the main window. <strong>Curve Color</strong> does open its own window of colour slots, but the curves themselves are drawn from a fixed palette.
+  </div>
+</div>
 
 <div className="custom-note custom-important">
   <div className="custom-note-title">📌 THE DECISION: ACCEPT OR RE-CAPTURE</div>
   <div>
     <ul>
-      <li><strong>Clear swings between light and dark</strong> — good, continue to step 3.</li>
+      <li><strong>Clear swings between light and dark</strong> — good, move on to the next round.</li>
       <li><strong>Flat tops</strong> — the monitor is too bright and the stripe edges are lost. Lower the brightness in the <a href="/moilcalib_documentation/docs/v1.1/calibration/monitor-viewer">Monitor Viewer</a> and capture again.</li>
       <li><strong>Barely any swing</strong> — too dark. Raise the brightness and capture again.</li>
-      <li><strong>Positive and negative curves for the same direction differ a lot</strong> — suspect a wrong centre or the wrong pattern on that monitor. Fix the cause, then capture again.</li>
+      <li><strong>In comparison mode, the red and green curves for the same direction differ a lot, or the white intersection lines are few and irregular</strong> — suspect a wrong centre or the wrong pattern on that monitor. Fix the cause, then capture again.</li>
     </ul>
     Do not try to compensate for a bad capture later in the analysis — re-capture.
   </div>
 </div>
 
-Description of the controls and how the curves are built: [Main Window Reference §7](/moilcalib_documentation/docs/v1.1/system-overview/main-window#7-histogram-panel).
+Description of the controls and how the curves are built: [Main Window Reference, Section 7](/moilcalib_documentation/docs/v1.1/system-overview/main-window#7-histogram-panel).
 
 ---
 
@@ -294,7 +310,7 @@ A calibration set is built from several rounds, moving the stage between them. F
 1. Move the axes to the next position.
 2. Take the **Pos Shot**.
 3. Take the **Neg Shot**.
-4. Confirm the centre and the histograms.
+4. Confirm the centre, run the **?** direction-difference check, and read the histograms.
 5. **Copy the two PNGs out of `image_cali/`** if you need to keep them — the next round overwrites them.
 
 ---
@@ -309,6 +325,7 @@ A calibration set is built from several rounds, moving the stage between them. F
 | `capture_negative_shot.png` written and looks correct | ☐ |
 | Positive CPX / CPY sit on the centre of the concentric pattern | ☐ |
 | Negative CPX / CPY sit on the centre of the concentric pattern | ☐ |
+| Direction differences from the **?** check are small, with nothing in red | ☐ |
 | Histogram curves swing clearly, no flat tops | ☐ |
 | Images copied out of `image_cali/` if this round must be kept | ☐ |
 
@@ -345,4 +362,4 @@ image_cali/capture_negative_shot.png
 
 ---
 
-_Screenshots on this page are reused from version 1.0 and will be replaced with version 1.1 captures._
+_The panel screenshots on this page are version 1.1 captures. The two example shots ([Figure 4](#fig-4) and [Figure 5](#fig-5)) are still reused from version 1.0 and will be replaced._

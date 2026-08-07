@@ -9,15 +9,11 @@ sidebar_label: Main Window Overview
 
 The **Main Window** is the central interface of the Moil230 Fisheye Calibration System. It integrates hardware connectivity, 5-axis motion control, pattern display, image capture, center-point detection, histogram analysis, calibration result processing, and 3D verification into a unified workflow.
 
-<div className="center">
-
-<a id="fig-1"></a>
+<Figure id="fig-1" number="1" caption="Main Window Overview.">
 
 ![Main Window Overview](../assets/images/img_12.png)
 
-<p><em><a href="#fig-1"><strong>Figure 1.</strong></a> Main Window Overview.</em></p>
-
-</div>
+</Figure>
 
 ---
 
@@ -72,15 +68,11 @@ The controller maintains persistent HTTP client objects (`axis_http_client`, `ca
 
 The **Axis Control Panel** provides comprehensive control over the 5-axis calibration platform with real-time sensor monitoring and safety interlocks.
 
-<div className="center">
-
-<a id="fig-2"></a>
+<Figure id="fig-2" number="2" caption="Axis Control Panel.">
 
 ![Axis Control Panel](../assets/images/img_21.png)
 
-<p><em><a href="#fig-2"><strong>Figure 2.</strong></a> Axis Control Panel.</em></p>
-
-</div>
+</Figure>
 
 ### 2.1 Controlled Axes
 
@@ -147,15 +139,11 @@ The **Axis Control Panel** provides comprehensive control over the 5-axis calibr
 
 This panel launches the calibration pattern display and management interfaces that work together for visual calibration setup.
 
-<div className="center">
-
-<a id="fig-3"></a>
+<Figure id="fig-3" number="3" caption="Monitor / Pattern Panel.">
 
 ![Monitor / Pattern Panel](../assets/images/img_15.png)
 
-<p><em><a href="#fig-3"><strong>Figure 3.</strong></a> Monitor / Pattern Panel.</em></p>
-
-</div>
+</Figure>
 
 | Button | Function | Controller Implementation |
 |---|---|---|
@@ -175,15 +163,11 @@ The controllers maintain inter-window communication: pattern generator signals u
 
 The **Camera Control Panel** manages image acquisition from network cameras and handles the calibration shot sequence.
 
-<div className="center">
-
-<a id="fig-4"></a>
+<Figure id="fig-4" number="4" caption="Camera Control Panel.">
 
 ![Camera Control Panel](../assets/images/img_16.png)
 
-<p><em><a href="#fig-4"><strong>Figure 4.</strong></a> Camera Control Panel.</em></p>
-
-</div>
+</Figure>
 
 ### 4.1 Main Components
 
@@ -238,15 +222,11 @@ The **Camera Control Panel** manages image acquisition from network cameras and 
 
 The **Centering Panel** handles automatic and manual fisheye lens center point detection with visual feedback overlays.
 
-<div className="center">
-
-<a id="fig-5"></a>
+<Figure id="fig-5" number="5" caption="Centering Panel.">
 
 ![Centering Panel](../assets/images/img_22.png)
 
-<p><em><a href="#fig-5"><strong>Figure 5.</strong></a> Centering Panel.</em></p>
-
-</div>
+</Figure>
 
 ### 5.1 Main Components
 
@@ -296,15 +276,11 @@ The **Centering Panel** handles automatic and manual fisheye lens center point d
 
 This panel launches the post-processing windows for calibration analysis and 3D measurement validation.
 
-<div className="center">
-
-<a id="fig-6"></a>
+<Figure id="fig-6" number="6" caption="Calibration Result / 3D Validation Panel.">
 
 ![Calibration Result / 3D Validation Panel](../assets/images/img_24.png)
 
-<p><em><a href="#fig-6"><strong>Figure 6.</strong></a> Calibration Result / 3D Validation Panel.</em></p>
-
-</div>
+</Figure>
 
 | Button | Function | Controller Implementation |
 |---|---|---|
@@ -324,15 +300,11 @@ These windows should only be opened after successful calibration shot capture an
 
 The **Histogram Panel** provides visual analysis of grayscale intensity curves extracted from calibration images for quality assessment.
 
-<div className="center">
-
-<a id="fig-7"></a>
+<Figure id="fig-7" number="7" caption="Histogram Panel.">
 
 ![Histogram Panel](../assets/images/img_25.png)
 
-<p><em><a href="#fig-7"><strong>Figure 7.</strong></a> Histogram Panel.</em></p>
-
-</div>
+</Figure>
 
 ### 7.1 PyQtGraph Implementation
 
