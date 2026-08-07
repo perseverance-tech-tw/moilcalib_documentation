@@ -7,12 +7,14 @@ sidebar_label: PCT Pattern Generator
 
 # PCT Pattern Generator
 
-The **PCT Pattern Generator** is used to create, preview, edit, import, export, and send calibration patterns to the monitor viewer. In this window, the user can configure two pattern groups:
+The **PCT Pattern Generator** is used to create, preview, edit, import, export, and send calibration patterns to the monitor viewer. In this window, the user can configure three pattern groups:
 
 1. **Concentric Pattern** for circular calibration layers.
 2. **Stripline Pattern** for horizontal or vertical stripe calibration layers.
+3. **Chessboard Pattern** for square grid patterns used in camera calibration.
 
-The pattern data is stored in JSON format, then rendered into an image preview. The generated pattern is also used by the calibration result window as PCT reference data.
+The concentric and stripline pattern data is stored in JSON format, then rendered into an image preview.
+The generated pattern is also used by the calibration result window as PCT reference data.
 
 ---
 
@@ -22,21 +24,25 @@ The pattern data is stored in JSON format, then rendered into an image preview. 
 
 <a id="fig-1"></a>
 
-![PCT Pattern Generator overview](../assets/images/img_83.png)
+![PCT Pattern Generator overview](../assets/images/pattern-generator.png)
 
 <p><em><a href="#fig-1"><strong>Figure 1.</strong></a> PCT Pattern Generator main window overview.</em></p>
 
 </div>
 
-The Pattern Generator window is divided into five main areas.
+The Pattern Generator window is divided into six main areas.
 
 | No. | Area | Purpose |
 |---:|---|---|
 | 1 | **File Menu** | Imports and exports pattern JSON files for concentric and stripline patterns. |
 | 2 | **Concentric Pattern Preview & Control** | Sets concentric resolution, previews the generated circular pattern, selects monitor direction, saves the image, toggles crossline, and applies positive/negative pattern colors. |
 | 3 | **Concentric Pattern Table** | Configures each concentric layer using shape, radius, color, center X, and center Y. |
-| 4 | **Stripline Pattern Preview & Control** | Sets stripline resolution, previews the generated stripe pattern, selects monitor direction, toggles crossline, and applies positive/negative pattern colors. |
+| 4 | **Stripline Pattern Preview & Control** | Sets stripline resolution, previews the generated stripe pattern, selects monitor direction, saves the image, toggles crossline, and applies positive/negative pattern colors. |
 | 5 | **Stripline Pattern Table** | Configures each stripline layer using height / interval and color. |
+| 6 | **Chessboard Pattern Generator** | Sets chessboard resolution, generates and previews a square grid pattern, configures physical pixel size and square size in millimeters, sets square and background colors, saves the image, and updates the selected monitor direction. |
+
+When the window is first opened, the concentric and stripline previews are empty and every layer value in both tables is `0`.
+The pattern only appears after the layer values are filled and **Update** is pressed.
 
 <div className="custom-note custom-important">
   <div className="custom-note-title">Main Goal</div>
@@ -80,6 +86,8 @@ This function connects import/export actions, resolution fields, color buttons, 
 
 ## 3. File Menu
 
+![Concentric pattern preview and control](../assets/images/file-menu.png)
+
 The **File** menu is used to import and export pattern JSON files.
 
 | Menu Action | Related Function | Description |
@@ -111,7 +119,8 @@ When a JSON file is imported, the system updates:
 
 <a id="fig-2"></a>
 
-![Concentric pattern preview and control](../assets/images/img_87.png)
+
+![Concentric pattern preview and control](../assets/images/concentric-pattern.png)
 
 <p><em><a href="#fig-2"><strong>Figure 2.</strong></a> Concentric Pattern Preview & Control area.</em></p>
 
@@ -195,7 +204,7 @@ For concentric patterns, the controller loops through layers `1` to `25` and app
 
 <a id="fig-3"></a>
 
-![Concentric pattern table](../assets/images/img_86.png)
+![Concentric pattern table](../assets/images/concentric-pattern-table.png)
 
 <p><em><a href="#fig-3"><strong>Figure 3.</strong></a> Concentric Pattern Table.</em></p>
 
@@ -206,7 +215,7 @@ The concentric table controls each circular or square layer. The table contains 
 | No. | Column | Related Widget Pattern | Description |
 |---:|---|---|---|
 | 1 | **No.** | Layer index | Shows the layer number. |
-| 2 | **Shape** | `combobox_shape_i` | Selects the layer shape, usually circle or square. |
+| 2 | **Shape** | `combobox_shape_i` | Selects the layer shape, usually circle or square. The column header is currently spelled **Sahpe** in the application UI. |
 | 3 | **Radius** | `lineedit_radius_i` | Sets the radius value for the selected layer. This value is also used as concentric PCT data. |
 | 4 | **Color** | `btn_color_i` | Opens a color picker and sets the layer color. |
 | 5 | **Cx** | `lineedit_cx_i` | Sets the center X offset or center X coordinate for the layer. |
@@ -268,7 +277,7 @@ If the values are left as `0`, the layer uses the default center behavior from t
 
 <a id="fig-4"></a>
 
-![Stripline pattern preview and control](../assets/images/img_85.png)
+![Stripline pattern preview and control](../assets/images/stripline-pattern.png)
 
 <p><em><a href="#fig-4"><strong>Figure 4.</strong></a> Stripline Pattern Preview & Control area.</em></p>
 
@@ -280,7 +289,7 @@ This area controls the generated stripline pattern preview.
 |---:|---|---|---|
 | 1 | **Resolution H / W** | `finish_edit_height_stripeline()` / `finish_edit_width_stripeline()` | Sets the stripline image height and width. Invalid values are reset to default values. |
 | 2 | **Pattern Preview** | `update_pattern_stripeline()` / `update_img_to_label()` | Shows the rendered stripline pattern image in the UI. |
-| 3 | **Save Image / CrossLine / Direction / Update** | `select_monitor_stripeline()` / `onclick_btn_update_stripeline()` | Selects monitor direction and updates the connected monitor viewer. |
+| 3 | **Save Image / CrossLine / Direction / Update** | `select_monitor_stripeline()` / `onclick_btn_update_stripeline()` | Saves the image, toggles crossline, selects the monitor direction, and updates the connected monitor viewer. |
 | 4 | **Positive / Negative Color Controls** | `select_color()` / `onclick_pos_neg_pattern_stripeline()` | Selects positive/negative colors and applies alternating colors to stripline layers. |
 
 ### 6.1 Resolution
@@ -304,7 +313,16 @@ moil_pg.render_from_json(self.json_stripeline)
 
 The rendered image is then resized for preview, centered in the label, and saved to the calibration image folder.
 
-### 6.3 Direction and Update
+### 6.3 Save Image, CrossLine, Direction, and Update
+
+The stripline control row uses the same layout as the concentric control row.
+
+| Control | Description |
+|---|---|
+| **Save Image** | Saves the current stripline pattern image. |
+| **CrossLine: On/Off** | Toggles crossline display inside the generated stripe pattern. |
+| **SIDE / TOP / Direction ComboBox** | Selects which monitor direction the stripline pattern belongs to. |
+| **Update** | Re-renders the pattern and emits the selected direction to the connected monitor viewer. |
 
 The direction combo box selects where the stripline pattern should be sent or used.
 
@@ -340,7 +358,7 @@ For stripline patterns, the controller loops through layers `1` to `50` and appl
 
 <a id="fig-5"></a>
 
-![Stripline pattern table](../assets/images/img_90.png)
+![Stripline pattern table](../assets/images/stripline-pattern-table.png)
 
 <p><em><a href="#fig-5"><strong>Figure 5.</strong></a> Stripline Pattern Table.</em></p>
 
@@ -380,7 +398,70 @@ Each stripline layer has a color button. Clicking the button opens a color picke
 
 ---
 
-## 8. Generated Pattern Example
+## 8. Chessboard Pattern Generator
+
+The **Chessboard** panel is area **6** in [Figure 1](#fig-1).
+It generates a standard black and white square grid, which is the pattern used for normal camera calibration rather than for PCT calibration.
+
+Unlike the concentric and stripline sections, the chessboard is not built from a layer table and is not stored as pattern JSON.
+It is described entirely by the fields inside this panel.
+
+| Control | Description |
+|---|---|
+| **Resolution H / W** | Sets the chessboard image height and width in pixels. The default shown is `H = 1080` and `W = 1920`. |
+| **Preview** | Shows the generated chessboard image. |
+| **Save Image** | Saves the current chessboard image to file. |
+| **Generate** | Builds the chessboard image from the current resolution, pixel size, square size, and colors, then shows it in the preview. |
+| **TOP / SIDE / Direction ComboBox** | Selects which monitor direction the chessboard pattern belongs to. |
+| **Update** | Sends the generated chessboard to the connected monitor viewer using the selected direction. |
+| **Pixel size (mm)** | The physical size of one monitor pixel in millimeters, for example `0.2478`. This is used to convert the physical square size into pixels. |
+| **Square (mm)** | The physical size of one chessboard square in millimeters, for example `45`. |
+| **Square color** | The color of the filled squares. The default is black. |
+| **Background** | The color of the empty squares and the surrounding area. The default is grey. |
+
+### 8.1 Pixel Size and Square Size
+
+The chessboard is defined in real world millimeters, not directly in pixels.
+The generator converts the physical square size into a pixel size using the monitor pixel size:
+
+```text
+square size in pixels = Square (mm) / Pixel size (mm)
+```
+
+For the values shown in [Figure 1](#fig-1):
+
+```text
+45 mm / 0.2478 mm = about 182 pixels per square
+```
+
+This is why the **Pixel size (mm)** value must match the monitor that will actually display the pattern.
+If the pixel size is wrong, the squares on screen will not have the physical size the calibration expects.
+
+<div className="custom-note custom-important">
+  <div className="custom-note-title">Pixel Size Depends on the Monitor</div>
+  <p>Pixel size in millimeters is a property of the display, not of the software. Before generating a chessboard, confirm the pixel size of the monitor that will show the pattern. A wrong pixel size produces squares of the wrong physical size and leads to an incorrect camera calibration.</p>
+</div>
+
+### 8.2 Generate and Update
+
+The chessboard uses two separate buttons:
+
+| Button | What It Does |
+|---|---|
+| **Generate** | Redraws the chessboard preview from the current field values. Use this after changing resolution, pixel size, square size, or colors. |
+| **Update** | Sends the generated pattern to the monitor viewer for the selected direction. |
+
+**Generate** only affects the preview inside this window.
+The pattern is not shown on the target monitor until **Update** is pressed.
+
+<div className="custom-note custom-tip">
+  <div className="custom-note-title">Chessboard vs PCT Patterns</div>
+  <p>The chessboard pattern is used for standard camera calibration. The concentric and stripline patterns are used for PCT calibration and are the ones that feed radius and interval values into the calibration result window. The chessboard does not contribute PCT values.</p>
+</div>
+
+---
+
+## 9. Generated Pattern Example
 
 <div className="center">
 
@@ -399,6 +480,9 @@ In this example:
 - The concentric table contains radius values for circular layers.
 - The stripline table contains height / interval values for stripe layers.
 - Positive and negative color buttons are used to create alternating black and white calibration patterns.
+
+This example was captured from an earlier build, so the Chessboard panel is not visible in it.
+The concentric and stripline behaviour shown is the same as in the current window.
 
 After the pattern is sent to the monitor and captured by the fisheye camera, the captured image shows the concentric pattern at the center and the stripline patterns at the top, bottom, left, and right sides.
 
@@ -426,9 +510,9 @@ The positive and negative captures are used together by the calibration process 
 
 ---
 
-## 9. Pattern Update Logic
+## 10. Pattern Update Logic
 
-### 9.1 Concentric Update Logic
+### 10.1 Concentric Update Logic
 
 When a concentric parameter changes, the system follows this flow:
 
@@ -456,7 +540,7 @@ The edited field can be:
 - Cx.
 - Cy.
 
-### 9.2 Stripline Update Logic
+### 10.2 Stripline Update Logic
 
 When a stripline parameter changes, the system follows this flow:
 
@@ -483,7 +567,7 @@ The edited field can be:
 
 ---
 
-## 10. Pattern Image Output
+## 11. Pattern Image Output
 
 When the pattern is updated, the controller renders the pattern and writes image files into the calibration image folder.
 
@@ -512,7 +596,7 @@ image_cali/pattern_circle_side.png
 
 ---
 
-## 11. Relationship with Calibration Result
+## 12. Relationship with Calibration Result
 
 The Pattern Generator is not only a drawing tool. Its JSON values are also used by the calibration result calculation.
 
@@ -568,6 +652,17 @@ These PCT values are then used during calibration result processing to calculate
 7. Check the preview image.
 8. Export JSON if the configuration must be reused.
 
+### Create a Chessboard Pattern
+
+1. Set the chessboard resolution to match the target monitor, for example `1920 × 1080`.
+2. Enter the **Pixel size (mm)** of that monitor.
+3. Enter the **Square (mm)** value you want for one chessboard square.
+4. Set the **Square color** and **Background** color if the defaults are not suitable.
+5. Click **Generate** and check the preview.
+6. Select the monitor direction, for example **TOP**.
+7. Click **Update** to send the pattern to the monitor.
+8. Click **Save Image** if the pattern file must be kept.
+
 ### Use Imported JSON
 
 1. Open the **File** menu.
@@ -600,6 +695,9 @@ These PCT values are then used during calibration result processing to calculate
 | Update stripline monitor direction | Update button | `onclick_btn_update_stripeline()` |
 | Save concentric image | Save Image button | `save_image_concentric()` |
 | Toggle concentric crossline | CrossLine button | `crossline_concentric()` |
+| Build the chessboard preview | Chessboard Generate button | See [section 8](#8-chessboard-pattern-generator) |
+| Set chessboard square physical size | Chessboard Square (mm) | See [section 8](#8-chessboard-pattern-generator) |
+| Send chessboard to monitor | Chessboard Update button | See [section 8](#8-chessboard-pattern-generator) |
 
 ---
 
@@ -613,9 +711,17 @@ These PCT values are then used during calibration result processing to calculate
 | Stripline table says Height but code says interval | UI label and JSON key use different names. | Treat Height as stripline interval in documentation and debugging. |
 | Monitor does not update | Direction was not emitted or monitor viewer is not connected. | Select the correct direction and click Update again. |
 | Calibration result PCT values are wrong | Radius or stripline interval values are incorrect. | Check all concentric radius and stripline height / interval values before updating table. |
+| Preview is empty when the window opens | All layer values are still `0`, which is the default state. | Fill the radius or height values, then click Update. |
+| Chessboard squares are the wrong physical size | The Pixel size (mm) value does not match the monitor in use. | Enter the correct pixel size for that monitor and click Generate again. |
+| Chessboard preview did not change | Generate was not pressed after editing the fields. | Click Generate, then Update to send it to the monitor. |
 
 ---
 
 ## Summary
 
-The **PCT Pattern Generator** manages two calibration pattern types: concentric and stripline. The concentric section uses up to 25 radius-based layers, while the stripline section uses up to 50 height / interval layers. The window allows the user to edit layer values, choose colors, preview the generated image, save or export pattern data, and update the monitor direction. These pattern values are important because they are later used as PCT input data in the calibration result calculation.
+The **PCT Pattern Generator** manages three calibration pattern types: concentric, stripline, and chessboard.
+The concentric section uses up to 25 radius-based layers, while the stripline section uses up to 50 height / interval layers.
+The chessboard section is defined by resolution, physical pixel size, square size, and colors instead of a layer table.
+The window allows the user to edit layer values, choose colors, preview the generated image, save or export pattern data, and update the monitor direction.
+The concentric and stripline values are important because they are later used as PCT input data in the calibration result calculation.
+The chessboard pattern is used for standard camera calibration and does not contribute PCT values.
