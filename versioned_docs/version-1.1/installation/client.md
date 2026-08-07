@@ -30,7 +30,7 @@ Before beginning the installation, make sure you have the following:
 |---|---|
 | **Operating System** | Ubuntu 22.04 / 24.04 (or another recent Debian-based distribution), **or** Windows 10 / 11 with MSVC |
 | **Internet Connection** | Required to install packages and clone the project repository |
-| **GitHub Access** | Required to download the private project repository |
+| **GitHub Access** |  Required to download the project repository|
 | **GitHub Username** | Used when GitHub asks for login |
 | **Personal Access Token** | Used as the GitHub password during authentication |
 | **Disk Space** | Roughly 5 GB for the toolchain, Qt, and OpenCV |

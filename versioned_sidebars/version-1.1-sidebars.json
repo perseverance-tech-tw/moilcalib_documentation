@@ -7,7 +7,20 @@
       "collapsed": true,
       "items": [
         "installation/server",
-        "installation/client-installation-guide"
+        {
+          "type": "category",
+          "label": "Client Installation Guide",
+          "collapsed": false,
+          "link": {
+            "type": "doc",
+            "id": "installation/client-installation-guide"
+          },
+          "items": [
+            "installation/client-linux",
+            "installation/client-windows",
+            "installation/client-macos"
+          ]
+        }
       ]
     },
     {
