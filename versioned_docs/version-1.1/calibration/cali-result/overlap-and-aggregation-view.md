@@ -21,7 +21,7 @@ This page explains the **Overlap** tab in the Calibration Result window. This vi
 
 <Figure id="fig-1" number="1" caption="Empty Overlap and Aggregation View with area labels.">
 
-![Overlap and aggregation view area labels](../../assets/images/img_36.png)
+![Overlap and aggregation view area labels](../../assets/images/calibration-result-overlap-view.png)
 
 </Figure>
 
@@ -46,10 +46,10 @@ The **Overlap Graph** is the left graph in this tab. It is used to inspect how t
 
 | Axis | Label | Meaning |
 |---|---|---|
-| X-axis | **IH (pixel)** | Image height / intersection height value from calibration data. |
+| X-axis | **ICT (pixel)** | Image height / intersection height value from calibration data. |
 | Y-axis | **ZFL (pixel)** | Calculated ZFL value from the calibration result. |
 
-The graph is created in the controller as `plot_overlap`. It uses PyQtGraph, enables grid lines, and uses the same ZFL-IH axis concept as the main ZFL-IH graph.
+The X-axis is labelled `ICT(pixel)` in the application. `ICT` and `IH` refer to the same measured value in this window.
 
 ### 1.2 Related UI Components
 

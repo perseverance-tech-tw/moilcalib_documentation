@@ -10,9 +10,9 @@ sidebar_position: 2
 
 The **Main Cali Result** window is used to load calibration data, manage round tables, calculate calibration results, inspect graph behavior, and search the best distance based on aggregation values.
 
-<Figure id="fig-main-cali-result-overview" number="1" title="Main Cali Result Overview" caption="Main Cali Result window divided into 8 main functional areas.">
+<Figure id="fig-main-cali-result-overview" number="1" title="Main Cali Result Overview" caption="Main Cali Result window divided into 9 main functional areas.">
 
-![Main Cali Result overview with 8 main sections](../../assets/images/img_27.png)
+![Main Cali Result overview with 9 main sections](../../assets/images/calibration-result-main-window.png)
 
 </Figure>
 
@@ -22,14 +22,22 @@ The **Main Cali Result** window is used to load calibration data, manage round t
 
 | No. | Section | Main Purpose |
 |---:|---|---|
-| 1 | [Header & Data Management](#1-header--data-management) | Load, update, clear, save, and manage calibration data. |
-| 2 | [Round & Tab Selection](#2-round--tab-selection) | Switch between current, round, parameter, overlap, aggregation, and test pages. |
+| 1 | [Header & Data Management](#1-header--data-management) | Load, update, clear, save, and manage calibration data. In the screenshot this is split into the folder/tree area **1** and the button block **2**. |
+| 2 | [Round & Tab Selection](#2-round--tab-selection) | Switch between current, round, parameter, overlap, aggregation, graphs, and test pages. |
 | 3 | [Result Table View](#3-result-table-view) | Display IH range, minimum aggregation, distance, and total sampling. |
 | 4 | [V_Gap & H_Gap Settings](#4-v_gap--h_gap-settings) | Configure physical gap values used for side-screen calculation. |
 | 5 | [Pixel Size & Distance / Round](#5-pixel-size--distance--round) | Configure pixel size conversion and round distance interval. |
 | 6 | [Min Aggregation by Interval](#6-min-aggregation-by-interval) | Search minimum aggregation over IH percentage intervals. |
 | 7 | [Aggr by Range and Distance](#7-aggr-by-range-and-distance) | Calculate aggregation or search distance for a selected IH range. |
 | 8 | [Range Analysis Matrix](#8-range-analysis-matrix) | Analyze global and range-based distance / aggregation results. |
+
+<div className="custom-note custom-warning">
+
+<div className="custom-note-title">Numbering note</div>
+
+The screenshot above is from the C++ application and labels **9** areas, because the header is split into the Cali Folder / tree area (**1**) and the data-management button block (**2**). The section numbering on this page still follows the original 8-section grouping, so screenshot label **N** corresponds to page section **N - 1** from label 3 onward. The [overview page](./index.md) uses the 9-area numbering that matches the screenshot exactly.
+
+</div>
 
 <div className="custom-note custom-important">
   <div className="custom-note-title">Main Goal</div>
@@ -57,9 +65,17 @@ The **Main Cali Result** window is used to load calibration data, manage round t
 
 Use the links below when you want to reference a figure from another part of this page.
 
+<div className="custom-note custom-warning">
+
+<div className="custom-note-title">Screenshots pending replacement</div>
+
+Only Figure 1 has been recaptured from the C++ application. Every figure still named `img_*.png` is a screenshot of the older Python application. The layout and wording in those close-ups may no longer match what you see on screen.
+
+</div>
+
 | Figure | Name | Image File |
 |---|---|---|
-| [Figure 1](#fig-main-cali-result-overview) | Main Cali Result Overview | `img_27.png` |
+| [Figure 1](#fig-main-cali-result-overview) | Main Cali Result Overview | `calibration-result-main-window.png` |
 | [Figure 2](#fig-header-data-management) | Header & Data Management | `img_28.png` |
 | [Figure 3](#fig-loaded-data-example) | Loaded Data Example | `img_48.png` |
 | [Figure 4](#fig-cali-folder-url-input) | Cali Folder URL Input | `img_29.png` |
@@ -191,10 +207,10 @@ In `controller_cali_result.py`, the main button and input behaviors are connecte
 | 9 | Stop | `onclick_btn_stop()` | Cancel running aggregation or range-search processes. |
 | 10 | Load Database | `onclick_btn_load_database()` | Open or load calibration result data from the database. |
 | 11 | Single Distance | `onclick_cb_distance_changed()` | Use independent distance values for each round. |
-| 12 | Show shift of entrance pupil | Visualization handler | Open entrance pupil shift visualization. |
-| 13 | Show graph Dist vs IH Range | `onclick_btn_show_graph_dist_ih_range()` | Show distance trend over IH ranges. |
-| 14 | Show graph Dist vs Alpha | `onclick_btn_show_graph_dist_alpha()` | Show the relationship between distance and alpha. |
-| 15 | Select Cali System | `update_line_edits()` / `config_file_map` | Select the calibration system configuration. |
+| 12 | Show shift of entrance pupil | Moved to the `Graphs` tab | Open entrance pupil shift visualization. No longer a header button. |
+| 13 | Show graph Dist vs IH Range | Moved to the `Graphs` tab | Show distance trend over IH ranges. No longer a header button. |
+| 14 | Show graph Dist vs Alpha | Moved to the `Graphs` tab | Show the relationship between distance and alpha. No longer a header button. |
+| 15 | Select Cali System | `applySystemConfig()` | Select the calibration system configuration. |
 
 ---
 
@@ -1130,6 +1146,14 @@ Use this mode when each round has a manually measured or different distance valu
 ---
 
 ### 1.18 Show Shift of Entrance Pupil
+
+<div className="custom-note custom-warning">
+
+<div className="custom-note-title">Moved in this version</div>
+
+Sections 1.18, 1.19, and 1.20 describe three buttons that no longer exist in the header. In the C++ application, the same three graphs are embedded in the `Graphs` tab, each with its own **Update** button. The purpose, source data, and interpretation described below are still correct. Only the place you click has changed.
+
+</div>
 
 #### Function
 

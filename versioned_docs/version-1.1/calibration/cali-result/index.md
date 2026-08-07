@@ -12,12 +12,12 @@ The **Main Cali Result** window is the main workspace for reviewing calibration 
 
 This overview is divided into **4 main views** based on the provided UI images.
 
-| No. | Main View | Main Purpose | Image |
+| No. | Main View | Main Purpose | Figure |
 |---:|---|---|---|
-| 1 | [Main Window Overview](#1-main-window-overview) | Explains the complete window layout and the 8 main areas in a general way. | `img_27.png` |
-| 2 | [Result Table View](#2-result-table-view) | Explains the control input row, result table, and calculation formula panel. | `img_34.png` |
-| 3 | [Parameter View](#3-parameter-view) | Explains the IH-Alpha graph, ZFL-IH graph, and camera parameter panel. | `img_35.png` |
-| 4 | [Overlap & Aggregation View](#4-overlap--aggregation-view) | Explains the overlap graph and aggregation-vs-distance graph. | `img_36.png` |
+| 1 | [Main Window Overview](#1-main-window-overview) | Explains the complete window layout and the 9 main areas in a general way. | [Figure 1](#fig-1) |
+| 2 | [Result Table View](#2-result-table-view) | Explains the control input row, result table, and calculation formula panel. | [Figure 2](#fig-2) |
+| 3 | [Parameter View](#3-parameter-view) | Explains the IH-Alpha graph, ZFL-IH graph, and camera parameter panel. | [Figure 3](#fig-3) |
+| 4 | [Overlap & Aggregation View](#4-overlap--aggregation-view) | Explains the overlap graph and aggregation-vs-distance graph. | [Figure 4](#fig-4) |
 
 ---
 
@@ -26,35 +26,47 @@ This overview is divided into **4 main views** based on the provided UI images.
 
 <Figure id="fig-1" number="1" caption="Main Cali Result window overview with 8 main functional areas.">
 
-![Main Cali Result window overview with 8 numbered areas](../../assets/images/img_27.png)
+![Main Cali Result window overview with 9 numbered areas](../../assets/images/calibration-result-main-window.png)
 
 </Figure>
 
 The **Main Window Overview** shows the full structure of the Main Cali Result window. This first view should only be understood as a general map of the interface. The detailed explanation for the table, parameters, overlap, and aggregation graphs is provided in the next sections.
 
-The window is divided into **8 main areas**.
+The window is divided into **9 main areas**.
+
+Areas **1**, **2**, and **3** are always visible, because they form the frame of the window. Areas **4** to **9** belong to the `Aggr by Distance and Range` tab, which is the tab selected in the screenshot above. Selecting a different tab replaces areas 4 to 9 with that tab's own content.
 
 | No. | Area | General Function |
 |---:|---|---|
-| **1** | Header & Data Management | Used to load, clear, update, stop, save, and manage calibration data. |
-| **2** | Round & Tab Selection | Used to switch between round tables and analysis pages. |
-| **3** | Result Table | Used to display raw calibration values and calculated result values. |
-| **4** | V_Gap & H_Gap | Used to define gap values for the side calculation formula. |
-| **5** | Pixel Size & Distance / Round | Used to define pixel size, distance per round, and round distance behavior. |
-| **6** | Min Aggregation by Interval | Used to calculate minimum aggregation by moving IH interval windows. |
-| **7** | Aggr by Range and Distance | Used to calculate aggregation from a selected IH range and distance. |
-| **8** | Range Analysis Matrix | Used to analyze Global / Range_1 to Range_20 and store best distance results. |
+| **1** | Cali Folder & File Tree | Used to select the calibration folder and calibration system, and to browse the loaded files. |
+| **2** | Data Management Buttons | Used to load, clear, update, stop, and save calibration data. |
+| **3** | Round & Tab Selection | Used to switch between round tables and analysis pages. |
+| **4** | Interval Result Table | Used to display the result of the interval-based minimum aggregation search. |
+| **5** | V_Gap & H_Gap | Used to define gap values for the side calculation formula. |
+| **6** | Pixel Size & Distance / Round | Used to define pixel size, distance per round, and round distance behavior. |
+| **7** | Min Aggregation by Interval | Used to calculate minimum aggregation by moving IH interval windows. |
+| **8** | Aggr by Range and Distance | Used to calculate aggregation from a selected IH range and distance. |
+| **9** | Range Analysis Matrix | Used to analyze Global / Range_1 to Range_20 and store best distance results. |
 
-### 1.1 Header & Data Management
+### 1.1 Cali Folder & File Tree
 
-The **Header & Data Management** area is the main control area at the top of the window. It is used before most other operations because the table, graphs, parameters, and aggregation results depend on the data loaded from this area.
-
-This area generally handles:
+The **Cali Folder & File Tree** area is the data entry point of the window. It is used before most other operations, because the table, graphs, parameters, and aggregation results all depend on the data loaded from here.
 
 | UI Item | General Explanation |
 |---|---|
 | **Cali Folder** | Displays or receives the calibration folder path. It can also receive a URL path for downloaded calibration data. |
-| **Tree View** | Shows the folder/file structure after a calibration folder is selected or loaded. |
+| **Select Cali System** | Selects the calibration system configuration, for example `Yuanman - SIDE (EV2785)`. Choosing a system loads that system's pixel sizes and gap values into areas 5 and 6. |
+| **Tree View** | Shows the folder/file structure after a calibration folder is selected or loaded. Double-clicking an `.xlsx` file loads it into its round, and double-clicking a folder loads all rounds. |
+| **HELP** | Opens the help information for the window. |
+
+In the C++ code, the system selector is `combox_type_of_system`. Changing it calls `applySystemConfig()`, which rewrites the pixel size and gap fields from the selected system's configuration.
+
+### 1.2 Data Management Buttons
+
+The **Data Management Buttons** area holds the load, clear, save, and update controls that act on the round tables.
+
+| UI Item | General Explanation |
+|---|---|
 | **Load All Excel** | Loads Excel files from multiple round folders, usually round `1` to round `10`. |
 | **Load Excel** | Loads one Excel file into the currently selected round table. |
 | **Clear Table** | Clears only the current round table. |
@@ -64,13 +76,12 @@ This area generally handles:
 | **Stop** | Requests cancellation for running aggregation or range calculation processes. |
 | **Load Database** | Opens the database window for loading calibration data from database records. |
 | **Single Distance** | Changes the distance behavior so each round can use its own distance value. |
-| **Show shift of entrance pupil** | Opens the entrance-pupil shift visualization feature. |
-| **Show graph Dist vs IH Range** | Opens or updates the graph related to distance and IH range behavior. |
-| **Show graph Dist vs Alpha** | Opens or updates the graph related to distance and alpha behavior. |
 
-In the Python code, this area is connected mainly through button handlers such as `onclick_btn_load_all_excel()`, `onclick_btn_load_excel()`, `onclick_btn_clear_table()`, `onclick_btn_clear_all_table()`, `onclick_btn_save_to_excel()`, `onclick_btn_update_table()`, `onclick_btn_stop()`, and `onclick_btn_load_database()`.
+In the C++ code, these controls are connected to `loadAllExcel()`, `loadExcel()`, `clearTable()`, `clearAllTables()`, `saveToExcel()`, `updateTable()`, `stopSearch()`, and `openDatabase()`.
 
-### 1.2 Round & Tab Selection
+**Changed in this version.** This area previously also held **Show shift of entrance pupil**, **Show graph Dist vs IH Range**, and **Show graph Dist vs Alpha**. Those three buttons were removed. The same graphs are now embedded in the `Graphs` tab described in section 1.3.
+
+### 1.3 Round & Tab Selection
 
 The **Round & Tab Selection** area is used to choose which data page or analysis page is displayed. The UI includes round tabs and special tabs for graphs, parameters, and aggregation analysis.
 
@@ -82,30 +93,32 @@ The general tab groups are:
 | `round_1` to `round_10` | Shows calibration data for each calibration round. |
 | `parameter` | Shows camera parameters and parameter-related graphs. |
 | `Overlap` | Shows overlap and aggregation graph visualization. |
-| `Aggr by Distance and Range` | Shows range-based aggregation calculation tools. |
+| `Aggr by Distance and Range` | Shows range-based aggregation calculation tools. This is the tab shown in the screenshot above. |
+| `Graphs` | Shows three embedded graphs: **Shift of Entrance Pupil**, **Distance vs IH Range**, and **Distance vs Alpha**. Each graph has its own Update button, plus an information button that explains the entrance-pupil model. |
 | `test` | Used as a test or additional working tab. |
 
 The round tabs are also used as status indicators. When data is loaded or updated, the code can mark a tab with `*` to show that the round contains modified or loaded data.
 
 The code also supports **right-click behavior** on round tabs. The context menu allows the user to turn a round on or off and open graph popups for a specific round. When a round is turned off, it is skipped during calculation and graph updates.
 
-### 1.3 Result Table
+### 1.4 Interval Result Table
 
-The **Result Table** area displays calibration data and calculated data for the selected round. This is the main place to check whether the loaded Excel data and calculated values are correct.
+The **Interval Result Table** displays the output of the **Min Aggregation by Interval** search described in section 1.7. It stays empty until that search is run.
 
-In general, the table contains:
+Each row represents one IH interval that the search moved through:
 
-| Data Type | General Explanation |
+| Column | General Explanation |
 |---|---|
-| Raw calibration values | Values loaded from Excel, such as `Round`, `Side`, `PCT`, and directional ICT values. |
-| Calculated values | Values calculated by the system, such as `AVG`, `PCT Cal`, `Distance`, `Alpha`, and `ZFL`. |
-| Directional values | Values for `N`, `S`, `W`, `E`, `NW`, `SE`, `SW`, and `NE`. |
-| Average values | Average Alpha and ZFL values calculated from valid directional data. |
-| Separator columns | Black columns used only to visually separate table groups. |
+| **IH Range** | The IH percentage window used for this interval. |
+| **Minimum Aggregation** | The lowest aggregation value found inside that window. |
+| **Distance (mm)** | The distance that produced the minimum aggregation. |
+| **Total Sampling** | How many IH-ZFL sample points fell inside the window. |
 
-The table is connected to the calculation pipeline in the code. After data is loaded or updated, the system calculates ICT average, PCT calculation, distance, alpha, ZFL, average alpha, average ZFL, and aggregation.
+Because each row pairs an IH window with its best distance, this table is the main place to see whether the best distance stays stable across the field or drifts as IH increases. A drifting distance is the signal that the entrance pupil is moving, which is what the `Graphs` tab visualizes.
 
-### 1.4 V_Gap & H_Gap
+The calibration result table for a single round is a different table. It is described in [section 2.2](#22-result-table).
+
+### 1.5 V_Gap & H_Gap
 
 The **V_Gap & H_Gap** area contains vertical gap and horizontal gap values for the four main directions:
 
@@ -124,7 +137,7 @@ General meaning:
 
 When the user changes these values and presses Enter, the system updates the calibration result again. Therefore, changing gap values can change Alpha, ZFL, graph shape, and aggregation result.
 
-### 1.5 Pixel Size & Distance / Round
+### 1.6 Pixel Size & Distance / Round
 
 The **Pixel Size & Distance / Round** area defines how pixel data is converted and how distance is applied across rounds.
 
@@ -140,7 +153,7 @@ General meaning:
 
 The code uses pixel size values when calculating `pct_cal`. It uses distance settings when calculating the `distance` column. If **Single Distance** is disabled, distance can be calculated using a base distance and `Dis / Round`. If **Single Distance** is enabled, each round can use its own distance input.
 
-### 1.6 Min Aggregation by Interval
+### 1.7 Min Aggregation by Interval
 
 The **Min Aggregation by Interval** area is used to search for the minimum aggregation value using interval-based IH ranges.
 
@@ -156,7 +169,7 @@ General input fields:
 
 In the code, this feature collects IH data from enabled rounds, converts IH percentage into pixel bounds, searches the best distance for each interval, calculates aggregation, and fills the interval result table. The result can also be saved as CSV.
 
-### 1.7 Aggr by Range and Distance
+### 1.8 Aggr by Range and Distance
 
 The **Aggr by Range and Distance** area is used to calculate or search aggregation based on an IH range and distance value.
 
@@ -180,7 +193,7 @@ The code supports three general behaviors:
 
 After calculation, the system can update the **Aggregation vs. Distance** graph using the generated distance and aggregation samples.
 
-### 1.8 Range Analysis Matrix
+### 1.9 Range Analysis Matrix
 
 The **Range Analysis Matrix** is the large bottom area used to analyze multiple IH ranges. It contains `Global` and range fields such as `Range_1` to `Range_20`.
 
@@ -188,8 +201,8 @@ General functions:
 
 | Function | General Explanation |
 |---|---|
-| **Range Window** | Uses manually configured IH range windows. |
-| **History Distance** | Uses saved best-distance history when available. |
+| **Range Window** | Loads a Range Window JSON file that fills the IH ranges instead of typing them by hand. |
+| **History Distance** | A mode toggle, not an action. When it is on, the system uses the distance values already present in the fields. When it is off, the system searches for the distance itself. |
 | **Global / Range_1 to Range_20** | Defines the IH percentage ranges used for range-based calculation. |
 | **IH Min / IH Max** | Defines the IH range percentage for each range column. |
 | **Dist Min / Dist Max** | Defines the allowed search range for distance. |
@@ -200,7 +213,9 @@ General functions:
 | **Checkboxes** | Enable or disable calculation for each range. |
 | **Save Distance History** | Saves range distance results for later reuse. |
 
-When a range checkbox is enabled, the code calculates pixel bounds from the IH percentage range, counts valid samples, searches the best distance, calculates aggregation, and highlights the result fields when the calculation succeeds.
+The checkboxes are the trigger. Ticking a range checkbox immediately runs that range's search: the code calculates pixel bounds from the IH percentage range, counts valid samples, searches the best distance, calculates aggregation, and highlights the result fields when the calculation succeeds. Ticking the **Global** checkbox toggles all ranges and runs them together.
+
+Editing an **IH Min** or **IH Max** value refreshes that range's sample count and alpha count, and redraws the range bands on the ZFL-IH graph.
 
 This area also supports **right-click on range labels** to open a ZFL-IH graph for a selected range. This helps the user visually check the points inside that IH range.
 
@@ -211,7 +226,7 @@ This area also supports **right-click on range labels** to open a ZFL-IH graph f
 
 <Figure id="fig-2" number="2" caption="Result Table View showing the control input row, result table, and calculation formula panel.">
 
-![Result Table View with control input row, result table, and calculation formula panel](../../assets/images/img_34.png)
+![Result Table View with control input row, result table, and calculation formula panel](../../assets/images/calibration-result-result-view.png)
 
 </Figure>
 
@@ -223,7 +238,7 @@ This view is divided into **3 sections**.
 |---:|---|---|
 | **1** | Control & Input Row | Contains center values, aggregation round, aggregation result, and distance value. |
 | **2** | Result Table | Displays raw Excel data and calculated calibration result values. |
-| **3** | Calculation Formula Panel | Shows the main Alpha and ZFL formulas used by the system. |
+| **3** | Calculate Result & Formula Panel | Runs the calculation for the round, and shows the main Alpha and ZFL formulas used by the system. |
 
 ### 2.1 Control & Input Row
 
@@ -235,11 +250,29 @@ The **Control & Input Row** is located above the result table. It gives quick ac
 | `pos_iCy` | Positive image center Y value copied from the main calibration window. |
 | `neg_iCx` | Negative image center X value copied from the main calibration window. |
 | `neg_iCy` | Negative image center Y value copied from the main calibration window. |
-| `Aggr Round` | Button used to run aggregation search for the selected round. |
+| `Aggr Round` | Button used to run the aggregation distance search for the selected round. |
+| `Clean Noise` | Opens the noise-cleaning dialog for the selected round. See below. |
 | `Aggregation` | Displays the aggregation value calculated from IH-ZFL data. |
 | `Distance` | Displays or receives the distance value used for the calculation. |
 
-In the code, the center values are updated by `update_table_lineedit_img_center()`. The distance and aggregation fields are connected to per-round calculation functions such as `calculate_result_single_round()`, `update_aggregation_single_round()`, and `onclick_btn_aggr_round()`.
+In the code, each round gets its own `btn_aggr_round_N` and `btn_clean_noise_N` pair, handled by `aggrRound()` and `cleanRoundNoise()`.
+
+#### Clean Noise
+
+**Clean Noise** removes the false measurement points caused by the physical gap between monitors in the calibration rig. When the calibration pattern spans several screens, the bezel between them produces nodes that are not real image data, and those nodes distort the ZFL curve and the aggregation value.
+
+The dialog works on **radial bands**, measured in pixels from the image center:
+
+| Item | Explanation |
+|---|---|
+| **Group** | The direction groups are handled separately: `N & S`, `W & E`, and the diagonals. Each group gets its own band, because the bezel sits at a different radius in each direction. |
+| **Auto-detection** | When the dialog opens, the system proposes a band for each group. The user can accept or adjust it. |
+| **min / max** | The two ends of the band, in radial pixels. Both boundaries are kept, and only the nodes strictly inside are removed. |
+| **Open end** | Leaving `min` or `max` blank makes that side open. For example `min = 778` with `max` blank removes everything from 778 pixels outward, which suits a bezel that runs to the edge of the field. |
+| **Sticky values** | The band the user last used is remembered and offered again for the next round, because the bezel does not move between rounds. |
+| **Apply to ALL rounds with data** | Applies the same band to every round that contains ICT data, instead of only the selected round. |
+
+After cleaning, the graphs redraw immediately, but the calibration numbers do not. The dialog reports how many nodes were removed and reminds the user to press **Aggr Round** or **Calculate Result** to recompute the round.
 
 ### 2.2 Result Table
 
@@ -286,9 +319,13 @@ Important calculated values:
 | `ZFL` | Uses Alpha and ICT to calculate focal-length-related value. |
 | `Aggregation` | Sorts IH-ZFL points by IH and sums the distance between neighboring points. |
 
-### 2.3 Calculation Formula Panel
+### 2.3 Calculate Result & Formula Panel
 
-The **Calculation Formula Panel** shows the main formulas used in the result table.
+The right-hand panel holds one button and the three formulas used to fill the result table.
+
+**Calculate Result** runs the full calculation pipeline for the selected round using the distance value currently in the `Distance` field. It is the manual counterpart of **Aggr Round**: **Aggr Round** searches for the best distance and then computes, while **Calculate Result** computes at the distance the user chose. In the code it is `btn_calculate_result_N`, handled by `calculateResultRound()`.
+
+The formulas below the button are shown for reference only. They are not editable.
 
 #### Top-area Alpha formula
 
@@ -318,7 +355,7 @@ In the code, `IH` is taken from the related ICT direction value. The system calc
 
 <Figure id="fig-3" number="3" caption="Parameter View showing the IH-Alpha graph, ZFL-IH graph, and parameter panel.">
 
-![Parameter View with IH-Alpha graph, ZFL-IH graph, and parameter panel](../../assets/images/img_35.png)
+![Parameter View with IH-Alpha graph, ZFL-IH graph, and parameter panel](../../assets/images/calibration-result-parameter-view.png)
 
 </Figure>
 
@@ -350,8 +387,33 @@ Related controls:
 | Control | Explanation |
 |---|---|
 | **Update IH Alpha Graphics** | Refreshes the IH-Alpha graph. |
-| **Alpha** | Shows the Alpha coordinate from mouse movement or graph checking. |
-| **Gray Scale** | Shows the graph coordinate/helper value used by the UI. |
+| **Alpha=** | Shows the X coordinate under the mouse cursor, which is Alpha in degrees. |
+| **Gray Scale=** | Shows the Y coordinate under the mouse cursor, which is IH in pixels. The label is kept from an older version and does not describe a gray scale value. |
+| **Information — IH-Alpha polynomial** | Opens an explanation of the calibration polynomial. |
+
+#### The IH-Alpha polynomial
+
+The information button explains what this graph actually produces. For a fisheye lens, the image height `IH`, meaning the radial distance of a pixel from the image center in pixels, is a smooth and monotonic function of the ray's off-axis incidence angle `α` in degrees.
+
+The graph plots the measured `(α, IH)` pairs from every round as a colored scatter, then fits one degree-4 least-squares polynomial through them:
+
+```text
+IH(α) = c0 + c1·α + c2·α² + c3·α³ + c4·α⁴
+```
+
+This polynomial **is** the lens calibration. It defines the mapping between a pixel position and the real-world angle the light came from, which is the basis of the anypoint imaging model described in US Patent 6,985,183 B2.
+
+Pressing **Update IH Alpha Graphics** writes the fitted coefficients into the parameter panel:
+
+| Parameter field | Value |
+|---|---|
+| `parameter2` | `c4`, the α⁴ coefficient |
+| `parameter3` | `c3`, the α³ coefficient |
+| `parameter4` | `c2`, the α² coefficient |
+| `parameter5` | `c1`, the α coefficient |
+| `parameter0`, `parameter1` | Always `0` |
+
+The constant term `c0` is not used, because `IH = 0` on the optical axis where `α = 0`. Together with `cameraFov`, the sensor size, `iCx`, `iCy`, and `ratio`, these coefficients form the intrinsic fisheye camera model.
 
 ### 3.2 ZFL-IH Graph
 
@@ -371,8 +433,8 @@ Related controls:
 | Control | Explanation |
 |---|---|
 | **Update IH ZFL Graphics** | Refreshes the ZFL-IH graph. |
-| **IH** | Shows the IH coordinate from mouse movement or graph checking. |
-| **Gray Scale** | Shows the graph coordinate/helper value used by the UI. |
+| **IH=** | Shows the X coordinate under the mouse cursor, which is ICT in pixels. |
+| **Gray Scale=** | Shows the Y coordinate under the mouse cursor, which is ZFL in pixels. The label is legacy and does not describe a gray scale value. |
 
 ### 3.3 Parameter Panel
 
@@ -411,7 +473,7 @@ In the code, parameter saving is handled by `onclick_btn_save_parameter()`, whil
 
 <Figure id="fig-4" number="4" caption="Overlap & Aggregation View showing the overlap graph and aggregation-vs-distance graph.">
 
-![Overlap and Aggregation View with overlap graph and aggregation versus distance graph](../../assets/images/img_36.png)
+![Overlap and Aggregation View with overlap graph and aggregation versus distance graph](../../assets/images/calibration-result-overlap-view.png)
 
 </Figure>
 
@@ -433,8 +495,8 @@ General behavior:
 | Function | Explanation |
 |---|---|
 | **Update Overlap** | Refreshes the overlap graph. |
-| **IH** | Shows the IH coordinate from mouse movement. |
-| **Gray Scale** | Shows the graph coordinate/helper value used by the UI. |
+| **IH=** | Shows the X coordinate under the mouse cursor, which is ICT in pixels. |
+| **Gray Scale=** | Shows the Y coordinate under the mouse cursor, which is ZFL in pixels. The label is legacy. |
 | Round filtering | Disabled rounds are skipped from the overlap graph. |
 | Snake line | The code can draw a connected line across round points to make the curve movement easier to see. |
 
@@ -449,8 +511,8 @@ General behavior:
 | Function | Explanation |
 |---|---|
 | **Update Dist vs. Aggr** | Refreshes the aggregation-vs-distance graph. |
-| **Distance** | Shows the selected distance coordinate from graph checking. |
-| **Gray Scale** | Shows the graph coordinate/helper value used by the UI. |
+| **Distance=** | Shows the X coordinate under the mouse cursor, which is distance in pixels. |
+| **Gray Scale=** | Shows the Y coordinate under the mouse cursor, which is aggregation in pixels. The label is legacy. |
 | Minimum point | The graph can mark the best distance and minimum aggregation result. |
 | Samples | The graph uses distance-aggregation samples generated during search or range calculation. |
 

@@ -20,7 +20,7 @@ The explanation in this document follows the behavior implemented in `controller
 
 <Figure id="fig-1" number="1" caption="Parameter View overview.">
 
-![Parameter View Overview](../../assets/images/img_35.png)
+![Parameter View Overview](../../assets/images/calibration-result-parameter-view.png)
 
 </Figure>
 
@@ -28,9 +28,29 @@ The Parameter View is divided into three main areas:
 
 | No. | Area | Main Function |
 |---:|---|---|
-| 1 | **IH-Alpha Graph** | Displays the relationship between Alpha and IH. |
+| 1 | **IH-Alpha Graph** | Displays the relationship between Alpha and IH. Also holds the **Information — IH-Alpha polynomial** button. |
 | 2 | **ZFL-IH Graph** | Displays the relationship between IH and ZFL. |
 | 3 | **Parameter Panel** | Stores and manages camera parameters, calibration system, and distance configuration. |
+
+### New control in this version
+
+The green **Information — IH-Alpha polynomial** button below the IH-Alpha graph opens an explanation of the calibration polynomial. The graph fits a degree-4 least-squares polynomial through the measured `(α, IH)` pairs:
+
+```text
+IH(α) = c0 + c1·α + c2·α² + c3·α³ + c4·α⁴
+```
+
+That polynomial is the lens calibration itself, following the model in US Patent 6,985,183 B2. Pressing **Update IH Alpha Graphics** writes its coefficients into the parameter panel:
+
+| Parameter field | Value |
+|---|---|
+| `parameter2` | `c4`, the α⁴ coefficient |
+| `parameter3` | `c3`, the α³ coefficient |
+| `parameter4` | `c2`, the α² coefficient |
+| `parameter5` | `c1`, the α coefficient |
+| `parameter0`, `parameter1` | Always `0` |
+
+The constant term `c0` is unused, because `IH = 0` on the optical axis where `α = 0`.
 
 The general data flow is:
 

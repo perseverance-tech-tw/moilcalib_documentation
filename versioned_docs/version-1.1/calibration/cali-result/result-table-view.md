@@ -23,7 +23,7 @@ This page explains the window based on the actual behavior in `controller_cali_r
 
 <Figure id="fig-1" number="1" caption="Main Cali Result Window.">
 
-![Main Cali Result Window](../../assets/images/img_34.png)
+![Main Cali Result Window](../../assets/images/calibration-result-result-view.png)
 
 </Figure>
 
@@ -31,9 +31,18 @@ The Main Cali Result window is divided into three main areas.
 
 | No. | Area | Purpose |
 |---:|---|---|
-| 1 | **Control & Input Row** | Stores center position values, selected aggregation round, aggregation output, and the distance value used for calculation. |
+| 1 | **Control & Input Row** | Stores center position values, selected aggregation round, aggregation output, and the distance value used for calculation. Also holds the **Aggr Round** and **Clean Noise** buttons. |
 | 2 | **Result Table** | Stores raw calibration data and calculated output columns such as ICT average, PCT_CAL, Distance, Alpha, and ZFL. |
-| 3 | **Calculation Formula Panel** | Shows the formulas used by the table calculation, especially Alpha and ZFL formulas. |
+| 3 | **Calculate Result & Formula Panel** | Holds the **Calculate Result** button and shows the formulas used by the table calculation, especially Alpha and ZFL formulas. |
+
+### New controls in this version
+
+Two buttons in this window are not covered by the older close-up screenshots below.
+
+| Button | Where | What it does |
+|---|---|---|
+| **Clean Noise** | Control row, next to **Aggr Round** | Removes the false nodes produced by the bezel gap between calibration monitors. It works on radial pixel bands per direction group (`N & S`, `W & E`, diagonals), proposes a band automatically, and remembers the band for the next round. It can also apply the same band to every round that has data. After cleaning, the graphs redraw but the calibration numbers do not, so press **Aggr Round** or **Calculate Result** afterward. |
+| **Calculate Result** | Top of the formula panel | Runs the full calculation pipeline for the selected round at the distance currently in the **Distance** field. It is the manual counterpart of **Aggr Round**, which searches for the best distance first. |
 
 The result table is the center of the calculation. The top row controls the input values and the table stores the result for each layer. The right formula panel helps users understand why Alpha and ZFL change when distance, PCT, V_Gap, H_Gap, or ICT changes.
 
