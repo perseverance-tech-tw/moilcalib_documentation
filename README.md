@@ -27,6 +27,35 @@ Markdown edits reload live. **Changes to `docusaurus.config.js` or `sidebars.js`
 
 > The CI builds with `npm ci` and Node 22, so `package-lock.json` is the lockfile that matters. A `yarn.lock` is also present, but yarn is not used by the pipeline.
 
+### Sharing the dev server with someone else
+
+To let a reviewer on the same Wi-Fi open the site, bind the server to every network interface instead of loopback only:
+
+```bash
+ipconfig getifaddr en0        # your LAN IP, e.g. 192.168.1.42 (en0 is Wi-Fi on macOS)
+npm start -- --host 0.0.0.0
+```
+
+Then send them `http://<LAN-IP>:3000/moilcalib_documentation/`.
+
+By default the server listens on `127.0.0.1`, which is reachable only from your own machine, so a plain `npm start` cannot be opened by anyone else no matter what address they try.
+The `--` passes `--host` through npm to `docusaurus start` rather than npm swallowing it.
+
+The `/moilcalib_documentation/` path is required here too, for the same `baseUrl` reason as above.
+Read it off the `[SUCCESS] ... running at:` line the server prints on startup and replace only the `localhost` portion with your IP.
+
+Check it yourself before handing over the URL, since a wrong path and a blocked port look identical to the person receiving it:
+
+```bash
+curl -s -o /dev/null -w "%{http_code}\n" http://<LAN-IP>:3000/moilcalib_documentation/
+```
+
+`200` means it works, `404` means the path is wrong, and `000` or a hang means the server is down, the `--host` flag is missing, or the macOS firewall is blocking Node (allow it when prompted).
+Your `192.168.x.x` address is a DHCP lease and can change when you reconnect to Wi-Fi, so re-run `ipconfig getifaddr en0` each time rather than reusing an old IP.
+
+For a reviewer who is **not** on the same network, `npx cloudflared tunnel --url http://localhost:3000` prints a public `trycloudflare.com` URL.
+That publishes the docs to the open internet for as long as the command runs, so use it only when the content is fine to be publicly reachable.
+
 ## Documentation Structure & Versioning
 
 This site documents multiple releases of [moil-fisheye-calisys](https://github.com/perseverance-tech-tw/moil-fisheye-calisys) side by side, using Docusaurus's built-in versioning. A version dropdown in the navbar lets readers switch between them.
