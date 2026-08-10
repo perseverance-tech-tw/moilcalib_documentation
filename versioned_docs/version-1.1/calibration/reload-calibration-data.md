@@ -30,7 +30,7 @@ This page describes how to bring **previously saved calibration data** back into
 
 <Figure id="fig-1" number="1" caption="The Header & Data Management area — every load control lives here.">
 
-![Header and Data Management area of the Cali Result window](../assets/images/img_28.png)
+![Header and Data Management area of the Cali Result window](../assets/images/cali-result-header-area.png)
 
 </Figure>
 
@@ -100,7 +100,7 @@ Mark that round's tab with a star
 
 <Figure id="fig-2" number="2" caption="The window after a successful load — round tabs and the result table filled.">
 
-![Cali Result window after data is loaded](../assets/images/img_48.png)
+![Cali Result window after data is loaded](../assets/images/cali-result-loaded-data.png)
 
 </Figure>
 

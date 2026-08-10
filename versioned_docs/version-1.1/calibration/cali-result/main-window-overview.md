@@ -69,7 +69,7 @@ Use the links below when you want to reference a figure from another part of thi
 
 <div className="custom-note-title">Screenshots pending replacement</div>
 
-Only Figures 1 and 2 have been recaptured from the C++ application. Every figure still named `img_*.png` is a screenshot of the older Python application. The layout and wording in those close-ups may no longer match what you see on screen.
+Every figure still named `img_*.png` is a screenshot of the older Python application, and its layout and wording may no longer match what you see on screen. These are the figures that show calibration results, so they are waiting on a capture made with real data. Figure 4 is the one exception: it shows a spreadsheet, not the application, so it stays as it is.
 
 </div>
 
@@ -77,25 +77,26 @@ Only Figures 1 and 2 have been recaptured from the C++ application. Every figure
 |---|---|---|
 | [Figure 1](#fig-main-cali-result-overview) | Main Cali Result Overview | `calibration-result-main-window.png` |
 | [Figure 2](#fig-header-data-management) | Header & Data Management | `main-window-overview-header-management.png` |
-| [Figure 3](#fig-loaded-data-example) | Loaded Data Example | `img_48.png` |
+| [Figure 3](#fig-loaded-data-example) | Loaded Data Example | `cali-result-loaded-data.png` |
 | [Figure 4](#fig-excel-layout-example) | Excel Layout Example | `img_47.png` |
 | [Figure 5](#fig-calibration-data-window) | Calibration Data Window | `img_55.png` |
-| [Figure 6](#fig-range-history-source-data) | Range Window and History Distance Source Data | `img_57.png` |
-| [Figure 7](#fig-entrance-pupil-ray-curve) | Entrance Pupil Ray Curve | `img_49.png` |
-| [Figure 8](#fig-distance-vs-ih-range) | Distance vs IH Range Graph | `img_50.png` |
-| [Figure 9](#fig-distance-vs-alpha) | Distance vs Alpha Graph | `img_51.png` |
-| [Figure 10](#fig-round-tab-selection) | Round & Tab Selection | `img_37.png` |
-| [Figure 11](#fig-zfl-ih-popup) | ZFL-IH Popup Graph | `img_63.png` |
-| [Figure 12](#fig-overlap-popup) | Overlap Popup Graph | `img_64.png` |
-| [Figure 13](#fig-result-table-view) | Result Table View | `img_38.png` |
-| [Figure 14](#fig-result-table-after-interval) | Result Table Output from Min Aggregation by Interval | `img_68.png` |
-| [Figure 15](#fig-vgap-hgap-settings) | V_Gap & H_Gap Settings | `img_39.png` |
-| [Figure 16](#fig-pixel-size-distance-round) | Pixel Size & Distance / Round | `img_40.png` |
-| [Figure 17](#fig-min-aggregation-by-interval) | Min Aggregation by Interval | `img_41.png` |
-| [Figure 18](#fig-min-aggregation-input-example) | Min Aggregation by Interval Input Example | `img_69.png` |
-| [Figure 19](#fig-aggr-by-range-distance) | Aggr by Range and Distance | `img_42.png` |
-| [Figure 20](#fig-aggr-range-distance-example) | Aggr by Range and Distance Example | `img_70.png` |
-| [Figure 21](#fig-range-analysis-matrix) | Range Analysis Matrix | `img_43.png` |
+| [Figure 6](#fig-graphs-info-entrance-pupil) | Information — Entrance Pupil | `graphs-info-entrance-pupil.png` |
+| [Figure 7](#fig-range-history-source-data) | Range Window and History Distance Source Data | `panel-range-history-values.png` |
+| [Figure 8](#fig-entrance-pupil-ray-curve) | Entrance Pupil Ray Curve | `img_49.png` |
+| [Figure 9](#fig-distance-vs-ih-range) | Distance vs IH Range Graph | `img_50.png` |
+| [Figure 10](#fig-distance-vs-alpha) | Distance vs Alpha Graph | `img_51.png` |
+| [Figure 11](#fig-round-tab-selection) | Round & Tab Selection | `cali-result-tab-strip.png` |
+| [Figure 12](#fig-zfl-ih-popup) | ZFL-IH Popup Graph | `img_63.png` |
+| [Figure 13](#fig-overlap-popup) | Overlap Popup Graph | `img_64.png` |
+| [Figure 14](#fig-result-table-view) | Result Table View | `panel-interval-result-table.png` |
+| [Figure 15](#fig-result-table-after-interval) | Result Table Output from Min Aggregation by Interval | `img_68.png` |
+| [Figure 16](#fig-vgap-hgap-settings) | V_Gap & H_Gap Settings | `panel-vgap-hgap.png` |
+| [Figure 17](#fig-pixel-size-distance-round) | Pixel Size & Distance / Round | `panel-pixel-size-distance.png` |
+| [Figure 18](#fig-min-aggregation-by-interval) | Min Aggregation by Interval | `panel-min-aggregation-interval.png` |
+| [Figure 19](#fig-min-aggregation-input-example) | Min Aggregation by Interval Input Example | `panel-min-aggregation-filled.png` |
+| [Figure 20](#fig-aggr-by-range-distance) | Aggr by Range and Distance | `panel-aggr-by-range-distance.png` |
+| [Figure 21](#fig-aggr-range-distance-example) | Aggr by Range and Distance Example | `img_70.png` |
+| [Figure 22](#fig-range-analysis-matrix) | Range Analysis Matrix | `panel-range-analysis-matrix.png` |
 
 ---
 
@@ -129,11 +130,13 @@ The three graph buttons that used to sit on the right of the header, **Show shif
 
 ### 1.1 Loaded Data Example
 
-The screenshot below shows the **Header & Data Management** area after a complete calibration result folder has been loaded. The tree view shows folders `1` to `10`, the round tabs show `*` marks, and the active table contains PCT, ICT, alpha, and ZFL result columns.
+The screenshot below shows the window after a calibration result folder has been loaded. The tree view lists the round folders that were found, the round tabs carry `*` marks for the rounds that actually received data, and the active table is filled with PCT, ICT, alpha, and ZFL columns.
+
+Only the rounds present in the folder are starred. In this example the folder holds rounds `1`, `3`, `5`, `7`, and `9`, so those five tabs are starred and the rest stay empty.
 
 <Figure id="fig-loaded-data-example" number="3" title="Loaded Data Example" caption="Example of loaded calibration data with round tabs and result table.">
 
-![Main Cali Result window after calibration data is loaded](../../assets/images/img_48.png)
+![Main Cali Result window after calibration data is loaded](../../assets/images/cali-result-loaded-data.png)
 
 </Figure>
 
@@ -174,7 +177,7 @@ The screenshot below shows the **Header & Data Management** area after a complet
 | 2 | Load Database | Open or load calibration result data from the database. |
 | 2 | Single Distance | Use independent distance values for each round. |
 | 3 | Update Shift of Entrance Pupil | Redraw the entrance pupil shift graph. |
-| 3 | Information — Entrance Pupil | Show the numeric entrance pupil values behind the graph. |
+| 3 | Information — Entrance Pupil | Open the theory dialog explaining Gennery's Figure 2. |
 | 4 | Update Dist vs IH Range | Redraw the distance versus IH range graph. |
 | 5 | Update Dist vs Alpha | Redraw the distance versus alpha graph. |
 
@@ -649,15 +652,21 @@ The panel has two buttons:
 | Button | Purpose |
 |---|---|
 | **Update Shift of Entrance Pupil** | Redraw the graph using the current range and distance values. |
-| **Information — Entrance Pupil** | Show the numeric entrance pupil values behind the drawn curve. |
+| **Information — Entrance Pupil** | Open a dialog explaining Gennery's Figure 2, the entrance-pupil model the plot is built on. |
+
+<Figure id="fig-graphs-info-entrance-pupil" number="6" title="Information — Entrance Pupil" caption="Theory dialog opened from the Shift of Entrance Pupil panel, explaining Gennery's Figure 2.">
+
+![Information dialog explaining the entrance pupil model](../../assets/images/graphs-info-entrance-pupil.png)
+
+</Figure>
 
 #### Source Data for Entrance Pupil and Graph Tools
 
 The screenshot below shows the **Range Window** and **History Distance** information used as the source data for the entrance pupil visualization and the graph buttons.
 
-<Figure id="fig-range-history-source-data" number="6" title="Range Window and History Distance Source Data" caption="Range and history-distance values used by graph and entrance-pupil visualization tools.">
+<Figure id="fig-range-history-source-data" number="7" title="Range Window and History Distance Source Data" caption="Range and history-distance values used by graph and entrance-pupil visualization tools.">
 
-![Range Window and History Distance values used as graph source data](../../assets/images/img_57.png)
+![Range Window and History Distance values used as graph source data](../../assets/images/panel-range-history-values.png)
 
 </Figure>
 
@@ -684,7 +693,7 @@ All three graphs in the `Graphs` tab use values from this range/history-distance
 
 This visualization helps the user inspect how the entrance pupil changes based on calibration data. The output window can show a ray curve based on distance and alpha values for each range or round.
 
-<Figure id="fig-entrance-pupil-ray-curve" number="7" title="Entrance Pupil Ray Curve" caption="Ray curve visualization generated from distance and alpha values.">
+<Figure id="fig-entrance-pupil-ray-curve" number="8" title="Entrance Pupil Ray Curve" caption="Ray curve visualization generated from distance and alpha values.">
 
 ![Ray curve from distance and alpha visualization](../../assets/images/img_49.png)
 
@@ -699,7 +708,7 @@ In this graph, each ray represents one range or round result. The label shows th
 3. Check that the **Range Window** / **History Distance** values are filled.
 4. Open the **Graphs** tab.
 5. Click **Update Shift of Entrance Pupil**.
-6. Inspect the graph, and click **Information — Entrance Pupil** if you need the numeric values.
+6. Inspect the graph, and click **Information — Entrance Pupil** for the theory behind it.
 
 #### When to Use
 
@@ -721,7 +730,7 @@ Use this function when checking:
 
 The **Distance vs IH Range** graph is the middle panel of the `Graphs` tab. It compares distance with IH range, and is redrawn with the **Update Dist vs IH Range** button below the panel.
 
-<Figure id="fig-distance-vs-ih-range" number="8" title="Distance vs IH Range Graph" caption="Graph showing distance changes across IH range mean values.">
+<Figure id="fig-distance-vs-ih-range" number="9" title="Distance vs IH Range Graph" caption="Graph showing distance changes across IH range mean values.">
 
 ![Distance versus IH range mean graph](../../assets/images/img_50.png)
 
@@ -759,7 +768,7 @@ This graph helps check:
 
 The **Distance vs Alpha** graph is the right panel of the `Graphs` tab. It compares distance with alpha, and is redrawn with the **Update Dist vs Alpha** button below the panel.
 
-<Figure id="fig-distance-vs-alpha" number="9" title="Distance vs Alpha Graph" caption="Graph showing the relationship between alpha mean and distance.">
+<Figure id="fig-distance-vs-alpha" number="10" title="Distance vs Alpha Graph" caption="Graph showing the relationship between alpha mean and distance.">
 
 ![Distance versus alpha mean graph](../../assets/images/img_51.png)
 
@@ -892,9 +901,9 @@ Do not treat **Select Cali System**, **V_Gap / H_Gap**, and **Pixel Size** as se
 
 The **Round & Tab Selection** area is used to switch between calibration rounds, parameter pages, overlap visualization, aggregation analysis, and testing pages.
 
-<Figure id="fig-round-tab-selection" number="10" title="Round & Tab Selection" caption="Tab selection area for current, round, parameter, overlap, aggregation, and test pages.">
+<Figure id="fig-round-tab-selection" number="11" title="Round & Tab Selection" caption="Tab selection area for current, round, parameter, overlap, aggregation, and test pages.">
 
-![Round and tab selection](../../assets/images/img_37.png)
+![Round and tab selection](../../assets/images/cali-result-tab-strip.png)
 
 </Figure>
 
@@ -968,7 +977,7 @@ Each round tab supports a custom right-click menu.
 
 The **Show ZFL-IH Graph** menu opens a popup graph for the selected round.
 
-<Figure id="fig-zfl-ih-popup" number="11" title="ZFL-IH Popup Graph" caption="Popup graph showing IH versus ZFL behavior for one calibration round.">
+<Figure id="fig-zfl-ih-popup" number="12" title="ZFL-IH Popup Graph" caption="Popup graph showing IH versus ZFL behavior for one calibration round.">
 
 ![ZFL-IH popup graph](../../assets/images/img_63.png)
 
@@ -996,7 +1005,7 @@ The **Show ZFL-IH Graph** menu opens a popup graph for the selected round.
 
 The **Show Overlap Graph** menu opens an overlap visualization for the selected round.
 
-<Figure id="fig-overlap-popup" number="12" title="Overlap Popup Graph" caption="Overlap graph visualization for one calibration round.">
+<Figure id="fig-overlap-popup" number="13" title="Overlap Popup Graph" caption="Overlap graph visualization for one calibration round.">
 
 ![Overlap popup graph](../../assets/images/img_64.png)
 
@@ -1041,9 +1050,9 @@ The **Show Overlap Graph** menu opens an overlap visualization for the selected 
 
 <a id="result-table-view"></a>
 
-<Figure id="fig-result-table-view" number="13" title="Result Table View" caption="Summary table showing IH range, minimum aggregation, best distance, and total sampling.">
+<Figure id="fig-result-table-view" number="14" title="Result Table View" caption="Summary table showing IH range, minimum aggregation, best distance, and total sampling.">
 
-![Result table view](../../assets/images/img_38.png)
+![Result table view](../../assets/images/panel-interval-result-table.png)
 
 </Figure>
 
@@ -1074,7 +1083,7 @@ The values shown in **Result Table View** are generated from the settings in **M
 
 The screenshot below shows the result table after the interval calculation has been executed. The table contains the generated IH interval rows and the calculated output values.
 
-<Figure id="fig-result-table-after-interval" number="14" title="Result Table Output from Min Aggregation by Interval" caption="Result table filled after the interval aggregation calculation is completed.">
+<Figure id="fig-result-table-after-interval" number="15" title="Result Table Output from Min Aggregation by Interval" caption="Result table filled after the interval aggregation calculation is completed.">
 
 ![Result table output after running Min Aggregation by Interval](../../assets/images/img_68.png)
 
@@ -1157,9 +1166,9 @@ IH Range (%), Alpha Range, Distance, Aggr, Total Sampling
 
 <a id="vgap-hgap-settings"></a>
 
-<Figure id="fig-vgap-hgap-settings" number="15" title="V_Gap & H_Gap Settings" caption="Physical gap settings used together with the selected calibration system.">
+<Figure id="fig-vgap-hgap-settings" number="16" title="V_Gap & H_Gap Settings" caption="Physical gap settings used together with the selected calibration system.">
 
-![V Gap and H Gap settings](../../assets/images/img_39.png)
+![V Gap and H Gap settings](../../assets/images/panel-vgap-hgap.png)
 
 </Figure>
 
@@ -1248,9 +1257,9 @@ Incorrect V_Gap or H_Gap values can produce wrong alpha and ZFL results, especia
 
 <a id="pixel-size-distance-round"></a>
 
-<Figure id="fig-pixel-size-distance-round" number="16" title="Pixel Size & Distance / Round" caption="Pixel size and distance settings used together with V_Gap, H_Gap, and the selected calibration system.">
+<Figure id="fig-pixel-size-distance-round" number="17" title="Pixel Size & Distance / Round" caption="Pixel size and distance settings used together with V_Gap, H_Gap, and the selected calibration system.">
 
-![Pixel size and distance per round settings](../../assets/images/img_40.png)
+![Pixel size and distance per round settings](../../assets/images/panel-pixel-size-distance.png)
 
 </Figure>
 
@@ -1370,9 +1379,9 @@ Use **Pixel Size**, **Dis / Round**, **V_Gap**, **H_Gap**, and **Select Cali Sys
 
 <a id="min-aggregation-by-interval"></a>
 
-<Figure id="fig-min-aggregation-by-interval" number="17" title="Min Aggregation by Interval" caption="Interval settings used to search minimum aggregation across IH percentage ranges.">
+<Figure id="fig-min-aggregation-by-interval" number="18" title="Min Aggregation by Interval" caption="Interval settings used to search minimum aggregation across IH percentage ranges.">
 
-![Min aggregation by interval settings](../../assets/images/img_41.png)
+![Min aggregation by interval settings](../../assets/images/panel-min-aggregation-interval.png)
 
 </Figure>
 
@@ -1395,9 +1404,9 @@ Save result to CSV
 
 The screenshot below shows an example setup:
 
-<Figure id="fig-min-aggregation-input-example" number="18" title="Min Aggregation by Interval Input Example" caption="Example settings using IH Min = 0, IH Max = 100, Window = 20, and Step = 10.">
+<Figure id="fig-min-aggregation-input-example" number="19" title="Min Aggregation by Interval Input Example" caption="Example settings using IH Min = 0, IH Max = 100, Window = 20, and Step = 10.">
 
-![Min Aggregation by Interval input example](../../assets/images/img_69.png)
+![Min Aggregation by Interval input example](../../assets/images/panel-min-aggregation-filled.png)
 
 </Figure>
 
@@ -1546,9 +1555,9 @@ This tool is commonly used when the user wants to:
 
 ---
 
-<Figure id="fig-aggr-by-range-distance" number="19" title="Aggr by Range and Distance" caption="Main calculation panel used to calculate aggregation from IH range and distance.">
+<Figure id="fig-aggr-by-range-distance" number="20" title="Aggr by Range and Distance" caption="Main calculation panel used to calculate aggregation from IH range and distance.">
 
-![Aggregation by range and distance panel](../../assets/images/img_42.png)
+![Aggregation by range and distance panel](../../assets/images/panel-aggr-by-range-distance.png)
 
 </Figure>
 
@@ -1570,13 +1579,13 @@ This tool is commonly used when the user wants to:
 
 The image below shows an example result generated by the system.
 
-<Figure id="fig-aggr-range-distance-example" number="20" title="Aggr by Range and Distance Example" caption="Example showing aggregation result calculated from IH range and distance.">
+<Figure id="fig-aggr-range-distance-example" number="21" title="Aggr by Range and Distance Example" caption="Example showing aggregation result calculated from IH range and distance.">
 
 ![Aggregation by range and distance example result](../../assets/images/img_70.png)
 
 </Figure>
 
-Based on [Figure 20](#fig-aggr-range-distance-example):
+Based on [Figure 21](#fig-aggr-range-distance-example):
 
 | Field | Value | Meaning |
 |---|---:|---|
@@ -1732,9 +1741,9 @@ If the calibration data is incomplete or unstable, the aggregation result may al
 
 <a id="range-analysis-matrix"></a>
 
-<Figure id="fig-range-analysis-matrix" number="21" title="Range Analysis Matrix" caption="Matrix used to calculate global and range-based distance and aggregation results.">
+<Figure id="fig-range-analysis-matrix" number="22" title="Range Analysis Matrix" caption="Matrix used to calculate global and range-based distance and aggregation results.">
 
-![Range analysis matrix](../../assets/images/img_43.png)
+![Range analysis matrix](../../assets/images/panel-range-analysis-matrix.png)
 
 </Figure>
 

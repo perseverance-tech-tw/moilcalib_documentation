@@ -52,6 +52,14 @@ That polynomial is the lens calibration itself, following the model in US Patent
 
 The constant term `c0` is unused, because `IH = 0` on the optical axis where `α = 0`.
 
+<Figure id="fig-2" number="2" caption="The Information dialog, opened from the green button below the IH-Alpha graph.">
+
+![Information dialog for the IH-Alpha polynomial](../../assets/images/parameter-info-ih-alpha.png)
+
+</Figure>
+
+The dialog also states where the coefficients go next: together with `cameraFov`, the sensor size, `iCx`, `iCy`, and `ratio`, they form the intrinsic fisheye camera model, and **Save Parameters** exports that model.
+
 The general data flow is:
 
 ```text
@@ -75,19 +83,19 @@ Aggregation quality analysis
 
 ## 1. IH-Alpha Graph
 
-<Figure id="fig-2" number="2" caption="IH-Alpha graph area.">
+<Figure id="fig-3" number="3" caption="IH-Alpha graph area.">
 
-![IH-Alpha Graph](../../assets/images/img_72.png)
-
-</Figure>
-
-<Figure id="fig-3" number="3" caption="IH-Alpha graph example after calibration data is loaded and updated.">
-
-![IH-Alpha Graph Example Result](../../assets/images/img_75.png)
+![IH-Alpha Graph](../../assets/images/parameter-ih-alpha-graph.png)
 
 </Figure>
 
-This example image shows the IH-Alpha graph after calibration points are plotted. The colored points represent enabled round data. A smooth and continuous curve means the Alpha values change consistently as IH increases. The cursor line and value fields below the graph show the selected Alpha and IH/Gray Scale reading.
+<Figure id="fig-4" number="4" caption="IH-Alpha graph example after calibration data is loaded and updated.">
+
+![IH-Alpha Graph Example Result](../../assets/images/parameter-ih-alpha-filled.png)
+
+</Figure>
+
+This example image shows the IH-Alpha graph after calibration points are plotted. Each enabled round is drawn in its own colour, so five rounds produce five overlapping traces. A smooth and continuous curve means the Alpha values change consistently as IH increases, and the traces sitting on top of each other means the rounds agree.
 
 
 The **IH-Alpha Graph** shows the relationship between **Alpha** and **IH**.
@@ -245,15 +253,15 @@ IH = selected IH value
 
 ## 2. ZFL-IH Graph
 
-<Figure id="fig-4" number="4" caption="ZFL-IH graph area.">
+<Figure id="fig-5" number="5" caption="ZFL-IH graph area.">
 
-![ZFL-IH Graph](../../assets/images/img_73.png)
+![ZFL-IH Graph](../../assets/images/parameter-zfl-ih-graph.png)
 
 </Figure>
 
-<Figure id="fig-5" number="5" caption="ZFL-IH graph example after selected rounds are plotted.">
+<Figure id="fig-6" number="6" caption="ZFL-IH graph example after selected rounds are plotted.">
 
-![ZFL-IH Graph Example Result](../../assets/images/img_76.png)
+![ZFL-IH Graph Example Result](../../assets/images/parameter-zfl-ih-filled.png)
 
 </Figure>
 
@@ -440,9 +448,9 @@ ZFL = selected ZFL value
 
 ## 3. Parameter Panel
 
-<Figure id="fig-6" number="6" caption="Parameter panel.">
+<Figure id="fig-7" number="7" caption="Parameter panel.">
 
-![Parameter Panel](../../assets/images/img_74.png)
+![Parameter Panel](../../assets/images/parameter-panel.png)
 
 </Figure>
 

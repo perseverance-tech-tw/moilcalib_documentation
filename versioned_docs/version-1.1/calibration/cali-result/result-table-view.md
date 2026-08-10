@@ -35,15 +35,6 @@ The Main Cali Result window is divided into three main areas.
 | 2 | **Result Table** | Stores raw calibration data and calculated output columns such as ICT average, PCT_CAL, Distance, Alpha, and ZFL. |
 | 3 | **Calculate Result & Formula Panel** | Holds the **Calculate Result** button and shows the formulas used by the table calculation, especially Alpha and ZFL formulas. |
 
-### New controls in this version
-
-Two buttons in this window are not covered by the older close-up screenshots below.
-
-| Button | Where | What it does |
-|---|---|---|
-| **Clean Noise** | Control row, next to **Aggr Round** | Removes the false nodes produced by the bezel gap between calibration monitors. It works on radial pixel bands per direction group (`N & S`, `W & E`, diagonals), proposes a band automatically, and remembers the band for the next round. It can also apply the same band to every round that has data. After cleaning, the graphs redraw but the calibration numbers do not, so press **Aggr Round** or **Calculate Result** afterward. |
-| **Calculate Result** | Top of the formula panel | Runs the full calculation pipeline for the selected round at the distance currently in the **Distance** field. It is the manual counterpart of **Aggr Round**, which searches for the best distance first. |
-
 The result table is the center of the calculation. The top row controls the input values and the table stores the result for each layer. The right formula panel helps users understand why Alpha and ZFL change when distance, PCT, V_Gap, H_Gap, or ICT changes.
 
 ---
@@ -52,7 +43,7 @@ The result table is the center of the calculation. The top row controls the inpu
 
 <Figure id="fig-2" number="2" caption="Control and Input Row.">
 
-![Control and Input Row](../../assets/images/img_80.png)
+![Control and Input Row](../../assets/images/result-table-control-row.png)
 
 </Figure>
 
@@ -62,9 +53,10 @@ The control row contains the input and output fields that are directly related t
 |---:|---|---|---|
 | 1 | **Positive Center Position** | `lineedit_pos_icx_tablewidget_*`, `lineedit_pos_icy_tablewidget_*` | Stores the fisheye center position from the positive calibration image. These values are copied from the main window when **Update Table** is pressed. |
 | 2 | **Negative Center Position** | `lineedit_neg_icx_tablewidget_*`, `lineedit_neg_icy_tablewidget_*` | Stores the fisheye center position from the negative calibration image. These values are also copied from the main window during table update. |
-| 3 | **Aggregation Round** | `btn_aggr_round_*`, `lineedit_aggregation_round_*` | Shows which round is being used for single-round aggregation. The related button can calculate the best distance for a single round. |
-| 4 | **Aggregation** | `lineedit_aggregation_round_*` | Displays the aggregation value calculated from IH-ZFL points. In the code, aggregation is calculated by collecting IH and ZFL points and summing the distance between neighboring points. |
-| 5 | **Distance** | `lineedit_distance_round_*`, `lineedit_distance_range_0` | Distance is the main value used in the Alpha formula. When distance changes, Alpha changes, ZFL changes, and aggregation also changes. |
+| 3 | **Aggr Round** | `btn_aggr_round_*` | Searches the distance that gives the lowest aggregation for this round, then writes that distance back into the **Distance** field and recalculates the table. |
+| 4 | **Clean Noise** | `btn_clean_noise_*` | Opens the Clean Noise dialog, which removes the false intersection nodes produced by the bezel gap between calibration monitors. |
+| 5 | **Aggregation** | `lineedit_aggregation_round_*` | Displays the aggregation value calculated from IH-ZFL points. In the code, aggregation is calculated by collecting IH and ZFL points and summing the distance between neighboring points. |
+| 6 | **Distance** | `lineedit_distance_round_*`, `lineedit_distance_range_0` | Distance is the main value used in the Alpha formula. When distance changes, Alpha changes, ZFL changes, and aggregation also changes. |
 
 ### 2.1 Positive Center Position
 
@@ -112,7 +104,7 @@ The result is inserted into these 8 direction columns:
 ```text
 N, S, W, E, NW, SE, SW, NE
 ```
-### 2.3 Aggregation Round
+### 2.3 Aggr Round
 
 The **Aggr Round** button is connected to the per-round aggregation logic.
 
@@ -128,7 +120,30 @@ When this function runs, it searches the distance that gives the minimum aggrega
 ```
 For the single-round search, the code evaluates different distance values, recalculates the table, collects IH-ZFL points, and keeps the distance that produces the smallest aggregation value.
 
-### 2.4 Aggregation Field
+### 2.4 Clean Noise
+
+**Clean Noise** is new in this version. It sits directly next to **Aggr Round** and opens a dialog that removes false intersection nodes before the round is calculated.
+
+The false nodes come from the bezel gap between the monitors in the calibration rig. Those nodes are not real image data, so they bend the ZFL curve and inflate the aggregation value.
+
+The dialog removes nodes by **radial band**, measured in pixels from the image center:
+
+| Item | Explanation |
+|---|---|
+| **Group** | `N & S`, `W & E`, and the diagonals each get their own band, because the bezel sits at a different radius in each direction. |
+| **min / max** | The two ends of the band. Both boundaries are kept, and only the nodes strictly inside are removed. Leaving one side blank makes that side open. |
+| **Auto-detection** | The dialog proposes a band per group when it opens. Auto-detection needs at least four gap samples in a group, otherwise no band is proposed and the values must be typed. |
+| **Apply to ALL rounds with data** | Applies the same band to every round that has ICT data, not just the selected one. |
+
+The band the user last entered is offered again for the next round, because the bezel does not move between rounds.
+
+:::caution
+Cleaning redraws the graphs but does **not** recalculate the table. Press **Aggr Round** or **Calculate Result** afterward, otherwise the Alpha and ZFL columns still hold values derived from the removed nodes.
+:::
+
+The full dialog walkthrough is in [Cali Result Overview](./index.md).
+
+### 2.5 Aggregation Field
 
 The aggregation field displays the output of the aggregation calculation.
 
@@ -154,7 +169,7 @@ Aggregation value
 ```
 Lower aggregation usually means the ZFL-IH curve is smoother. Higher aggregation means the curve has larger jumps or unstable transitions.
 
-### 2.5 Distance Field
+### 2.6 Distance Field
 
 Distance is one of the most important values in the table because it directly affects Alpha.
 
@@ -180,7 +195,7 @@ Aggregation changes
 
 <Figure id="fig-3" number="3" caption="Calibration Result Table Column Structure.">
 
-![Calibration Result Table Column Structure](../../assets/images/img_89.png)
+![Calibration Result Table Column Structure](../../assets/images/result-table-column-structure.png)
 
 </Figure>
 
@@ -227,7 +242,7 @@ The result table uses fixed internal column indexes. In the code, these indexes 
 
 <Figure id="fig-4" number="4" caption="Empty Calibration Result Table.">
 
-![Empty Calibration Result Table](../../assets/images/img_79.png)
+![Empty Calibration Result Table](../../assets/images/result-table-empty.png)
 
 </Figure>
 
@@ -269,7 +284,7 @@ get_index_row_by_layer(-1)
 
 <Figure id="fig-5" number="5" caption="Filled Calibration Result Table.">
 
-![Filled Calibration Result Table](../../assets/images/img_88.png)
+![Filled Calibration Result Table](../../assets/images/result-table-filled.png)
 
 </Figure>
 
@@ -582,6 +597,14 @@ When a round distance is edited and Enter is pressed, the controller recalculate
 
 ## 12. Alpha Calculation
 
+Which Alpha formula a row uses depends on the screen that row sits on. The two branches are mutually exclusive, and both feed the same ZFL step.
+
+<Figure id="fig-6" number="6" caption="What Calculate Result does to one row: pick the Alpha branch by screen, then derive ZFL.">
+
+![Calculate Result formula flow](../../assets/images/result-table-formula-panel.png)
+
+</Figure>
+
 Alpha is calculated by:
 
 ```python
@@ -600,12 +623,6 @@ If direction is NW / SE / SW / NE and layer >= side_layer:
     Alpha becomes empty
 ```
 ### 12.1 Top-Screen Alpha Formula
-
-<Figure id="fig-6" number="6" caption="Calculate Result Formula.">
-
-![Calculate Result Formula](../../assets/images/img_81.png)
-
-</Figure>
 
 For rows before the side layer, Alpha is calculated using:
 
@@ -846,12 +863,12 @@ The function updates:
 
 ## 19. Formula Panel Explanation
 
-The formula panel shows the three main formulas used by the result table.
+The formula panel shows the three main formulas used by the result table. The **Calculate Result** button sits at the top of this panel. It runs the full calculation pipeline for the selected round using the value currently in the **Distance** field, so it is the manual counterpart of **Aggr Round**, which searches for the best distance first.
 
-### 19.1 Formula 1: Alpha from PCT and Distance
+### 19.1 Formula 1: Alpha from PCT_CAL and Distance
 
 ```text
-α = atan(PCT / Distance)
+α = atan(PCT_CAL / Distance)
 ```
 This formula is used before the side layer. In the Python code, the value is calculated using:
 

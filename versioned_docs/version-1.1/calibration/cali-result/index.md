@@ -16,8 +16,8 @@ This overview is divided into **4 main views** based on the provided UI images.
 |---:|---|---|---|
 | 1 | [Main Window Overview](#1-main-window-overview) | Explains the complete window layout and the 9 main areas in a general way. | [Figure 1](#fig-1) |
 | 2 | [Result Table View](#2-result-table-view) | Explains the control input row, result table, and calculation formula panel. | [Figure 2](#fig-2) |
-| 3 | [Parameter View](#3-parameter-view) | Explains the IH-Alpha graph, ZFL-IH graph, and camera parameter panel. | [Figure 3](#fig-3) |
-| 4 | [Overlap & Aggregation View](#4-overlap--aggregation-view) | Explains the overlap graph and aggregation-vs-distance graph. | [Figure 4](#fig-4) |
+| 3 | [Parameter View](#3-parameter-view) | Explains the IH-Alpha graph, ZFL-IH graph, and camera parameter panel. | [Figure 4](#fig-4) |
+| 4 | [Overlap & Aggregation View](#4-overlap--aggregation-view) | Explains the overlap graph and aggregation-vs-distance graph. | [Figure 5](#fig-5) |
 
 ---
 
@@ -255,6 +255,12 @@ The **Control & Input Row** is located above the result table. It gives quick ac
 | `Aggregation` | Displays the aggregation value calculated from IH-ZFL data. |
 | `Distance` | Displays or receives the distance value used for the calculation. |
 
+<Figure id="fig-3" number="3" caption="Control and Input Row, with the six fields and buttons in the order they appear.">
+
+![Control and Input Row](../../assets/images/control-and-input-result-table.png)
+
+</Figure>
+
 In the code, each round gets its own `btn_aggr_round_N` and `btn_clean_noise_N` pair, handled by `aggrRound()` and `cleanRoundNoise()`.
 
 #### Clean Noise
@@ -353,7 +359,7 @@ In the code, `IH` is taken from the related ICT direction value. The system calc
 ## 3. Parameter View
 
 
-<Figure id="fig-3" number="3" caption="Parameter View showing the IH-Alpha graph, ZFL-IH graph, and parameter panel.">
+<Figure id="fig-4" number="4" caption="Parameter View showing the IH-Alpha graph, ZFL-IH graph, and parameter panel.">
 
 ![Parameter View with IH-Alpha graph, ZFL-IH graph, and parameter panel](../../assets/images/calibration-result-parameter-view.png)
 
@@ -471,7 +477,7 @@ In the code, parameter saving is handled by `onclick_btn_save_parameter()`, whil
 ## 4. Overlap & Aggregation View
 
 
-<Figure id="fig-4" number="4" caption="Overlap & Aggregation View showing the overlap graph and aggregation-vs-distance graph.">
+<Figure id="fig-5" number="5" caption="Overlap & Aggregation View showing the overlap graph and aggregation-vs-distance graph.">
 
 ![Overlap and Aggregation View with overlap graph and aggregation versus distance graph](../../assets/images/calibration-result-overlap-view.png)
 
