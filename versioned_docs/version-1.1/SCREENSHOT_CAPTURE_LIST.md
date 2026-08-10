@@ -58,42 +58,39 @@ All of these come from the **Main Cali Result** window, so they can be captured 
 |---|---|---|
 | ~~`img_28.png`~~ | `main-window-overview-header-management.png` | **Done.** Recaptured for `main-window-overview.md` with the `Graphs` tab open, marking 5 regions: tree/folder area, button block, and the three graph panels. Still needs a replacement in `reload-calibration-data.md`. |
 | `img_48.png` | `cali-result-loaded-data.png` | Whole window after a full calibration folder is loaded, showing the tree, the `*` round marks, and a filled table. |
-| `img_58.png` | `cali-result-select-system-dropdown.png` | The **Select Cali System** dropdown expanded, showing the available system options. |
+| ~~`img_58.png`~~ | — | **No longer needed.** The figure was removed from `main-window-overview.md` as surface-level UI. The system options are listed in the Configuration Mapping table instead. |
 
-## 2.2 Cali Folder input flow
+## 2.2 Cali Folder input flow and file dialogs
 
-| Old image | Suggested name | What to capture |
+None of these need recapturing. All of them were removed from `main-window-overview.md` as surface-level UI: a text field with text typed into it, and standard OS file dialogs.
+
+| Old image | Was | Status |
 |---|---|---|
-| `img_29.png` | `cali-folder-url-pasted.png` | A remote URL pasted into the Cali Folder field. |
-| `img_30.png` | `cali-folder-url-selected.png` | The URL selected in the field before processing finishes. |
-| `img_31.png` | `cali-folder-local-cache.png` | The field after the URL resolves to a local cache path. |
-| `img_32.png` | `cali-folder-tree-view.png` | The tree view showing the calibration folder structure. |
-
-## 2.3 File dialogs
-
-| Old image | Suggested name | What to capture |
-|---|---|---|
-| `img_46.png` | `dialog-load-all-excel.png` | Folder selection dialog opened by **Load All Excel**. |
-| `img_45.png` | `dialog-load-excel.png` | File selection dialog opened by **Load Excel**, with one `.xlsx` selected. |
-| `img_44.png` | `dialog-save-to-excel.png` | Save dialog opened by **Save to Excel**. |
-| `img_33.png` | `dialog-clear-all-table-confirm.png` | The confirmation dialog shown by **Clear All Table**. |
+| ~~`img_29.png`~~ | URL pasted into the Cali Folder field | Removed |
+| ~~`img_30.png`~~ | URL selected in the field | Removed |
+| ~~`img_31.png`~~ | Field showing a local cache path | Removed |
+| ~~`img_32.png`~~ | Tree view of the calibration folder | Removed |
+| ~~`img_46.png`~~ | Folder dialog from **Load All Excel** | Removed |
+| ~~`img_45.png`~~ | File dialog from **Load Excel** | Removed |
+| ~~`img_44.png`~~ | Save dialog from **Save to Excel** | Removed |
+| ~~`img_33.png`~~ | **Clear All Table** confirmation dialog | Removed |
 
 ## 2.4 Database window
 
 | Old image | Suggested name | What to capture |
 |---|---|---|
 | `img_55.png` | `database-calibration-data-window.png` | The **Calibration Data** window with its search filters and record list. |
-| `img_56.png` | `database-right-click-menu.png` | The right-click menu on a record, showing **Load to System** and **Open URL**. |
-| `img_54.png` | `database-source-select-dialog.png` | The dialog asking which camera folder or file to open. |
+| ~~`img_56.png`~~ | — | **No longer needed.** The figure was removed from `main-window-overview.md` as surface-level UI. The two menu actions are described in a table instead. |
+| ~~`img_54.png`~~ | — | **No longer needed.** The figure was removed from `main-window-overview.md` as surface-level UI. |
 
 ## 2.5 Round tabs and popups
 
 | Old image | Suggested name | What to capture |
 |---|---|---|
 | `img_37.png` | `cali-result-tab-strip.png` | The tab strip. Make sure the `Graphs` tab is visible, since it is new. |
-| `img_60.png` | `cali-result-round-loaded.png` | Round tabs showing the `*` loaded marker. |
-| `img_61.png` | `cali-result-round-off.png` | A round tab showing the `[OFF]` disabled state. |
-| `img_62.png` | `cali-result-round-context-menu.png` | The right-click menu on a round tab. |
+| ~~`img_60.png`~~ | — | **No longer needed.** The figure was removed from `main-window-overview.md` as surface-level UI. The `*` marker is explained in text. |
+| ~~`img_61.png`~~ | — | **No longer needed.** The figure was removed from `main-window-overview.md` as surface-level UI. The `[OFF]` state is explained in text. |
+| ~~`img_62.png`~~ | — | **No longer needed.** The figure was removed from `main-window-overview.md` as surface-level UI. The menu actions are described in a table instead. |
 | `img_63.png` | `cali-result-zfl-ih-popup.png` | The single-round ZFL-IH popup graph. |
 | `img_64.png` | `cali-result-overlap-popup.png` | The single-round Overlap popup graph. |
 
@@ -180,11 +177,11 @@ No action needed unless the underlying content itself changes.
 |---|---|
 | `img_1.png` | Git installation page, external website. |
 | `img_47.png` | Example Excel layout, shown in a spreadsheet application. |
-| `img_67.png` | Interval CSV opened in LibreOffice Calc. |
-| `img_53.png` | OneDrive folder opened in a browser. |
-| `img_52.png` | Terminal output after pressing Stop. Recapture only if the message text changed in the C++ build. |
-| `img_65.png` | CSV save dialog. This is an OS dialog, so it is only worth recapturing if the platform differs. |
-| `img_66.png` | CSV saved confirmation message. Same reasoning as above. |
+| ~~`img_67.png`~~ | Interval CSV in LibreOffice Calc. Figure removed from the page. |
+| ~~`img_53.png`~~ | OneDrive folder in a browser. Figure removed from the page. |
+| ~~`img_52.png`~~ | Terminal output after pressing Stop. Figure removed; the message is quoted in text. |
+| ~~`img_65.png`~~ | CSV save dialog. Figure removed from the page. |
+| ~~`img_66.png`~~ | CSV saved confirmation. Figure removed from the page. |
 | `img_103.png` | Figure 2 from Gennery 2006, an academic paper illustration. Must not be replaced. |
 | `img_102.png` | Ray curve output graph. Recapture only if the plot styling changed. |
 | `img_97.png` | Captured positive shot from the fisheye camera. Camera output, not UI. |

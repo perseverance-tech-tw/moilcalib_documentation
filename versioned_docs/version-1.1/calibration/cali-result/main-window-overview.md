@@ -78,44 +78,24 @@ Only Figures 1 and 2 have been recaptured from the C++ application. Every figure
 | [Figure 1](#fig-main-cali-result-overview) | Main Cali Result Overview | `calibration-result-main-window.png` |
 | [Figure 2](#fig-header-data-management) | Header & Data Management | `main-window-overview-header-management.png` |
 | [Figure 3](#fig-loaded-data-example) | Loaded Data Example | `img_48.png` |
-| [Figure 4](#fig-cali-folder-url-input) | Cali Folder URL Input | `img_29.png` |
-| [Figure 5](#fig-cali-folder-selected-url) | Selected URL Input | `img_30.png` |
-| [Figure 6](#fig-cali-folder-local-cache) | Local Cache Path | `img_31.png` |
-| [Figure 7](#fig-tree-view-folder) | Tree View Folder Browser | `img_32.png` |
-| [Figure 8](#fig-load-all-excel-dialog) | Load All Excel Dialog | `img_46.png` |
-| [Figure 9](#fig-save-to-excel-dialog) | Save to Excel Dialog | `img_44.png` |
-| [Figure 10](#fig-load-excel-dialog) | Load Excel Dialog | `img_45.png` |
-| [Figure 11](#fig-excel-layout-example) | Excel Layout Example | `img_47.png` |
-| [Figure 12](#fig-clear-all-table-confirmation) | Clear All Table Confirmation | `img_33.png` |
-| [Figure 13](#fig-stop-terminal-output) | Stop Process Terminal Output | `img_52.png` |
-| [Figure 14](#fig-calibration-data-window) | Calibration Data Window | `img_55.png` |
-| [Figure 15](#fig-database-right-click-menu) | Database Right-Click Menu | `img_56.png` |
-| [Figure 16](#fig-database-open-url) | Database Open URL Result | `img_53.png` |
-| [Figure 17](#fig-database-select-source-dialog) | Database Source Selection Dialog | `img_54.png` |
-| [Figure 18](#fig-range-history-source-data) | Range Window and History Distance Source Data | `img_57.png` |
-| [Figure 19](#fig-entrance-pupil-ray-curve) | Entrance Pupil Ray Curve | `img_49.png` |
-| [Figure 20](#fig-distance-vs-ih-range) | Distance vs IH Range Graph | `img_50.png` |
-| [Figure 21](#fig-distance-vs-alpha) | Distance vs Alpha Graph | `img_51.png` |
-| [Figure 22](#fig-select-cali-system-dropdown) | Select Cali System Dropdown | `img_58.png` |
-| [Figure 23](#fig-round-tab-selection) | Round & Tab Selection | `img_37.png` |
-| [Figure 24](#fig-round-loaded) | Loaded Round Indicator | `img_60.png` |
-| [Figure 25](#fig-round-off) | Disabled Round State | `img_61.png` |
-| [Figure 26](#fig-round-context-menu) | Round Tab Right-Click Menu | `img_62.png` |
-| [Figure 27](#fig-zfl-ih-popup) | ZFL-IH Popup Graph | `img_63.png` |
-| [Figure 28](#fig-overlap-popup) | Overlap Popup Graph | `img_64.png` |
-| [Figure 29](#fig-result-table-view) | Result Table View | `img_38.png` |
-| [Figure 30](#fig-result-table-after-interval) | Result Table Output from Min Aggregation by Interval | `img_68.png` |
-| [Figure 31](#fig-vgap-hgap-settings) | V_Gap & H_Gap Settings | `img_39.png` |
-| [Figure 32](#fig-pixel-size-distance-round) | Pixel Size & Distance / Round | `img_40.png` |
-| [Figure 33](#fig-min-aggregation-by-interval) | Min Aggregation by Interval | `img_41.png` |
-| [Figure 34](#fig-min-aggregation-input-example) | Min Aggregation by Interval Input Example | `img_69.png` |
-| [Figure 35](#fig-result-table-output-from-interval) | Result Table Generated from Interval Setup | `img_68.png` |
-| [Figure 36](#fig-interval-save-dialog) | Interval CSV Save Dialog | `img_65.png` |
-| [Figure 37](#fig-interval-save-confirmation) | Interval CSV Saved Confirmation | `img_66.png` |
-| [Figure 38](#fig-interval-csv-libreoffice) | Interval CSV Opened in LibreOffice Calc | `img_67.png` |
-| [Figure 39](#fig-aggr-by-range-distance) | Aggr by Range and Distance | `img_42.png` |
-| [Figure 40](#fig-aggr-range-distance-example) | Aggr by Range and Distance Example | `img_70.png` |
-| [Figure 41](#fig-range-analysis-matrix) | Range Analysis Matrix | `img_43.png` |
+| [Figure 4](#fig-excel-layout-example) | Excel Layout Example | `img_47.png` |
+| [Figure 5](#fig-calibration-data-window) | Calibration Data Window | `img_55.png` |
+| [Figure 6](#fig-range-history-source-data) | Range Window and History Distance Source Data | `img_57.png` |
+| [Figure 7](#fig-entrance-pupil-ray-curve) | Entrance Pupil Ray Curve | `img_49.png` |
+| [Figure 8](#fig-distance-vs-ih-range) | Distance vs IH Range Graph | `img_50.png` |
+| [Figure 9](#fig-distance-vs-alpha) | Distance vs Alpha Graph | `img_51.png` |
+| [Figure 10](#fig-round-tab-selection) | Round & Tab Selection | `img_37.png` |
+| [Figure 11](#fig-zfl-ih-popup) | ZFL-IH Popup Graph | `img_63.png` |
+| [Figure 12](#fig-overlap-popup) | Overlap Popup Graph | `img_64.png` |
+| [Figure 13](#fig-result-table-view) | Result Table View | `img_38.png` |
+| [Figure 14](#fig-result-table-after-interval) | Result Table Output from Min Aggregation by Interval | `img_68.png` |
+| [Figure 15](#fig-vgap-hgap-settings) | V_Gap & H_Gap Settings | `img_39.png` |
+| [Figure 16](#fig-pixel-size-distance-round) | Pixel Size & Distance / Round | `img_40.png` |
+| [Figure 17](#fig-min-aggregation-by-interval) | Min Aggregation by Interval | `img_41.png` |
+| [Figure 18](#fig-min-aggregation-input-example) | Min Aggregation by Interval Input Example | `img_69.png` |
+| [Figure 19](#fig-aggr-by-range-distance) | Aggr by Range and Distance | `img_42.png` |
+| [Figure 20](#fig-aggr-range-distance-example) | Aggr by Range and Distance Example | `img_70.png` |
+| [Figure 21](#fig-range-analysis-matrix) | Range Analysis Matrix | `img_43.png` |
 
 ---
 
@@ -127,23 +107,23 @@ Only Figures 1 and 2 have been recaptured from the C++ application. Every figure
 
 </Figure>
 
-The **Header & Data Management** area is the top control section in the **Main Cali Result** window. This area is used to load calibration data, browse calibration folders, import or export Excel files, update table values, clear data, stop running calculations, open supporting graphs, and select the calibration system configuration.
+The **Header & Data Management** area is the top control section of the **Main Cali Result** window. Prepare the data here first: the result table, the parameter calculation, the aggregation tools, and the graphs all read whatever is loaded from this area.
 
-The screenshot above marks 5 regions:
+The screenshot marks 5 regions:
 
 | No. | Region | Contents |
 |---:|---|---|
-| 1 | Data source & tree | **Cali Folder** input, **Select Cali System** dropdown, and the **Tree View** file browser. |
-| 2 | Data management buttons | **Load All Excel**, **Clear Table**, **Save to Excel**, **Stop**, **Load Excel**, **Clear All Table**, **Update Table**, **Load Database**, and the **Single Distance** checkbox. |
-| 3 | Shift of Entrance Pupil | Entrance pupil graph inside the **Graphs** tab, with **Update Shift of Entrance Pupil** and **Information — Entrance Pupil** buttons. |
-| 4 | Distance vs IH Range | Distance versus IH range graph inside the **Graphs** tab, with **Update Dist vs IH Range**. |
-| 5 | Distance vs Alpha | Distance versus alpha graph inside the **Graphs** tab, with **Update Dist vs Alpha**. |
+| 1 | Data source and tree | **Cali Folder** input, **Select Cali System** dropdown, and the **Tree View** file browser. |
+| 2 | Data management | The button block and the **Single Distance** checkbox. |
+| 3 | Shift of Entrance Pupil | Entrance pupil graph in the **Graphs** tab. |
+| 4 | Distance vs IH Range | Distance versus IH range graph in the **Graphs** tab. |
+| 5 | Distance vs Alpha | Distance versus alpha graph in the **Graphs** tab. |
 
 <div className="custom-note custom-important">
 
 <div className="custom-note-title">Graphs moved into a tab</div>
 
-In the older Python application, **Show shift of entrance pupil**, **Show graph Dist vs IH Range**, and **Show graph Dist vs Alpha** were three buttons on the right side of the header, and each one opened a separate popup window. In the C++ application those buttons are gone. A new **Graphs** tab was added to the tab bar, and the same three graphs are now embedded side by side inside that tab. Each graph has its own **Update** button instead of a header button, so the graph is redrawn in place rather than in a popup.
+The three graph buttons that used to sit on the right of the header, **Show shift of entrance pupil**, **Show graph Dist vs IH Range**, and **Show graph Dist vs Alpha**, no longer exist. The same graphs are now embedded in the new **Graphs** tab as regions **3**, **4**, and **5**, each redrawn in place by its own **Update** button instead of opening a popup window.
 
 </div>
 
@@ -159,40 +139,7 @@ The screenshot below shows the **Header & Data Management** area after a complet
 
 ---
 
-### 1.2 Purpose of This Section
-
-Before checking detailed calibration results, the user should first prepare the data from this section. The data loaded here will be used by the result table, parameter calculation, aggregation tools, and graph visualization tools.
-
-This section is mainly responsible for:
-
-| Main Task | Description |
-|---|---|
-| Data loading | Load calibration result data from a local folder, Excel file, or URL. |
-| Data browsing | Display the selected calibration folder in the tree view. |
-| Table management | Clear one table, clear all tables, update the active table, and save results. |
-| Calculation control | Stop long-running aggregation or range-search processes. |
-| Data source selection | Select the calibration system and load database data when needed. |
-| Visualization | Open the `Graphs` tab to inspect entrance pupil shift, distance vs IH range, and distance vs alpha. |
-
----
-
-### 1.3 Main Controller Functions
-
-In `controller_cali_result.py`, the main button and input behaviors are connected through these controller functions:
-
-| Code Area | Purpose |
-|---|---|
-| `btn_connect()` | Connects the buttons in the header area to their related click functions. |
-| `_on_folder_path_entered()` | Handles the **Cali Folder** input field when the user presses **Enter**. |
-| `_load_from_url()` | Handles remote URL input and downloads or resolves the calibration source. |
-| `_after_download_load_folder()` | Loads the local folder after a folder or downloaded URL is ready. |
-| `_load_file_dispatch()` | Decides how to load a selected file, such as an Excel file. |
-| `_on_treeview_double_click()` | Handles double-click behavior inside the tree view. |
-| `connect_cb_distance()` | Connects the **Single Distance** checkbox behavior. |
-
----
-
-### 1.4 Recommended Workflow
+### 1.2 Recommended Workflow
 
 <div className="custom-note custom-tip">
 
@@ -210,40 +157,32 @@ In `controller_cali_result.py`, the main button and input behaviors are connecte
 
 ---
 
-### 1.5 Quick Function Summary
+### 1.3 Quick Function Summary
 
-| Region | UI Element | Related Function / Handler | Main Purpose |
-|---:|---|---|---|
-| 1 | Cali Folder | `_on_folder_path_entered()` | Enter a local folder path, Excel file path, or URL. |
-| 1 | Tree View | `_on_treeview_double_click()` | Browse calibration folders and load data by double-clicking. |
-| 1 | Select Cali System | `applySystemConfig()` | Select the calibration system configuration. |
-| 2 | Load All Excel | `onclick_btn_load_all_excel()` | Load Excel files from round folders `1` to `10`. |
-| 2 | Clear Table | `onclick_btn_clear_table()` | Clear only the currently active table. |
-| 2 | Save to Excel | `onclick_btn_save_to_excel()` | Save the active table as an `.xlsx` file. |
-| 2 | Stop | `onclick_btn_stop()` | Cancel running aggregation or range-search processes. |
-| 2 | Load Excel | `onclick_btn_load_excel()` | Load one Excel file into the active round table. |
-| 2 | Clear All Table | `onclick_btn_clear_all_table()` | Clear all round tables from `round_1` to `round_10`. |
-| 2 | Update Table | `onclick_btn_update_table()` | Update center, PCT, ICT, and calculated result data. |
-| 2 | Load Database | `onclick_btn_load_database()` | Open or load calibration result data from the database. |
-| 2 | Single Distance | `onclick_cb_distance_changed()` | Use independent distance values for each round. |
-| 3 | Update Shift of Entrance Pupil | `Graphs` tab | Redraw the entrance pupil shift graph. |
-| 3 | Information — Entrance Pupil | `Graphs` tab | Show the numeric entrance pupil values behind the graph. |
-| 4 | Update Dist vs IH Range | `Graphs` tab | Redraw the distance versus IH range graph. |
-| 5 | Update Dist vs Alpha | `Graphs` tab | Redraw the distance versus alpha graph. |
+| Region | UI Element | Main Purpose |
+|---:|---|---|
+| 1 | Cali Folder | Enter a local folder path, Excel file path, or URL. |
+| 1 | Tree View | Browse calibration folders and load data by double-clicking. |
+| 1 | Select Cali System | Select the calibration system configuration. |
+| 2 | Load All Excel | Load Excel files from round folders `1` to `10`. |
+| 2 | Clear Table | Clear only the currently active table. |
+| 2 | Save to Excel | Save the active table as an `.xlsx` file. |
+| 2 | Stop | Cancel running aggregation or range-search processes. |
+| 2 | Load Excel | Load one Excel file into the active round table. |
+| 2 | Clear All Table | Clear all round tables from `round_1` to `round_10`. |
+| 2 | Update Table | Update center, PCT, ICT, and calculated result data. |
+| 2 | Load Database | Open or load calibration result data from the database. |
+| 2 | Single Distance | Use independent distance values for each round. |
+| 3 | Update Shift of Entrance Pupil | Redraw the entrance pupil shift graph. |
+| 3 | Information — Entrance Pupil | Show the numeric entrance pupil values behind the graph. |
+| 4 | Update Dist vs IH Range | Redraw the distance versus IH range graph. |
+| 5 | Update Dist vs Alpha | Redraw the distance versus alpha graph. |
 
-<div className="custom-note custom-tip">
-
-<div className="custom-note-title">Note</div>
-
-**Select Cali System** sits next to the **Cali Folder** field at the top of the window, so both belong to region **1** in the screenshot. The three graph regions **3**, **4**, and **5** are only visible when the **Graphs** tab is selected.
-
-</div>
+Regions **3**, **4**, and **5** are only visible while the **Graphs** tab is selected.
 
 ---
 
-### 1.6 Detailed Function Explanation
-
-### 1.7 Cali Folder
+### 1.4 Cali Folder
 
 #### Function
 
@@ -255,81 +194,8 @@ The **Cali Folder** field is used to manually enter the calibration data source.
 | Excel file path | `/home/user/calibration_result/1/result.xlsx` | Loads or dispatches the Excel file into the current workflow. |
 | URL | `https://...` or copied remote file link | Resolves or downloads the remote file/folder into the local cache. |
 
-#### URL Input Example
+Type or paste the source into the field and press **Enter**. When the input is a URL, the field switches to a local cache path once the download finishes, which means the data is now ready to load from the computer.
 
-When a remote file or folder URL is pasted into **Cali Folder**, the user should press **Enter** to let the system process the input.
-
-<Figure id="fig-cali-folder-url-input" number="4" title="Cali Folder URL Input" caption="Remote URL pasted into the Cali Folder field.">
-
-![Cali Folder field with a remote URL pasted](../../assets/images/img_29.png)
-
-</Figure>
-
-The URL can also appear selected inside the input field before the system finishes processing it.
-
-<Figure id="fig-cali-folder-selected-url" number="5" title="Selected URL Input" caption="Selected remote URL before the system finishes processing.">
-
-![Cali Folder field showing selected remote URL input](../../assets/images/img_30.png)
-
-</Figure>
-
-After the URL is resolved or downloaded, the field can be changed automatically to a local cache folder path. This means the remote data has been prepared locally and can now be loaded from the computer.
-
-<Figure id="fig-cali-folder-local-cache" number="6" title="Local Cache Path" caption="Local cache path after the URL is resolved or downloaded.">
-
-![Cali Folder field showing local cache download path after URL processing](../../assets/images/img_31.png)
-
-</Figure>
-
-#### Related Code
-
-```python
-_on_folder_path_entered()
-```
-#### How It Works
-
-When the user presses **Enter**, the system reads the input text:
-
-```python
-path = (self.folder_path.text() or "").strip()
-```
-Then the system checks whether the input is a URL, a folder path, or a file path:
-
-```python
-if re.match(r"^https?://", path, re.I):
-    self._load_from_url(path)
-
-if os.path.isdir(path):
-    self._after_download_load_folder(path)
-
-if os.path.isfile(path):
-    self._load_file_dispatch(path)
-```
-#### How to Use
-
-1. Click the **Cali Folder** input field.
-2. Paste or type the folder path, Excel file path, or URL.
-3. Press **Enter**.
-4. Wait until the system checks the input source.
-5. If the input is a folder, the tree view updates.
-6. If the input is a URL, the system downloads or resolves the data into a local cache path.
-7. Continue loading the data using the tree view, **Load Excel**, or **Load All Excel**.
-
-#### Internal Flow
-
-```text
-User enters path or URL
-   ↓
-Press Enter
-   ↓
-System checks input type
-   ↓
-URL    → _load_from_url()
-Folder → _after_download_load_folder()
-File   → _load_file_dispatch()
-   ↓
-Tree view or table data is updated
-```
 <div className="custom-note custom-tip">
 
 <div className="custom-note-title">Note</div>
@@ -340,23 +206,12 @@ A folder path only updates the tree view root. To load data into the round table
 
 ---
 
-### 1.8 Tree View
+### 1.5 Tree View
 
 #### Function
 
 The **Tree View** displays the selected calibration folder structure. It helps the user browse downloaded or local calibration data without manually searching through the file manager.
 
-<Figure id="fig-tree-view-folder" number="7" title="Tree View Folder Browser" caption="Tree View showing calibration folder structure after loading a folder or URL.">
-
-![Tree View showing calibration folder after loading from Cali Folder](../../assets/images/img_32.png)
-
-</Figure>
-
-#### Related Code
-
-```python
-_on_treeview_double_click()
-```
 #### Behavior
 
 | Double-Clicked Item | System Behavior |
@@ -380,13 +235,6 @@ _on_treeview_double_click()
 4. The system clears all round tables.
 5. The system loads valid Excel files from the selected folder.
 
-#### Related Code Behavior
-
-```python
-self._load_excel_to_current_round(path)
-self.onclick_btn_clear_all_table()
-self._load_all_excel_from_folder(path)
-```
 <div className="custom-note custom-warning">
 
 <div className="custom-note-title">Important</div>
@@ -397,30 +245,14 @@ Double-clicking a folder may clear existing round table data before loading the 
 
 ---
 
-### 1.9 Load All Excel
+### 1.6 Load All Excel
 
 #### Function
 
 The **Load All Excel** button loads calibration result Excel files from round folders `1` to `10`. This is useful when the calibration result is already organized by round.
 
-When the button is clicked, the system opens a folder selection dialog. Select the main calibration result folder that contains the round folders.
+Clicking it opens a folder selection dialog. Choose the main folder that contains the round folders.
 
-<Figure id="fig-load-all-excel-dialog" number="8" title="Load All Excel Dialog" caption="Folder selection dialog used to load all Excel files from round folders.">
-
-![Folder selection dialog for Load All Excel](../../assets/images/img_46.png)
-
-</Figure>
-
-#### Related Code
-
-```python
-onclick_btn_load_all_excel()
-```
-Button connection:
-
-```python
-self.btn_load_all_excle.clicked.connect(self.onclick_btn_load_all_excel)
-```
 #### Required Folder Structure
 
 ```text
@@ -446,53 +278,6 @@ After loading, the same folder structure appears in the tree view on the left si
 5. Loaded round tabs are marked with `*`.
 6. All calibration results are recalculated.
 
-#### Internal Flow
-
-```text
-Click Load All Excel
-   ↓
-Select main folder
-   ↓
-Scan folders 1–10
-   ↓
-Find .xlsx files
-   ↓
-Read Excel workbook
-   ↓
-Load data into round tables
-   ↓
-Mark loaded tabs with "*"
-   ↓
-Run all calibration result calculations
-   ↓
-Load main.json if available
-```
-#### Excel Reading Behavior
-
-```python
-workbook = load_workbook(excel_file_path, data_only=True)
-sheet = workbook.worksheets[0]
-```
-The system searches for a header row containing:
-
-```text
-pct
-```
-or:
-
-```text
-(mm)
-```
-#### After Loading
-
-After all Excel files are loaded, the system updates calculation and range data:
-
-```python
-self.onclick_btn_update_all_cali_result()
-self.update_min_max_aggregation_range_0()
-self.update_all_range_data_totals()
-self.refresh_percent_only_ranges_and_totals(bins=20)
-```
 <div className="custom-note custom-tip">
 
 <div className="custom-note-title">Note</div>
@@ -503,22 +288,12 @@ Use **Load All Excel** when the data is already separated into round folders. Us
 
 ---
 
-### 1.10 Clear Table
+### 1.7 Clear Table
 
 #### Function
 
 The **Clear Table** button clears only the currently active table. It does not clear the other round tabs.
 
-#### Related Code
-
-```python
-onclick_btn_clear_table()
-```
-Button connection:
-
-```python
-self.btn_clear_table.clicked.connect(self.onclick_btn_clear_table)
-```
 #### How to Use
 
 1. Select the round tab that should be cleared.
@@ -527,101 +302,19 @@ self.btn_clear_table.clicked.connect(self.onclick_btn_clear_table)
 4. The tab `*` mark is removed.
 5. The calculation result is updated.
 
-#### Internal Flow
-
-```text
-Click Clear Table
-   ↓
-Get active table index
-   ↓
-Clear data columns
-   ↓
-Keep separator columns black
-   ↓
-Reset round and side values
-   ↓
-Remove "*" from the active tab
-   ↓
-Update all calibration results
-```
-#### Important Behavior
-
-The function clears the columns defined in:
-
-```python
-self._dict_column_index
-```
-Special separator columns remain black:
-
-```text
-empty11
-empty15
-empty32
-```
 ---
 
-### 1.11 Save to Excel
+### 1.8 Save to Excel
 
 #### Function
 
 The **Save to Excel** button exports the currently active table to an `.xlsx` file.
 
-The save dialog allows the user to choose the output folder and file name before exporting the active result table.
+Select the round you want to save first. The button then opens a save dialog for the output folder and file name.
 
-<Figure id="fig-save-to-excel-dialog" number="9" title="Save to Excel Dialog" caption="Save dialog used to export the active calibration result table.">
-
-![Save to Excel dialog for exporting calibration result table](../../assets/images/img_44.png)
-
-</Figure>
-
-#### Related Code
-
-```python
-onclick_btn_save_to_excel()
-```
-Button connection:
-
-```python
-self.btn_save_to_excel.clicked.connect(self.onclick_btn_save_to_excel)
-```
-#### How to Use
-
-1. Select the table or round you want to save.
-2. Click **Save to Excel**.
-3. Choose the output folder.
-4. Enter the file name.
-5. Save the file.
-
-#### Internal Flow
-
-```text
-Click Save to Excel
-   ↓
-Get active table
-   ↓
-Open save dialog
-   ↓
-Create workbook
-   ↓
-Read table rows
-   ↓
-Write rows to Excel
-   ↓
-Save .xlsx file
-```
 #### Saved Data
 
-The function saves columns from:
-
-```python
-round
-```
-to:
-
-```python
-ict_ne
-```
-The exported data mainly includes:
+The export covers the columns from `round` to `ict_ne`:
 
 ```text
 round
@@ -638,28 +331,12 @@ ict_ne
 ```
 ---
 
-### 1.12 Load Excel
+### 1.9 Load Excel
 
 #### Function
 
 The **Load Excel** button loads one `.xlsx` file into the active table. This is used when only one round needs to be loaded or replaced.
 
-<Figure id="fig-load-excel-dialog" number="10" title="Load Excel Dialog" caption="File selection dialog used to load one Excel file into the active round table.">
-
-![Load Excel dialog with one xlsx file selected](../../assets/images/img_45.png)
-
-</Figure>
-
-#### Related Code
-
-```python
-onclick_btn_load_excel()
-```
-Button connection:
-
-```python
-self.btn_load_excel.clicked.connect(self.onclick_btn_load_excel)
-```
 #### How to Use
 
 1. Select the target round tab.
@@ -670,27 +347,6 @@ self.btn_load_excel.clicked.connect(self.onclick_btn_load_excel)
 6. The active tab is marked with `*`.
 7. All calibration results are recalculated.
 
-#### Internal Flow
-
-```text
-Click Load Excel
-   ↓
-Open file dialog
-   ↓
-Select .xlsx file
-   ↓
-Update tree view folder
-   ↓
-Clear active table
-   ↓
-Read the selected sheet and required calibration columns
-   ↓
-Insert data into active table
-   ↓
-Mark tab with "*"
-   ↓
-Update all calibration results
-```
 #### Excel Requirement
 
 The Excel file should contain the calibration result columns used by the table. The most important columns are:
@@ -705,7 +361,7 @@ The Excel file should contain the calibration result columns used by the table. 
 
 The screenshot below shows an example Excel file layout that can be loaded into the calibration result table.
 
-<Figure id="fig-excel-layout-example" number="11" title="Excel Layout Example" caption="Example Excel layout containing Round, Side, PCT, and ICT direction columns.">
+<Figure id="fig-excel-layout-example" number="4" title="Excel Layout Example" caption="Example Excel layout containing Round, Side, PCT, and ICT direction columns.">
 
 ![Example Excel layout for calibration result data](../../assets/images/img_47.png)
 
@@ -726,63 +382,19 @@ If the selected Excel file does not follow the expected format, the table may no
 
 ---
 
-### 1.13 Clear All Table
+### 1.10 Clear All Table
 
 #### Function
 
 The **Clear All Table** button clears all round tables from `round_1` to `round_10`.
 
-#### Related Code
-
-```python
-onclick_btn_clear_all_table()
-```
-Button connection:
-
-```python
-self.btn_clear_all_table.clicked.connect(self.onclick_btn_clear_all_table)
-```
-#### Confirmation Dialog
-
-Before deleting all round data, the system shows a confirmation dialog.
-
-<Figure id="fig-clear-all-table-confirmation" number="12" title="Clear All Table Confirmation" caption="Confirmation dialog before clearing all round tables.">
-
-![Clear All Table confirmation dialog](../../assets/images/img_33.png)
-
-</Figure>
-
-The confirmation message is:
+Before deleting anything the system asks for confirmation:
 
 ```text
 Are you sure you want to delete data from All Tables (Round 1 - 10)?
 ```
-#### How to Use
+Click **Yes** to clear all round tables, or **No** to cancel.
 
-1. Click **Clear All Table**.
-2. Read the confirmation dialog carefully.
-3. Click **Yes** to clear all round tables.
-4. Click **No** to cancel the operation.
-
-#### Internal Flow
-
-```text
-Click Clear All Table
-   ↓
-Show confirmation dialog
-   ↓
-If user clicks Yes:
-      ↓
-      Loop round_1 to round_10
-      ↓
-      Clear all data columns
-      ↓
-      Reset round and side values
-      ↓
-      Remove "*" from tabs
-      ↓
-      Update all results
-```
 <div className="custom-note custom-warning">
 
 <div className="custom-note-title">Data Deletion Warning</div>
@@ -793,22 +405,12 @@ This function clears all round data from `round_1` to `round_10`. Save important
 
 ---
 
-### 1.14 Update Table
+### 1.11 Update Table
 
 #### Function
 
 The **Update Table** button updates the active table using the latest calibration image data and pattern data.
 
-#### Related Code
-
-```python
-onclick_btn_update_table()
-```
-Button connection:
-
-```python
-self.btn_update_table.clicked.connect(self.onclick_btn_update_table)
-```
 #### What It Updates
 
 This function updates:
@@ -830,34 +432,6 @@ This function updates:
 5. The active table is refreshed.
 6. All calibration calculations are updated.
 
-#### Internal Flow
-
-```text
-Click Update Table
-   ↓
-Clear active table
-   ↓
-Update image center values
-   ↓
-Update round number
-   ↓
-Update PCT column
-   ↓
-Update ICT 8 directions
-   ↓
-Run all calibration calculations
-   ↓
-Mark tab with "*"
-```
-#### Main Internal Calls
-
-```python
-self.update_table_lineedit_img_center(table_index)
-self.update_round_num(table_index)
-self.update_column_pct(table_index)
-self.update_ict_8direction(table_index)
-self.onclick_btn_update_all_cali_result()
-```
 #### ICT Data Source
 
 ```text
@@ -878,33 +452,15 @@ ict_ne
 ```
 ---
 
-### 1.15 Stop
+### 1.12 Stop
 
 #### Function
 
 The **Stop** button is used to cancel a running calculation process. This is commonly used when aggregation, range counting, or range-search processing takes too long, or when the user started the wrong process and wants to stop it before the UI is updated.
 
-#### Related Code
+#### Confirming the Cancellation
 
-```python
-onclick_btn_stop()
-```
-Button connection:
-
-```python
-self.btn_stop.clicked.connect(self.onclick_btn_stop)
-```
-#### Stop Button Example
-
-The screenshot below shows the terminal output after the **Stop** button is pressed during range processing.
-
-<Figure id="fig-stop-terminal-output" number="13" title="Stop Process Terminal Output" caption="Terminal message after cancelling range or aggregation processing.">
-
-![Terminal output after pressing the Stop button during range processing](../../assets/images/img_52.png)
-
-</Figure>
-
-In this example, the system was still counting IH range data. After the stop request was received, the terminal displayed:
+The terminal reports the cancellation. If the system was counting IH range data, it prints:
 
 ```text
 range_1: canceled before UI update.
@@ -931,29 +487,6 @@ The stop logic may perform these actions:
 3. Wait until the current calculation step exits safely.
 4. Check the terminal message to confirm that the process was cancelled.
 
-#### Internal Flow
-
-```text
-Click Stop
-   ↓
-Set _cancel_min_aggr = True
-   ↓
-Set _cancel_aggr event
-   ↓
-Stop active timers
-   ↓
-Prevent further UI update
-   ↓
-Exit the active calculation loop
-   ↓
-Show cancellation message in terminal if available
-```
-#### Important Behavior
-
-```python
-self._cancel_min_aggr = True
-self._cancel_aggr.set()
-```
 <div className="custom-note custom-tip">
 
 <div className="custom-note-title">Note</div>
@@ -962,42 +495,19 @@ The process may not stop at the exact same second the button is clicked. Some ca
 
 </div>
 
-<div className="custom-note custom-warning">
-
-<div className="custom-note-title">Important</div>
-
-If the terminal shows a message such as `canceled before UI update`, it means the stop request worked correctly and the system prevented the cancelled result from being written to the UI.
-
-</div>
-
 ---
 
-### 1.16 Load Database
+### 1.13 Load Database
 
 #### Function
 
 The **Load Database** button opens the **Calibration Data** window. This window is used to search calibration records, select a calibration dataset, load the dataset into the system, or open the related URL source.
 
-#### Related Code
-
-```python
-onclick_btn_load_database()
-```
-Button connection:
-
-```python
-self.btn_load_database.clicked.connect(self.onclick_btn_load_database)
-```
-#### Related Controller
-
-```python
-from .controller_db_cali_result import ControllerDBCaliResult
-```
 #### Database Window Overview
 
 After clicking **Load Database**, the **Calibration Data** window appears.
 
-<Figure id="fig-calibration-data-window" number="14" title="Calibration Data Window" caption="Database window used to search and select calibration result records.">
+<Figure id="fig-calibration-data-window" number="5" title="Calibration Data Window" caption="Database window used to search and select calibration result records.">
 
 ![Calibration Data database window with search filters and calibration data list](../../assets/images/img_55.png)
 
@@ -1019,15 +529,7 @@ The database window is divided into two main areas:
 
 #### Database Right-Click Menu
 
-After selecting a row in the database table, right-click the row to open the action menu.
-
-<Figure id="fig-database-right-click-menu" number="15" title="Database Right-Click Menu" caption="Right-click menu for loading calibration data or opening its URL.">
-
-![Database right-click menu showing Load to System and Open URL actions](../../assets/images/img_56.png)
-
-</Figure>
-
-The menu provides two main actions:
+After selecting a row in the database table, right-click it to open the action menu, which provides two actions:
 
 | Menu Action | Function |
 |---|---|
@@ -1036,34 +538,9 @@ The menu provides two main actions:
 
 #### Open URL from Database
 
-When **Open URL** is selected, the related dataset location opens in the browser.
+**Open URL** opens the dataset location in the browser. The page normally holds the round folders, the camera or calibration JSON file, and the Excel result file.
 
-<Figure id="fig-database-open-url" number="16" title="Database Open URL Result" caption="Cloud folder opened from the selected database URL.">
-
-![OneDrive folder opened from the database URL](../../assets/images/img_53.png)
-
-</Figure>
-
-This page usually contains the calibration dataset folders, JSON configuration file, and Excel result file.
-
-A typical opened URL may contain:
-
-```text
-round folders, such as 1, 3, 5, 7, 9
-camera or calibration JSON file
-calibration result Excel file
-```
-#### Select File or Folder from Database
-
-When the system needs the user to choose which source should be opened, a selection dialog appears.
-
-<Figure id="fig-database-select-source-dialog" number="17" title="Database Source Selection Dialog" caption="Dialog used to choose which file or folder should be opened from the database record.">
-
-![Dialog for selecting which camera folder or file should be opened from the database](../../assets/images/img_54.png)
-
-</Figure>
-
-Use this dialog when one database record has more than one related source or when the system needs confirmation before opening the selected camera folder or file.
+If one database record points to more than one source, a dialog asks which camera folder or file to open.
 
 #### How to Use Load Database
 
@@ -1116,26 +593,12 @@ Use **Open URL** when you only want to inspect or download the dataset from the 
 
 ---
 
-### 1.17 Single Distance
+### 1.14 Single Distance
 
 #### Function
 
 The **Single Distance** checkbox changes how the distance value is calculated.
 
-#### Related Code
-
-```python
-connect_cb_distance()
-onclick_cb_distance_changed()
-_is_use_single_round_distance()
-update_distance_auto()
-calculate_distance_single_round()
-```
-Checkbox connection:
-
-```python
-cb.stateChanged.connect(self.onclick_cb_distance_changed)
-```
 #### Mode 1 — Single Distance OFF
 
 When unchecked, distance is calculated automatically:
@@ -1147,13 +610,8 @@ Use this mode when the distance difference between rounds follows the same step 
 
 #### Mode 2 — Single Distance ON
 
-When checked, each round can use its own distance value.
+When checked, each round can use its own distance value, read from that round's own distance field.
 
-The system reads the round-specific distance field using:
-
-```python
-_get_distance_lineedit_by_round(table_index)
-```
 Use this mode when each round has a manually measured or different distance value.
 
 #### How to Use Automatic Distance
@@ -1172,13 +630,13 @@ Use this mode when each round has a manually measured or different distance valu
 
 ---
 
-### 1.18 Shift of Entrance Pupil (Graphs Tab, Region 3)
+### 1.15 Shift of Entrance Pupil (Graphs Tab, Region 3)
 
 <div className="custom-note custom-warning">
 
 <div className="custom-note-title">Moved in this version</div>
 
-Sections 1.18, 1.19, and 1.20 describe three buttons that no longer exist in the header. In the C++ application, the same three graphs are embedded in the `Graphs` tab, each with its own **Update** button, and they appear as regions **3**, **4**, and **5** in [Figure 2](#fig-header-data-management). The purpose, source data, and interpretation described below are still correct. Only the place you click has changed.
+Sections 1.15, 1.16, and 1.17 describe three buttons that no longer exist in the header. In the C++ application, the same three graphs are embedded in the `Graphs` tab, each with its own **Update** button, and they appear as regions **3**, **4**, and **5** in [Figure 2](#fig-header-data-management). The purpose, source data, and interpretation described below are still correct. Only the place you click has changed.
 
 </div>
 
@@ -1197,7 +655,7 @@ The panel has two buttons:
 
 The screenshot below shows the **Range Window** and **History Distance** information used as the source data for the entrance pupil visualization and the graph buttons.
 
-<Figure id="fig-range-history-source-data" number="18" title="Range Window and History Distance Source Data" caption="Range and history-distance values used by graph and entrance-pupil visualization tools.">
+<Figure id="fig-range-history-source-data" number="6" title="Range Window and History Distance Source Data" caption="Range and history-distance values used by graph and entrance-pupil visualization tools.">
 
 ![Range Window and History Distance values used as graph source data](../../assets/images/img_57.png)
 
@@ -1226,7 +684,7 @@ All three graphs in the `Graphs` tab use values from this range/history-distance
 
 This visualization helps the user inspect how the entrance pupil changes based on calibration data. The output window can show a ray curve based on distance and alpha values for each range or round.
 
-<Figure id="fig-entrance-pupil-ray-curve" number="19" title="Entrance Pupil Ray Curve" caption="Ray curve visualization generated from distance and alpha values.">
+<Figure id="fig-entrance-pupil-ray-curve" number="7" title="Entrance Pupil Ray Curve" caption="Ray curve visualization generated from distance and alpha values.">
 
 ![Ray curve from distance and alpha visualization](../../assets/images/img_49.png)
 
@@ -1257,13 +715,13 @@ Use this function when checking:
 
 ---
 
-### 1.19 Distance vs IH Range (Graphs Tab, Region 4)
+### 1.16 Distance vs IH Range (Graphs Tab, Region 4)
 
 #### Function
 
 The **Distance vs IH Range** graph is the middle panel of the `Graphs` tab. It compares distance with IH range, and is redrawn with the **Update Dist vs IH Range** button below the panel.
 
-<Figure id="fig-distance-vs-ih-range" number="20" title="Distance vs IH Range Graph" caption="Graph showing distance changes across IH range mean values.">
+<Figure id="fig-distance-vs-ih-range" number="8" title="Distance vs IH Range Graph" caption="Graph showing distance changes across IH range mean values.">
 
 ![Distance versus IH range mean graph](../../assets/images/img_50.png)
 
@@ -1273,16 +731,6 @@ The graph shows the distance value for each IH range group. The X-axis is **IH R
 
 The source values come from the **Range Window**. The IH range is taken from **IH Min / IH Max**, while the distance value is taken from the range distance result such as **PCT to Pupil** or history-distance calculation output.
 
-#### Related Code
-
-```python
-onclick_btn_show_graph_dist_ih_range()
-```
-Button connection:
-
-```python
-self.btn_show_graph_dist_ih_range.clicked.connect(self.onclick_btn_show_graph_dist_ih_range)
-```
 #### How to Use
 
 1. Load calibration data.
@@ -1305,13 +753,13 @@ This graph helps check:
 
 ---
 
-### 1.20 Distance vs Alpha (Graphs Tab, Region 5)
+### 1.17 Distance vs Alpha (Graphs Tab, Region 5)
 
 #### Function
 
 The **Distance vs Alpha** graph is the right panel of the `Graphs` tab. It compares distance with alpha, and is redrawn with the **Update Dist vs Alpha** button below the panel.
 
-<Figure id="fig-distance-vs-alpha" number="21" title="Distance vs Alpha Graph" caption="Graph showing the relationship between alpha mean and distance.">
+<Figure id="fig-distance-vs-alpha" number="9" title="Distance vs Alpha Graph" caption="Graph showing the relationship between alpha mean and distance.">
 
 ![Distance versus alpha mean graph](../../assets/images/img_51.png)
 
@@ -1321,16 +769,6 @@ The graph shows the relationship between **Alpha Mean (degree)** and **Distance*
 
 The source values come from the **Range Window**. The alpha range is taken from **Alpha Min / Alpha Max**, while the distance value is taken from the range distance result such as **PCT to Pupil** or history-distance calculation output.
 
-#### Related Code
-
-```python
-onclick_btn_show_graph_dist_alpha()
-```
-Button connection:
-
-```python
-self.btn_show_graph_dist_alpha.clicked.connect(self.onclick_btn_show_graph_dist_alpha)
-```
 #### How to Use
 
 1. Load calibration data.
@@ -1365,7 +803,7 @@ This graph helps check:
 
 ---
 
-### 1.21 Select Cali System
+### 1.18 Select Cali System
 
 #### Function
 
@@ -1379,14 +817,6 @@ The selected calibration system is directly related to:
 | **Pixel Size (Top / Side)** | These values convert PCT data from pixel units into physical millimeter values. |
 | **Dis / Round** | This value controls how distance changes between calibration rounds. |
 | **Alpha and ZFL Calculation** | V_Gap, H_Gap, pixel size, and distance are all used together to calculate alpha and ZFL. |
-
-<Figure id="fig-select-cali-system-dropdown" number="22" title="Select Cali System Dropdown" caption="Dropdown options for choosing the calibration system configuration.">
-
-![Select Cali System dropdown options](../../assets/images/img_58.png)
-
-</Figure>
-
-The dropdown options shown in the screenshot include **Yuanman - SIDE (EV2785)**, **Yuanman - SIDE (EV2730Q)**, **Yinda**, and **Broland C++**.
 
 #### Why This Setting Must Be Selected First
 
@@ -1407,30 +837,17 @@ Set or confirm Dis / Round
    ↓
 Calculate PCT_CAL, Distance, Alpha, and ZFL
 ```
-#### Related Code
-
-```python
-combox_type_of_system
-update_line_edits()
-config_file_map
-_load_main_json_or_reset_default()
-reset_to_default_main_config()
-```
-Combobox connection:
-
-```python
-self.combox_type_of_system.currentIndexChanged.connect(self.update_line_edits)
-```
 #### Configuration Mapping
 
-```python
-self.config_file_map = {
-    "Yuanman - SIDE (EV2785)": "cali_system_configuration_json/yuanman_ev2785.json",
-    "Yuanman - SIDE (EV2730Q)": "cali_system_configuration_json/yuanman_ev2730q.json",
-    "Yinda": "cali_system_configuration_json/yinda.json",
-    "Brodand C++": "cali_system_configuration_json/brodand_cpp.json"
-}
-```
+Each option loads one configuration file from `cali_system_configuration_json/`:
+
+| Cali System | Configuration File |
+|---|---|
+| Yuanman - SIDE (EV2785) | `yuanman_ev2785.json` |
+| Yuanman - SIDE (EV2730Q) | `yuanman_ev2730q.json` |
+| Yinda | `yinda.json` |
+| Brodand C++ | `brodand_cpp.json` |
+
 #### How to Use
 
 1. Select the correct **Cali System** first.
@@ -1475,7 +892,7 @@ Do not treat **Select Cali System**, **V_Gap / H_Gap**, and **Pixel Size** as se
 
 The **Round & Tab Selection** area is used to switch between calibration rounds, parameter pages, overlap visualization, aggregation analysis, and testing pages.
 
-<Figure id="fig-round-tab-selection" number="23" title="Round & Tab Selection" caption="Tab selection area for current, round, parameter, overlap, aggregation, and test pages.">
+<Figure id="fig-round-tab-selection" number="10" title="Round & Tab Selection" caption="Tab selection area for current, round, parameter, overlap, aggregation, and test pages.">
 
 ![Round and tab selection](../../assets/images/img_37.png)
 
@@ -1498,12 +915,6 @@ The **Round & Tab Selection** area is used to switch between calibration rounds,
 ### 2.2 Loaded Round Indicator
 
 When calibration data is loaded successfully, the related round tab is marked using the `*` symbol.
-
-<Figure id="fig-round-loaded" number="24" title="Loaded Round Indicator" caption={<>Round tabs marked with <code>*</code> after calibration data is loaded.</>}>
-
-![Loaded round indicator](../../assets/images/img_60.png)
-
-</Figure>
 
 #### Meaning of `*`
 
@@ -1528,12 +939,6 @@ Rounds can also be disabled from calculation and visualization.
 
 When disabled, the tab displays `[OFF]`.
 
-<Figure id="fig-round-off" number="25" title="Disabled Round State" caption={<>Round disabled using the <code>[OFF]</code> status.</>}>
-
-![Disabled round state](../../assets/images/img_61.png)
-
-</Figure>
-
 #### Disabled Round Behavior
 
 | Behavior | Description |
@@ -1549,12 +954,6 @@ When disabled, the tab displays `[OFF]`.
 
 Each round tab supports a custom right-click menu.
 
-<Figure id="fig-round-context-menu" number="26" title="Round Tab Right-Click Menu" caption="Context menu used to control round behavior and graphs.">
-
-![Round context menu](../../assets/images/img_62.png)
-
-</Figure>
-
 #### Available Menu Actions
 
 | Menu Action | Purpose |
@@ -1563,19 +962,13 @@ Each round tab supports a custom right-click menu.
 | Show ZFL-IH Graph | Open single-round ZFL-IH popup graph. |
 | Show Overlap Graph | Open overlap graph popup. |
 
-#### Related Code
-
-```python
-self.tabwidget.setContextMenuPolicy(Qt.CustomContextMenu)
-self.tabwidget.customContextMenuRequested.connect(self.show_round_context_menu)
-```
 ---
 
 ### 2.5 ZFL-IH Popup Graph
 
 The **Show ZFL-IH Graph** menu opens a popup graph for the selected round.
 
-<Figure id="fig-zfl-ih-popup" number="27" title="ZFL-IH Popup Graph" caption="Popup graph showing IH versus ZFL behavior for one calibration round.">
+<Figure id="fig-zfl-ih-popup" number="11" title="ZFL-IH Popup Graph" caption="Popup graph showing IH versus ZFL behavior for one calibration round.">
 
 ![ZFL-IH popup graph](../../assets/images/img_63.png)
 
@@ -1603,7 +996,7 @@ The **Show ZFL-IH Graph** menu opens a popup graph for the selected round.
 
 The **Show Overlap Graph** menu opens an overlap visualization for the selected round.
 
-<Figure id="fig-overlap-popup" number="28" title="Overlap Popup Graph" caption="Overlap graph visualization for one calibration round.">
+<Figure id="fig-overlap-popup" number="12" title="Overlap Popup Graph" caption="Overlap graph visualization for one calibration round.">
 
 ![Overlap popup graph](../../assets/images/img_64.png)
 
@@ -1648,7 +1041,7 @@ The **Show Overlap Graph** menu opens an overlap visualization for the selected 
 
 <a id="result-table-view"></a>
 
-<Figure id="fig-result-table-view" number="29" title="Result Table View" caption="Summary table showing IH range, minimum aggregation, best distance, and total sampling.">
+<Figure id="fig-result-table-view" number="13" title="Result Table View" caption="Summary table showing IH range, minimum aggregation, best distance, and total sampling.">
 
 ![Result table view](../../assets/images/img_38.png)
 
@@ -1681,7 +1074,7 @@ The values shown in **Result Table View** are generated from the settings in **M
 
 The screenshot below shows the result table after the interval calculation has been executed. The table contains the generated IH interval rows and the calculated output values.
 
-<Figure id="fig-result-table-after-interval" number="30" title="Result Table Output from Min Aggregation by Interval" caption="Result table filled after the interval aggregation calculation is completed.">
+<Figure id="fig-result-table-after-interval" number="14" title="Result Table Output from Min Aggregation by Interval" caption="Result table filled after the interval aggregation calculation is completed.">
 
 ![Result table output after running Min Aggregation by Interval](../../assets/images/img_68.png)
 
@@ -1764,7 +1157,7 @@ IH Range (%), Alpha Range, Distance, Aggr, Total Sampling
 
 <a id="vgap-hgap-settings"></a>
 
-<Figure id="fig-vgap-hgap-settings" number="31" title="V_Gap & H_Gap Settings" caption="Physical gap settings used together with the selected calibration system.">
+<Figure id="fig-vgap-hgap-settings" number="15" title="V_Gap & H_Gap Settings" caption="Physical gap settings used together with the selected calibration system.">
 
 ![V Gap and H Gap settings](../../assets/images/img_39.png)
 
@@ -1812,23 +1205,7 @@ The selected calibration system defines the physical layout of the calibration s
 | Pixel Size | Converts PCT data before alpha and ZFL are calculated. |
 | Distance / Round | Defines the distance used together with gap values. |
 
-### 4.4 Related Line Edits
-
-The gap values are connected to recalculation through `lineedit_connect()`.
-
-```python
-self.lineedit_v_gap_n.returnPressed.connect(self.onclick_btn_update_all_cali_result)
-self.lineedit_v_gap_s.returnPressed.connect(self.onclick_btn_update_all_cali_result)
-self.lineedit_v_gap_w.returnPressed.connect(self.onclick_btn_update_all_cali_result)
-self.lineedit_v_gap_e.returnPressed.connect(self.onclick_btn_update_all_cali_result)
-self.lineedit_h_gap_n.returnPressed.connect(self.onclick_btn_update_all_cali_result)
-self.lineedit_h_gap_s.returnPressed.connect(self.onclick_btn_update_all_cali_result)
-self.lineedit_h_gap_w.returnPressed.connect(self.onclick_btn_update_all_cali_result)
-self.lineedit_h_gap_e.returnPressed.connect(self.onclick_btn_update_all_cali_result)
-```
-This means pressing **Enter** in any V_Gap or H_Gap field recalculates all enabled round results.
-
-### 4.5 How the Values Are Used
+### 4.4 How the Values Are Used
 
 For top-screen layers, alpha is calculated using distance and calibrated PCT:
 
@@ -1845,7 +1222,9 @@ After alpha is calculated, ZFL is calculated using:
 ```text
 zfl = 1 / tan(alpha) × ict
 ```
-### 4.6 How to Use
+Pressing **Enter** in any V_Gap or H_Gap field recalculates all enabled round results.
+
+### 4.5 How to Use
 
 1. Select the correct **Cali System** first.
 2. Confirm that the V_Gap and H_Gap values match the selected system.
@@ -1869,7 +1248,7 @@ Incorrect V_Gap or H_Gap values can produce wrong alpha and ZFL results, especia
 
 <a id="pixel-size-distance-round"></a>
 
-<Figure id="fig-pixel-size-distance-round" number="32" title="Pixel Size & Distance / Round" caption="Pixel size and distance settings used together with V_Gap, H_Gap, and the selected calibration system.">
+<Figure id="fig-pixel-size-distance-round" number="16" title="Pixel Size & Distance / Round" caption="Pixel size and distance settings used together with V_Gap, H_Gap, and the selected calibration system.">
 
 ![Pixel size and distance per round settings](../../assets/images/img_40.png)
 
@@ -1954,11 +1333,6 @@ These values work together in the calculation pipeline:
 
 ### 5.6 Keep Round Data Function
 
-Related function:
-
-```python
-onclick_btn_keep_round_data()
-```
 This function copies data from the current table into the selected round table.
 
 Simplified flow:
@@ -1996,7 +1370,7 @@ Use **Pixel Size**, **Dis / Round**, **V_Gap**, **H_Gap**, and **Select Cali Sys
 
 <a id="min-aggregation-by-interval"></a>
 
-<Figure id="fig-min-aggregation-by-interval" number="33" title="Min Aggregation by Interval" caption="Interval settings used to search minimum aggregation across IH percentage ranges.">
+<Figure id="fig-min-aggregation-by-interval" number="17" title="Min Aggregation by Interval" caption="Interval settings used to search minimum aggregation across IH percentage ranges.">
 
 ![Min aggregation by interval settings](../../assets/images/img_41.png)
 
@@ -2021,7 +1395,7 @@ Save result to CSV
 
 The screenshot below shows an example setup:
 
-<Figure id="fig-min-aggregation-input-example" number="34" title="Min Aggregation by Interval Input Example" caption="Example settings using IH Min = 0, IH Max = 100, Window = 20, and Step = 10.">
+<Figure id="fig-min-aggregation-input-example" number="18" title="Min Aggregation by Interval Input Example" caption="Example settings using IH Min = 0, IH Max = 100, Window = 20, and Step = 10.">
 
 ![Min Aggregation by Interval input example](../../assets/images/img_69.png)
 
@@ -2113,12 +1487,6 @@ Save interval result to CSV
 
 After the process is complete, the output is shown in **Result Table View**.
 
-<Figure id="fig-result-table-output-from-interval" number="35" title="Result Table Generated from Interval Setup" caption="The result table is filled using the interval setup from this section.">
-
-![Result table output generated by Min Aggregation by Interval](../../assets/images/img_68.png)
-
-</Figure>
-
 The output columns are:
 
 | Output Column | Meaning |
@@ -2129,54 +1497,16 @@ The output columns are:
 | **Aggr** | Minimum aggregation value for that interval. |
 | **Total Sampling** | Number of valid data samples inside that interval. |
 
-### 6.6 Save CSV Dialog
+### 6.6 CSV Output
 
-After the interval calculation, the system can ask the user to save the result as a CSV file.
+After the interval calculation, the system can save the result as a CSV file, defaulting to the name `interval.csv`. A confirmation message reports the final save path once the file is written.
 
-<Figure id="fig-interval-save-dialog" number="36" title="Interval CSV Save Dialog" caption="Save dialog used to choose the output location and CSV file name.">
-
-![Save dialog for interval CSV output](../../assets/images/img_65.png)
-
-</Figure>
-
-Use this dialog to choose where the interval result should be saved.
-
-The default or example file name can be:
-
-```text
-interval.csv
-```
-### 6.7 Save Confirmation
-
-After the CSV file is saved, a confirmation message is displayed.
-
-<Figure id="fig-interval-save-confirmation" number="37" title="Interval CSV Saved Confirmation" caption="Confirmation message showing that the CSV file has been saved successfully.">
-
-![Confirmation message after saving interval CSV](../../assets/images/img_66.png)
-
-</Figure>
-
-The message shows the final save path, for example:
-
-```text
-/home/minipc-103-1/Downloads/interval.csv
-```
-### 6.8 CSV File Output
-
-The saved CSV can be opened using spreadsheet software such as LibreOffice Calc.
-
-<Figure id="fig-interval-csv-libreoffice" number="38" title="Interval CSV Opened in LibreOffice Calc" caption="Saved interval result opened as a CSV spreadsheet.">
-
-![Interval CSV opened in LibreOffice Calc](../../assets/images/img_67.png)
-
-</Figure>
-
-The CSV output contains the same result columns as the Result Table View:
+The CSV contains the same columns as the Result Table View:
 
 ```text
 IH Range (%), Alpha Range, Distance, Aggr, Total Sampling
 ```
-### 6.9 How to Use
+### 6.7 How to Use
 
 1. Load calibration data first.
 2. Make sure the required rounds are enabled.
@@ -2216,7 +1546,7 @@ This tool is commonly used when the user wants to:
 
 ---
 
-<Figure id="fig-aggr-by-range-distance" number="39" title="Aggr by Range and Distance" caption="Main calculation panel used to calculate aggregation from IH range and distance.">
+<Figure id="fig-aggr-by-range-distance" number="19" title="Aggr by Range and Distance" caption="Main calculation panel used to calculate aggregation from IH range and distance.">
 
 ![Aggregation by range and distance panel](../../assets/images/img_42.png)
 
@@ -2240,13 +1570,13 @@ This tool is commonly used when the user wants to:
 
 The image below shows an example result generated by the system.
 
-<Figure id="fig-aggr-range-distance-example" number="40" title="Aggr by Range and Distance Example" caption="Example showing aggregation result calculated from IH range and distance.">
+<Figure id="fig-aggr-range-distance-example" number="20" title="Aggr by Range and Distance Example" caption="Example showing aggregation result calculated from IH range and distance.">
 
 ![Aggregation by range and distance example result](../../assets/images/img_70.png)
 
 </Figure>
 
-Based on Figure 40:
+Based on [Figure 20](#fig-aggr-range-distance-example):
 
 | Field | Value | Meaning |
 |---|---:|---|
@@ -2357,21 +1687,7 @@ This helps identify which IH region produces the most stable calibration result.
 
 ---
 
-### 7.7 Related Function
-
-```python
-onclick_btn_aggr_by_range_and_distance()
-```
-Button connection:
-
-```python
-self.btn_aggr_by_range_and_distance.clicked.connect(
-    self.onclick_btn_aggr_by_range_and_distance
-)
-```
----
-
-### 7.8 Recommended Workflow
+### 7.7 Recommended Workflow
 
 <div className="custom-note custom-tip">
 
@@ -2391,7 +1707,7 @@ Recommended Workflow
 
 ---
 
-### 7.9 Important Notes
+### 7.8 Important Notes
 
 <div className="custom-note custom-warning">
 
@@ -2416,7 +1732,7 @@ If the calibration data is incomplete or unstable, the aggregation result may al
 
 <a id="range-analysis-matrix"></a>
 
-<Figure id="fig-range-analysis-matrix" number="41" title="Range Analysis Matrix" caption="Matrix used to calculate global and range-based distance and aggregation results.">
+<Figure id="fig-range-analysis-matrix" number="21" title="Range Analysis Matrix" caption="Matrix used to calculate global and range-based distance and aggregation results.">
 
 ![Range analysis matrix](../../assets/images/img_43.png)
 
@@ -2441,21 +1757,7 @@ The **Range Analysis Matrix** is used to manage multiple IH range calculations f
 | 11 | **Sampling Number** | Number of samples inside the range. |
 | 12 | **Alpha Min / Alpha Max** | Alpha range output, usually shown in degrees. |
 
-### 8.2 Related Functions
-
-| Function | Purpose |
-|---|---|
-| `onclick_btn_range_window()` | Handles Range Window button behavior. |
-| `onclick_btn_history_distance()` | Loads or applies saved history distance. |
-| `onclick_btn_save_history_distance()` | Saves current best distance history. |
-| `_on_toggle_enable_range()` | Runs range search when a range checkbox is enabled. |
-| `_on_toggle_enable_range_00()` | Handles master/global range toggle behavior. |
-| `find_min_aggregation_by_lineedit()` | Searches distance with minimum aggregation. |
-| `calculate_aggregation_by_distance()` | Calculates aggregation for a given distance. |
-| `update_data_total_for_range()` | Updates sample count for a range. |
-| `get_pixel_bounds_for_range()` | Converts IH percentage range into pixel bounds. |
-
-### 8.3 Global and Range_1 ~ Range_20
+### 8.2 Global and Range_1 ~ Range_20
 
 `Global` is also called `range_0`. It calculates aggregation using all enabled data points without applying a specific IH percentage filter.
 
@@ -2468,7 +1770,7 @@ Range_3  = 10 ~ 15%
 ...
 Range_20 = 95 ~ 100%
 ```
-### 8.4 Range Calculation Flow
+### 8.3 Range Calculation Flow
 
 ```text
 Enable range checkbox
@@ -2487,21 +1789,13 @@ Calculate minimum aggregation
    ↓
 Update distance, aggregation, sampling number, and alpha range
 ```
-### 8.5 Enable Checkbox Behavior
+### 8.4 Enable Checkbox Behavior
 
 Each range has an enable checkbox. When the checkbox is turned on, the system starts processing that range.
 
-Related connection:
-
-```python
-for i in range(0, 21):
-    cb = getattr(self, f"checkbox_enable_range_{i}", None)
-    if cb:
-        cb.toggled.connect(lambda checked, i=i: self._on_toggle_enable_range(i, checked))
-```
 When the checkbox is turned off, the system stops or skips that range.
 
-### 8.6 History Distance Mode
+### 8.5 History Distance Mode
 
 When **History Distance** is enabled, the system can reuse previous best distance values.
 
@@ -2522,13 +1816,13 @@ History distance is only valid when the current IH range exactly matches the sav
 
 </div>
 
-### 8.7 Save Distance History
+### 8.6 Save Distance History
 
 The **Save Distance History** button stores the current best distance results so they can be reused later.
 
 Use this after the range calculation has successfully filled distance values.
 
-### 8.8 How to Use Range Analysis Matrix
+### 8.7 How to Use Range Analysis Matrix
 
 #### Manual Range Calculation
 
