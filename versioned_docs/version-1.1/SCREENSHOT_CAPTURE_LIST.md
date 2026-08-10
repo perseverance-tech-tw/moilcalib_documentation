@@ -56,7 +56,7 @@ All of these come from the **Main Cali Result** window, so they can be captured 
 
 | Old image | Suggested name | What to capture |
 |---|---|---|
-| `img_28.png` | `cali-result-header-area.png` | Close-up of the header: Cali Folder field, Select Cali System dropdown, and the button block. Note the C++ header no longer has the three "Show graph" buttons. |
+| ~~`img_28.png`~~ | `main-window-overview-header-management.png` | **Done.** Recaptured for `main-window-overview.md` with the `Graphs` tab open, marking 5 regions: tree/folder area, button block, and the three graph panels. Still needs a replacement in `reload-calibration-data.md`. |
 | `img_48.png` | `cali-result-loaded-data.png` | Whole window after a full calibration folder is loaded, showing the tree, the `*` round marks, and a filled table. |
 | `img_58.png` | `cali-result-select-system-dropdown.png` | The **Select Cali System** dropdown expanded, showing the available system options. |
 

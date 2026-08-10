@@ -69,14 +69,14 @@ Use the links below when you want to reference a figure from another part of thi
 
 <div className="custom-note-title">Screenshots pending replacement</div>
 
-Only Figure 1 has been recaptured from the C++ application. Every figure still named `img_*.png` is a screenshot of the older Python application. The layout and wording in those close-ups may no longer match what you see on screen.
+Only Figures 1 and 2 have been recaptured from the C++ application. Every figure still named `img_*.png` is a screenshot of the older Python application. The layout and wording in those close-ups may no longer match what you see on screen.
 
 </div>
 
 | Figure | Name | Image File |
 |---|---|---|
 | [Figure 1](#fig-main-cali-result-overview) | Main Cali Result Overview | `calibration-result-main-window.png` |
-| [Figure 2](#fig-header-data-management) | Header & Data Management | `img_28.png` |
+| [Figure 2](#fig-header-data-management) | Header & Data Management | `main-window-overview-header-management.png` |
 | [Figure 3](#fig-loaded-data-example) | Loaded Data Example | `img_48.png` |
 | [Figure 4](#fig-cali-folder-url-input) | Cali Folder URL Input | `img_29.png` |
 | [Figure 5](#fig-cali-folder-selected-url) | Selected URL Input | `img_30.png` |
@@ -121,13 +121,31 @@ Only Figure 1 has been recaptured from the C++ application. Every figure still n
 
 ## 1. Header & Data Management
 
-<Figure id="fig-header-data-management" number="2" title="Header & Data Management" caption="Header & Data Management area with 15 main UI functions.">
+<Figure id="fig-header-data-management" number="2" title="Header & Data Management" caption="Header & Data Management area with 5 numbered regions, shown with the Graphs tab open.">
 
-![Header and Data Management section with 15 numbered UI elements](../../assets/images/img_28.png)
+![Header and Data Management section with 5 numbered regions and the Graphs tab open](../../assets/images/main-window-overview-header-management.png)
 
 </Figure>
 
 The **Header & Data Management** area is the top control section in the **Main Cali Result** window. This area is used to load calibration data, browse calibration folders, import or export Excel files, update table values, clear data, stop running calculations, open supporting graphs, and select the calibration system configuration.
+
+The screenshot above marks 5 regions:
+
+| No. | Region | Contents |
+|---:|---|---|
+| 1 | Data source & tree | **Cali Folder** input, **Select Cali System** dropdown, and the **Tree View** file browser. |
+| 2 | Data management buttons | **Load All Excel**, **Clear Table**, **Save to Excel**, **Stop**, **Load Excel**, **Clear All Table**, **Update Table**, **Load Database**, and the **Single Distance** checkbox. |
+| 3 | Shift of Entrance Pupil | Entrance pupil graph inside the **Graphs** tab, with **Update Shift of Entrance Pupil** and **Information — Entrance Pupil** buttons. |
+| 4 | Distance vs IH Range | Distance versus IH range graph inside the **Graphs** tab, with **Update Dist vs IH Range**. |
+| 5 | Distance vs Alpha | Distance versus alpha graph inside the **Graphs** tab, with **Update Dist vs Alpha**. |
+
+<div className="custom-note custom-important">
+
+<div className="custom-note-title">Graphs moved into a tab</div>
+
+In the older Python application, **Show shift of entrance pupil**, **Show graph Dist vs IH Range**, and **Show graph Dist vs Alpha** were three buttons on the right side of the header, and each one opened a separate popup window. In the C++ application those buttons are gone. A new **Graphs** tab was added to the tab bar, and the same three graphs are now embedded side by side inside that tab. Each graph has its own **Update** button instead of a header button, so the graph is redrawn in place rather than in a popup.
+
+</div>
 
 ### 1.1 Loaded Data Example
 
@@ -154,7 +172,7 @@ This section is mainly responsible for:
 | Table management | Clear one table, clear all tables, update the active table, and save results. |
 | Calculation control | Stop long-running aggregation or range-search processes. |
 | Data source selection | Select the calibration system and load database data when needed. |
-| Visualization | Open entrance pupil shift, distance vs IH range, and distance vs alpha graphs. |
+| Visualization | Open the `Graphs` tab to inspect entrance pupil shift, distance vs IH range, and distance vs alpha. |
 
 ---
 
@@ -185,7 +203,7 @@ In `controller_cali_result.py`, the main button and input behaviors are connecte
 3. Check whether the round tabs are loaded correctly. Loaded tabs usually show the `*` mark.
 4. Use **Update Table** when the calibration image, center point, PCT, or ICT data has changed.
 5. Enable **Single Distance** only when each round must use a different distance value.
-6. Open the graph or visualization tools when checking distance, IH range, alpha, or entrance pupil behavior.
+6. Open the **Graphs** tab and press the **Update** button under each graph when checking distance, IH range, alpha, or entrance pupil behavior.
 7. Save the final result using **Save to Excel**.
 
 </div>
@@ -194,23 +212,32 @@ In `controller_cali_result.py`, the main button and input behaviors are connecte
 
 ### 1.5 Quick Function Summary
 
-| No. | UI Element | Related Function / Handler | Main Purpose |
+| Region | UI Element | Related Function / Handler | Main Purpose |
 |---:|---|---|---|
 | 1 | Cali Folder | `_on_folder_path_entered()` | Enter a local folder path, Excel file path, or URL. |
-| 2 | Tree View | `_on_treeview_double_click()` | Browse calibration folders and load data by double-clicking. |
-| 3 | Load All Excel | `onclick_btn_load_all_excel()` | Load Excel files from round folders `1` to `10`. |
-| 4 | Clear Table | `onclick_btn_clear_table()` | Clear only the currently active table. |
-| 5 | Save to Excel | `onclick_btn_save_to_excel()` | Save the active table as an `.xlsx` file. |
-| 6 | Load Excel | `onclick_btn_load_excel()` | Load one Excel file into the active round table. |
-| 7 | Clear All Table | `onclick_btn_clear_all_table()` | Clear all round tables from `round_1` to `round_10`. |
-| 8 | Update Table | `onclick_btn_update_table()` | Update center, PCT, ICT, and calculated result data. |
-| 9 | Stop | `onclick_btn_stop()` | Cancel running aggregation or range-search processes. |
-| 10 | Load Database | `onclick_btn_load_database()` | Open or load calibration result data from the database. |
-| 11 | Single Distance | `onclick_cb_distance_changed()` | Use independent distance values for each round. |
-| 12 | Show shift of entrance pupil | Moved to the `Graphs` tab | Open entrance pupil shift visualization. No longer a header button. |
-| 13 | Show graph Dist vs IH Range | Moved to the `Graphs` tab | Show distance trend over IH ranges. No longer a header button. |
-| 14 | Show graph Dist vs Alpha | Moved to the `Graphs` tab | Show the relationship between distance and alpha. No longer a header button. |
-| 15 | Select Cali System | `applySystemConfig()` | Select the calibration system configuration. |
+| 1 | Tree View | `_on_treeview_double_click()` | Browse calibration folders and load data by double-clicking. |
+| 1 | Select Cali System | `applySystemConfig()` | Select the calibration system configuration. |
+| 2 | Load All Excel | `onclick_btn_load_all_excel()` | Load Excel files from round folders `1` to `10`. |
+| 2 | Clear Table | `onclick_btn_clear_table()` | Clear only the currently active table. |
+| 2 | Save to Excel | `onclick_btn_save_to_excel()` | Save the active table as an `.xlsx` file. |
+| 2 | Stop | `onclick_btn_stop()` | Cancel running aggregation or range-search processes. |
+| 2 | Load Excel | `onclick_btn_load_excel()` | Load one Excel file into the active round table. |
+| 2 | Clear All Table | `onclick_btn_clear_all_table()` | Clear all round tables from `round_1` to `round_10`. |
+| 2 | Update Table | `onclick_btn_update_table()` | Update center, PCT, ICT, and calculated result data. |
+| 2 | Load Database | `onclick_btn_load_database()` | Open or load calibration result data from the database. |
+| 2 | Single Distance | `onclick_cb_distance_changed()` | Use independent distance values for each round. |
+| 3 | Update Shift of Entrance Pupil | `Graphs` tab | Redraw the entrance pupil shift graph. |
+| 3 | Information — Entrance Pupil | `Graphs` tab | Show the numeric entrance pupil values behind the graph. |
+| 4 | Update Dist vs IH Range | `Graphs` tab | Redraw the distance versus IH range graph. |
+| 5 | Update Dist vs Alpha | `Graphs` tab | Redraw the distance versus alpha graph. |
+
+<div className="custom-note custom-tip">
+
+<div className="custom-note-title">Note</div>
+
+**Select Cali System** sits next to the **Cali Folder** field at the top of the window, so both belong to region **1** in the screenshot. The three graph regions **3**, **4**, and **5** are only visible when the **Graphs** tab is selected.
+
+</div>
 
 ---
 
@@ -1145,19 +1172,26 @@ Use this mode when each round has a manually measured or different distance valu
 
 ---
 
-### 1.18 Show Shift of Entrance Pupil
+### 1.18 Shift of Entrance Pupil (Graphs Tab, Region 3)
 
 <div className="custom-note custom-warning">
 
 <div className="custom-note-title">Moved in this version</div>
 
-Sections 1.18, 1.19, and 1.20 describe three buttons that no longer exist in the header. In the C++ application, the same three graphs are embedded in the `Graphs` tab, each with its own **Update** button. The purpose, source data, and interpretation described below are still correct. Only the place you click has changed.
+Sections 1.18, 1.19, and 1.20 describe three buttons that no longer exist in the header. In the C++ application, the same three graphs are embedded in the `Graphs` tab, each with its own **Update** button, and they appear as regions **3**, **4**, and **5** in [Figure 2](#fig-header-data-management). The purpose, source data, and interpretation described below are still correct. Only the place you click has changed.
 
 </div>
 
 #### Function
 
-The **Show shift of entrance pupil** button opens a visualization related to entrance pupil shift. This visualization is based on the distance, alpha, IH range, and history-distance values prepared from the range analysis area.
+The **Shift of Entrance Pupil** graph is the left panel of the `Graphs` tab. It visualizes entrance pupil shift using the distance, alpha, IH range, and history-distance values prepared from the range analysis area. The X-axis is **Lateral displacement** and the Y-axis is **Optical Axis (distance)**.
+
+The panel has two buttons:
+
+| Button | Purpose |
+|---|---|
+| **Update Shift of Entrance Pupil** | Redraw the graph using the current range and distance values. |
+| **Information — Entrance Pupil** | Show the numeric entrance pupil values behind the drawn curve. |
 
 #### Source Data for Entrance Pupil and Graph Tools
 
@@ -1184,7 +1218,7 @@ This area contains the calculated values for each range group. These values are 
 
 <div className="custom-note-title">Note</div>
 
-The **Show shift of entrance pupil**, **Show graph Dist vs IH Range**, and **Show graph Dist vs Alpha** buttons use values from this range/history-distance area. Therefore, before opening these graphs, make sure the range values have already been calculated or updated.
+All three graphs in the `Graphs` tab use values from this range/history-distance area. Therefore, before pressing any **Update** button, make sure the range values have already been calculated or updated.
 
 </div>
 
@@ -1205,8 +1239,9 @@ In this graph, each ray represents one range or round result. The label shows th
 1. Load calibration data.
 2. Update or calculate results.
 3. Check that the **Range Window** / **History Distance** values are filled.
-4. Click **Show shift of entrance pupil**.
-5. Inspect the visualization window.
+4. Open the **Graphs** tab.
+5. Click **Update Shift of Entrance Pupil**.
+6. Inspect the graph, and click **Information — Entrance Pupil** if you need the numeric values.
 
 #### When to Use
 
@@ -1222,11 +1257,11 @@ Use this function when checking:
 
 ---
 
-### 1.19 Show Graph Dist vs IH Range
+### 1.19 Distance vs IH Range (Graphs Tab, Region 4)
 
 #### Function
 
-The **Show graph Dist vs IH Range** button opens a graph that compares distance with IH range.
+The **Distance vs IH Range** graph is the middle panel of the `Graphs` tab. It compares distance with IH range, and is redrawn with the **Update Dist vs IH Range** button below the panel.
 
 <Figure id="fig-distance-vs-ih-range" number="20" title="Distance vs IH Range Graph" caption="Graph showing distance changes across IH range mean values.">
 
@@ -1253,8 +1288,9 @@ self.btn_show_graph_dist_ih_range.clicked.connect(self.onclick_btn_show_graph_di
 1. Load calibration data.
 2. Run aggregation or range analysis.
 3. Make sure distance values are filled.
-4. Click **Show graph Dist vs IH Range**.
-5. Inspect the graph.
+4. Open the **Graphs** tab.
+5. Click **Update Dist vs IH Range**.
+6. Inspect the graph.
 
 #### What It Helps Check
 
@@ -1269,11 +1305,11 @@ This graph helps check:
 
 ---
 
-### 1.20 Show Graph Dist vs Alpha
+### 1.20 Distance vs Alpha (Graphs Tab, Region 5)
 
 #### Function
 
-The **Show graph Dist vs Alpha** button opens a graph that compares distance with alpha.
+The **Distance vs Alpha** graph is the right panel of the `Graphs` tab. It compares distance with alpha, and is redrawn with the **Update Dist vs Alpha** button below the panel.
 
 <Figure id="fig-distance-vs-alpha" number="21" title="Distance vs Alpha Graph" caption="Graph showing the relationship between alpha mean and distance.">
 
@@ -1300,8 +1336,9 @@ self.btn_show_graph_dist_alpha.clicked.connect(self.onclick_btn_show_graph_dist_
 1. Load calibration data.
 2. Update all calculation results.
 3. Make sure alpha values are calculated.
-4. Click **Show graph Dist vs Alpha**.
-5. Inspect the graph.
+4. Open the **Graphs** tab.
+5. Click **Update Dist vs Alpha**.
+6. Inspect the graph.
 
 #### Related Alpha Formulas
 
@@ -1453,7 +1490,8 @@ The **Round & Tab Selection** area is used to switch between calibration rounds,
 | 3 | `parameter` | Parameter and graph calculation page. |
 | 4 | `Overlap` | Overlap visualization page. |
 | 5 | `Aggr by Distance and Range` | Aggregation analysis page. |
-| 6 | `test` | Testing and validation page. |
+| 6 | `Graphs` | Shift of Entrance Pupil, Distance vs IH Range, and Distance vs Alpha graphs. New in the C++ application. |
+| 7 | `test` | Testing and validation page. |
 
 ---
 

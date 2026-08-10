@@ -170,7 +170,7 @@ They must be read **together** — the interesting cases are the mixed ones.
 
 ## 4. Reading the Three Graphs
 
-<Figure id="fig-2" number="2" caption={<>The <strong>Ray Curve from Distance &amp; Alpha</strong> graph, opened with <strong>Show shift of entrance pupil</strong> — the same ray fan as Figure 1, drawn from measured calibration data. Each ray is labelled with its range's mid-angle and distance.</>}>
+<Figure id="fig-2" number="2" caption={<>The <strong>Ray Curve from Distance &amp; Alpha</strong> graph, drawn with <strong>Update Shift of Entrance Pupil</strong> on the <strong>Graphs</strong> tab — the same ray fan as Figure 1, built from measured calibration data. Each ray is labelled with its range's mid-angle and distance.</>}>
 
 ![Ray Curve from Distance and Alpha graph in the Cali Result window](../../assets/images/img_102.png)
 
@@ -223,7 +223,7 @@ The same distances plotted against **image height** instead of angle — where t
 
 1. **Enable the ranges you want to analyse.** Use **at least three**, and spread them across the field — clustering every range at similar angles leaves the fit unconstrained near `θ = 0` and makes `d_0` unreliable.
 2. **Make sure each enabled range has its Distance and Alpha Min/Max filled**, via **Update** or **History Distance**. Blank or unparseable fields are silently skipped by all three graphs.
-3. **Press "Show shift of entrance pupil"** to draw the ray fan from the current data.
+3. **Open the Graphs tab and press "Update Shift of Entrance Pupil"** to draw the ray fan from the current data.
 4. **Check Distance vs Alpha first.** If it is noise, stop and fix the capture — the other two graphs will only launder the same bad numbers.
 5. **Read Δs off the vertical spread of the white dots** in the shift plot.
 6. **Compute `d_0`, the shift, Δs and RMS** per Section 3.3 for the numeric result.
@@ -246,7 +246,7 @@ The graphs in Section 4 are implemented. **The estimator in Section 3 is not** �
 | Shift-of-entrance-pupil ray fan | ✅ Implemented |
 | Distance vs Alpha | ✅ Implemented |
 | Distance vs IH Range | ✅ Implemented |
-| Theory dialog (Fig. 2, Eq. 1 / 3) | ✅ Implemented |
+| Theory dialog (Fig. 2, Eq. 1 / 3), via **Information — Entrance Pupil** | ✅ Implemented |
 | Inputs — alpha and PCT-to-Pupil distance | ✅ Implemented |
 | `d_0`, `s(θ)`, Δs, RMS | ❌ **Not implemented** |
 
