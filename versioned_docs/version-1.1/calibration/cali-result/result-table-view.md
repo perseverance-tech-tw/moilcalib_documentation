@@ -6,14 +6,12 @@ title: Result Table View
 
 # Result Table View
 
-The **Main Cali Result** window is the main calculation workspace for the calibration result system. This window reads calibration data from Excel, stores the data in round tables, calculates **ICT / IH**, **PCT_CAL**, **Distance**, **Alpha**, **ZFL**, and **Aggregation**, then uses those values to check the smoothness of the ZFL-IH curve.
+The **Main Cali Result** window is where calibration data gets turned into a finished result.
+It reads calibration data from Excel, stores it per round, and calculates **ICT / IH**, **PCT_CAL**, **Distance**, **Alpha**, **ZFL**, and **Aggregation** from it.
+Those calculated values are then used to check how smooth the ZFL-IH curve is.
+A lower aggregation value means the curve is smoother and the calibration result is more stable.
 
-This page explains the window based on the actual behavior in `controller_cali_result.py`, especially the table column structure, control row, formulas, and calculation flow.
-
-<div className="custom-note custom-important">
-  <div className="custom-note-title">Main Purpose</div>
-  <p>The main goal of this window is to convert raw calibration table data into calculated Alpha and ZFL values, then use the IH-ZFL points to evaluate aggregation. A lower aggregation value means the IH-ZFL curve is smoother and the calibration result is more stable.</p>
-</div>
+This page walks through the result table itself: its layout, its columns, how each column gets calculated, and the tools used to find the best distance.
 
 ---
 
@@ -25,15 +23,17 @@ This page explains the window based on the actual behavior in `controller_cali_r
 
 </Figure>
 
-The Main Cali Result window is divided into three main areas.
+The window has three main areas.
 
 | No. | Area | Purpose |
 |---:|---|---|
-| 1 | **Control & Input Row** | Stores center position values, selected aggregation round, aggregation output, and the distance value used for calculation. Also holds the **Aggr Round** and **Clean Noise** buttons. |
-| 2 | **Result Table** | Stores raw calibration data and calculated output columns such as ICT average, PCT_CAL, Distance, Alpha, and ZFL. |
-| 3 | **Calculate Result & Formula Panel** | Holds the **Calculate Result** button and shows the formulas used by the table calculation, especially Alpha and ZFL formulas. |
+| 1 | **Control & Input Row** | Center position values, the selected round's aggregation and distance, and the **Aggr Round** / **Clean Noise** buttons. |
+| 2 | **Result Table** | Raw calibration data plus the calculated columns: ICT average, PCT_CAL, Distance, Alpha, and ZFL. |
+| 3 | **Calculate Result & Formula Panel** | The **Calculate Result** button, plus the Alpha and ZFL formulas the table uses. |
 
-The result table is the center of the calculation. The top row controls the input values and the table stores the result for each layer. The right formula panel helps users understand why Alpha and ZFL change when distance, PCT, V_Gap, H_Gap, or ICT changes.
+The result table sits at the center of the window.
+The control row above it feeds in the input values, and the table calculates a result for every layer.
+The formula panel on the right is there so you can see why Alpha and ZFL change whenever distance, PCT, V_Gap, H_Gap, or ICT changes.
 
 ---
 
@@ -45,151 +45,64 @@ The result table is the center of the calculation. The top row controls the inpu
 
 </Figure>
 
-The control row contains the input and output fields that are directly related to the table calculation.
+| No. | UI Component | Explanation |
+|---:|---|---|
+| 1 | **Positive / Negative Center Position** | The fisheye center from the positive and negative calibration images, copied in from the main window when **Update Table** is pressed. |
+| 2 | **Aggr Round** | Searches for the distance that gives the lowest aggregation for this round, writes it into **Distance**, and recalculates the table. |
+| 3 | **Clean Noise** | Opens a dialog that removes false intersection nodes caused by the bezel gap between calibration monitors. |
+| 4 | **Aggregation** | The aggregation value calculated from the round's IH-ZFL points. |
+| 5 | **Distance** | The distance value used in the Alpha formula for this round. |
 
-| No. | UI Component | Related Code / Data | Detailed Explanation |
-|---:|---|---|---|
-| 1 | **Positive Center Position** | `lineedit_pos_icx_tablewidget_*`, `lineedit_pos_icy_tablewidget_*` | Stores the fisheye center position from the positive calibration image. These values are copied from the main window when **Update Table** is pressed. |
-| 2 | **Negative Center Position** | `lineedit_neg_icx_tablewidget_*`, `lineedit_neg_icy_tablewidget_*` | Stores the fisheye center position from the negative calibration image. These values are also copied from the main window during table update. |
-| 3 | **Aggr Round** | `btn_aggr_round_*` | Searches the distance that gives the lowest aggregation for this round, then writes that distance back into the **Distance** field and recalculates the table. |
-| 4 | **Clean Noise** | `btn_clean_noise_*` | Opens the Clean Noise dialog, which removes the false intersection nodes produced by the bezel gap between calibration monitors. |
-| 5 | **Aggregation** | `lineedit_aggregation_round_*` | Displays the aggregation value calculated from IH-ZFL points. In the code, aggregation is calculated by collecting IH and ZFL points and summing the distance between neighboring points. |
-| 6 | **Distance** | `lineedit_distance_round_*`, `lineedit_distance_range_0` | Distance is the main value used in the Alpha formula. When distance changes, Alpha changes, ZFL changes, and aggregation also changes. |
+### 2.1 Center Positions
 
-### 2.1 Positive Center Position
+The positive and negative center positions are copied from the main window's center-detection result as soon as **Update Table** is clicked.
+They matter because the 8-direction ICT values are extracted from the calibration images using this center point, so a wrong center point means wrong ICT values in every direction.
 
-The positive center position is filled from the main window center-detection result.
+Once both center positions are in place, the controller extracts the intersection nodes from the positive and negative images and fills in the eight direction columns: N, S, W, E, NW, SE, SW, NE.
 
-Related functions:
+### 2.2 Aggr Round
 
-```python
-update_table_lineedit_img_center(table_index)
-get_main_lineedit_pos_icx()
-get_main_lineedit_pos_icy()
-```
-When **Update Table** is clicked, the controller copies:
+**Aggr Round** searches a distance range, by default 1.0 to 500.0, for the value that gives the smallest aggregation for the selected round.
+It recalculates the table at each candidate distance, collects the resulting IH-ZFL points, and keeps whichever distance produced the lowest aggregation.
 
-```text
-main positive CPX → pos_iCx
-main positive CPY → pos_iCy
-```
-These values are important because ICT values are extracted from the calibration image using the center point. If the center point is wrong, the 8-direction ICT values can also become wrong.
+### 2.3 Clean Noise
 
-### 2.2 Negative Center Position
+Calibration rigs that span several monitors have a bezel gap between screens.
+That gap produces intersection nodes that are not real image data, and those false nodes bend the ZFL curve and inflate the aggregation value.
+**Clean Noise** removes them before the round is calculated.
 
-The negative center position is copied in the same update process.
-
-Related functions:
-
-```python
-get_main_lineedit_neg_icx()
-get_main_lineedit_neg_icy()
-```
-The positive and negative center positions are used together when the controller extracts intersection nodes from the positive and negative images.
-
-The ICT data is obtained through:
-
-```python
-MoilCali.get_dict_8direction_intersecting_nodes_by_pos_neg_img_path(
-    pos_image,
-    neg_image,
-    pos_icx_icy,
-    neg_icx_icy
-)
-```
-The result is inserted into these 8 direction columns:
-
-```text
-N, S, W, E, NW, SE, SW, NE
-```
-### 2.3 Aggr Round
-
-The **Aggr Round** button is connected to the per-round aggregation logic.
-
-Related function:
-
-```python
-onclick_btn_aggr_round(table_index)
-```
-When this function runs, it searches the distance that gives the minimum aggregation for the selected round. The distance search range is usually:
-
-```text
-1.0 ~ 500.0
-```
-For the single-round search, the code evaluates different distance values, recalculates the table, collects IH-ZFL points, and keeps the distance that produces the smallest aggregation value.
-
-### 2.4 Clean Noise
-
-**Clean Noise** is new in this version. It sits directly next to **Aggr Round** and opens a dialog that removes false intersection nodes before the round is calculated.
-
-The false nodes come from the bezel gap between the monitors in the calibration rig. Those nodes are not real image data, so they bend the ZFL curve and inflate the aggregation value.
-
-The dialog removes nodes by **radial band**, measured in pixels from the image center:
+The dialog removes nodes by **radial band**, measured in pixels from the image center.
 
 | Item | Explanation |
 |---|---|
-| **Group** | `N & S`, `W & E`, and the diagonals each get their own band, because the bezel sits at a different radius in each direction. |
-| **min / max** | The two ends of the band. Both boundaries are kept, and only the nodes strictly inside are removed. Leaving one side blank makes that side open. |
-| **Auto-detection** | The dialog proposes a band per group when it opens. Auto-detection needs at least four gap samples in a group, otherwise no band is proposed and the values must be typed. |
+| **Group** | `N & S`, `W & E`, and the diagonals each get their own band, since the bezel sits at a different radius in each direction. |
+| **min / max** | The two ends of the band. Both boundaries are kept, and only nodes strictly inside are removed. Leave one side blank to make that side open-ended. |
+| **Auto-detection** | The dialog proposes a band per group when it opens, as long as there are at least four gap samples in that group. Otherwise the values must be typed in by hand. |
 | **Apply to ALL rounds with data** | Applies the same band to every round that has ICT data, not just the selected one. |
 
-The band the user last entered is offered again for the next round, because the bezel does not move between rounds.
+The band you last entered is offered again for the next round, since the bezel doesn't move between rounds.
 
 :::caution
-Cleaning redraws the graphs but does **not** recalculate the table. Press **Aggr Round** or **Calculate Result** afterward, otherwise the Alpha and ZFL columns still hold values derived from the removed nodes.
+Cleaning redraws the graphs, but it does **not** recalculate the table on its own.
+Press **Aggr Round** or **Calculate Result** afterward, or the Alpha and ZFL columns will still hold values from the removed nodes.
 :::
 
-The full dialog walkthrough is in [Cali Result Overview](./index.md).
+### 2.4 Aggregation and Distance Fields
 
-### 2.5 Aggregation Field
+The aggregation value comes from the round's IH-ZFL points: sort them by IH, measure the distance between each neighboring pair, and add those distances up.
+A lower total means the curve is smoother; a higher total means it has bigger jumps or unstable transitions.
 
-The aggregation field displays the output of the aggregation calculation.
-
-Related functions:
-
-```python
-calculate_aggregation_single_round(table_index)
-update_aggregation_single_round(table_index)
-calculate_aggregation_total(xlist_ict, ylist_zfl)
-```
-The aggregation value is calculated from the IH-ZFL point list.
-
-```text
-IH-ZFL points
-   ↓
-Sort by IH
-   ↓
-Calculate point-to-point distance
-   ↓
-Sum all distances
-   ↓
-Aggregation value
-```
-Lower aggregation usually means the ZFL-IH curve is smoother. Higher aggregation means the curve has larger jumps or unstable transitions.
-
-### 2.6 Distance Field
-
-Distance is one of the most important values in the table because it directly affects Alpha.
-
-Top-screen Alpha formula:
+Distance is one of the most important values on the page, because it feeds directly into the Alpha formula:
 
 ```text
 alpha = atan(pct_cal / distance)
 ```
-If the distance changes, the same PCT_CAL value will produce a different Alpha value. Because ZFL is calculated from Alpha, the ZFL value also changes.
 
-```text
-Distance changes
-   ↓
-Alpha changes
-   ↓
-ZFL changes
-   ↓
-Aggregation changes
-```
+Changing distance changes Alpha for the same PCT_CAL, which changes ZFL, which changes aggregation.
+
 ---
 
-## 3. Result Table Column Structure
+## 3. Result Table Columns
 
 <Figure id="fig-3" number="3" caption="Calibration Result Table Column Structure.">
 
@@ -197,46 +110,18 @@ Aggregation changes
 
 </Figure>
 
-The result table uses fixed internal column indexes. In the code, these indexes are defined in `_dict_column_index`.
+The table is organized into a few column groups, separated visually by plain black columns that carry no data of their own.
 
-| Group | Column Index / Name | Displayed Column | Meaning |
-|---|---|---|---|
-| **Basic Info** | `round` = 0 | Round | Stores the round number or `*` marker. The `*` marker is used to identify the side layer. |
-| **Basic Info** | `side` = 1 | Side | Stores the layer number. The special row above the layer data stores the detected side layer. |
-| **Basic Info** | `pct` = 2 | PCT | Raw pattern PCT value from the Pattern Generator. |
-| **ICT 8 Directions** | `ict_n` = 3 | N | ICT / IH value in North direction. |
-| **ICT 8 Directions** | `ict_s` = 4 | S | ICT / IH value in South direction. |
-| **ICT 8 Directions** | `ict_w` = 5 | W | ICT / IH value in West direction. |
-| **ICT 8 Directions** | `ict_e` = 6 | E | ICT / IH value in East direction. |
-| **ICT 8 Directions** | `ict_nw` = 7 | NW | ICT / IH value in Northwest direction. |
-| **ICT 8 Directions** | `ict_se` = 8 | SE | ICT / IH value in Southeast direction. |
-| **ICT 8 Directions** | `ict_sw` = 9 | SW | ICT / IH value in Southwest direction. |
-| **ICT 8 Directions** | `ict_ne` = 10 | NE | ICT / IH value in Northeast direction. |
-| **Separator** | `empty11` = 11 | Black column | Visual separator between raw ICT data and summary data. |
-| **ICT Summary** | `ict_avg` = 12 | AVG | Average value of valid ICT directions. |
-| **PCT & Distance** | `pct_cal` = 13 | PCT | Calibrated PCT value after applying pixel size. |
-| **PCT & Distance** | `distance` = 14 | Distance | Distance value used for Alpha calculation. |
-| **Separator** | `empty15` = 15 | Black column | Visual separator before Alpha and ZFL columns. |
-| **Alpha & ZFL** | `alpha_n`, `zfl_n` = 16, 17 | N α / ZFL | Alpha and ZFL for North direction. |
-| **Alpha & ZFL** | `alpha_s`, `zfl_s` = 18, 19 | S α / ZFL | Alpha and ZFL for South direction. |
-| **Alpha & ZFL** | `alpha_w`, `zfl_w` = 20, 21 | W α / ZFL | Alpha and ZFL for West direction. |
-| **Alpha & ZFL** | `alpha_e`, `zfl_e` = 22, 23 | E α / ZFL | Alpha and ZFL for East direction. |
-| **Alpha & ZFL** | `alpha_nw`, `zfl_nw` = 24, 25 | NW α / ZFL | Alpha and ZFL for Northwest direction. |
-| **Alpha & ZFL** | `alpha_se`, `zfl_se` = 26, 27 | SE α / ZFL | Alpha and ZFL for Southeast direction. |
-| **Alpha & ZFL** | `alpha_sw`, `zfl_sw` = 28, 29 | SW α / ZFL | Alpha and ZFL for Southwest direction. |
-| **Alpha & ZFL** | `alpha_ne`, `zfl_ne` = 30, 31 | NE α / ZFL | Alpha and ZFL for Northeast direction. |
-| **Separator** | `empty32` = 32 | Black column | Visual separator before final average columns. |
-| **Summary** | `alpha_avg` = 33 | AVG α | Average Alpha for top-screen rows only. |
-| **Summary** | `zfl_avg` = 34 | AVG ZFL | Average ZFL for top-screen rows only. |
+| Group | Columns | Meaning |
+|---|---|---|
+| Basic Info | Round, Side, PCT | Round number (or `*` marking the side layer row), layer number, and the raw pattern PCT value. |
+| ICT 8 Directions | N, S, W, E, NW, SE, SW, NE | ICT / IH value measured in each direction. |
+| ICT Summary | AVG | Average of the valid ICT directions. |
+| PCT & Distance | PCT (calibrated), Distance | PCT_CAL after applying pixel size, and the distance used for this row's calculation. |
+| Alpha & ZFL | N α / ZFL … NE α / ZFL | Alpha and ZFL calculated for each of the 8 directions. |
+| Summary | AVG α, AVG ZFL | Average Alpha and ZFL, used for top-screen rows. |
 
-<div className="custom-note custom-tip">
-  <div className="custom-note-title">Why There Are Black Columns</div>
-  <p>The black columns are not calculation columns. They are visual separators used to divide the table into readable groups: raw ICT data, summary ICT, PCT / Distance, directional Alpha / ZFL, and final average values.</p>
-</div>
-
----
-
-## 4. Empty Result Table
+### Before and After Calculation
 
 <Figure id="fig-4" number="4" caption="Empty Calibration Result Table.">
 
@@ -244,41 +129,7 @@ The result table uses fixed internal column indexes. In the code, these indexes 
 
 </Figure>
 
-When the table is empty, only the structure is visible. The controller still initializes the table with row numbers and side numbers.
-
-Related function:
-
-```python
-init_table_widget()
-```
-The initialization process:
-
-```text
-Create table rows
-   ↓
-Set table font
-   ↓
-Set row height
-   ↓
-Set column width
-   ↓
-Fill Side column with layer numbers
-   ↓
-Create black separator columns
-```
-The table stores layer data starting from row index `layer + 2`. This is why the code repeatedly calls:
-
-```python
-get_index_row_by_layer(layer)
-```
-The special row for round and side metadata uses:
-
-```python
-get_index_row_by_layer(-1)
-```
----
-
-## 5. Filled Result Table
+Before any data is loaded, the table already has its row numbers and side numbers filled in, and it's ready to receive data.
 
 <Figure id="fig-5" number="5" caption="Filled Calibration Result Table.">
 
@@ -286,908 +137,198 @@ get_index_row_by_layer(-1)
 
 </Figure>
 
-After data is loaded or calculated, the table contains:
-
-| Data Type | Where It Comes From | Result in Table |
-|---|---|---|
-| **Round** | Current tab index or loaded Excel data | Identifies which round the table belongs to. |
-| **Side Layer** | First layer marked with `*`, or default value `40` | Decides whether the top-screen or side-screen formula is used. |
-| **PCT** | Pattern Generator concentric and stripeline data | Raw PCT values used to calculate PCT_CAL. |
-| **ICT 8 Directions** | Positive and negative image intersection detection | Raw IH / ICT values for each direction. |
-| **ICT AVG** | Average of valid direction values | Used for top-screen IH-ZFL points. |
-| **PCT_CAL** | Sum of PCT values multiplied by pixel size | Physical calibrated PCT value. |
-| **Distance** | Global distance, round distance, or calculated round distance | Used in Alpha formula. |
-| **Alpha** | Calculated from PCT_CAL and Distance | Directional angular value in radians. |
-| **ZFL** | Calculated from Alpha and ICT | Directional ZFL value. |
-| **AVG α / AVG ZFL** | Average values before side layer | Summary values used for top-screen points. |
+Once data is loaded or calculated, every column has a value: Round and Side identify the row, PCT and ICT hold the raw measurements, and PCT_CAL, Distance, Alpha, ZFL, and the averages hold the calculated results described in the sections below.
 
 ---
 
-## 6. Update Table Process
+## 4. Getting Data Into the Table
 
-The **Update Table** button is connected to:
+There are two ways to fill the table: click **Update Table** to pull fresh data from the current images and patterns, or load it from an Excel file.
 
-```python
-onclick_btn_update_table()
-```
-When clicked, the controller performs this sequence:
+### 4.1 Update Table
 
-```text
-Get current table index
-   ↓
-Clear current table
-   ↓
-Copy positive / negative center values from main window
-   ↓
-Update round number
-   ↓
-Update PCT column from Pattern Generator JSON
-   ↓
-Extract ICT values in 8 directions from positive and negative images
-   ↓
-Run Update All Cali Result
-   ↓
-Mark current tab with *
-```
-### 6.1 Clear Current Table
+Clicking **Update Table** runs through these steps in order:
 
-The update process starts by clicking the clear-table logic internally:
+1. Clear the current table.
+2. Copy the positive and negative center positions from the main window.
+3. Update the round number.
+4. Update the PCT column from the Pattern Generator data (concentric layers use `radius`, stripeline layers use `interval`).
+5. Extract the 8-direction ICT values from the positive and negative calibration images.
+6. Run the full calculation and mark the tab with `*`.
 
-```python
-self.btn_clear_table.click()
-```
-This removes old values so the new calculation does not mix with previous data.
+### 4.2 Loading from Excel
 
-### 6.2 Copy Center Values
+**Load Excel** loads one `.xlsx` file into the currently selected round.
+It fills only the raw columns, Round, Side, PCT, and the 8 ICT directions, then runs the full calculation to fill in everything else.
 
-The controller then calls:
-
-```python
-update_table_lineedit_img_center(table_index)
-```
-This updates:
+**Load All Excel** does the same thing for a whole folder of rounds at once.
+It expects a folder structured like this, with one Excel file per round subfolder:
 
 ```text
-pos_iCx
-pos_iCy
-neg_iCx
-neg_iCy
+main_folder/
+├── 1/result.xlsx
+├── 2/result.xlsx
+...
+└── 10/result.xlsx
 ```
-These values are taken from the main window CPX / CPY fields.
 
-### 6.3 Update PCT Column
+After loading, it also loads `main.json` if one exists in the folder.
 
-The PCT values are updated by:
+### 4.3 Calculate Result
 
-```python
-update_column_pct(table_index)
-get_list_pattern_pct()
-```
-The function reads two pattern sources:
+The **Calculate Result** button, on the formula panel, runs the full calculation for the selected round using whatever distance is currently in the **Distance** field.
+It's the manual counterpart to **Aggr Round**: **Aggr Round** searches for the best distance first and then calculates, while **Calculate Result** calculates at whatever distance you've already set.
 
-| Pattern Source | Code Data | Purpose |
-|---|---|---|
-| `json_concentric` | `radius` | Used for concentric pattern layers. |
-| `json_stripeline` | `interval` | Used for stripeline pattern layers. |
-
-The combined PCT list is inserted into the `pct` column.
-
-### 6.4 Update ICT 8 Directions
-
-The 8-direction ICT values are calculated by:
-
-```python
-update_ict_8direction(table_index)
-```
-The code uses positive and negative calibration images:
-
-```text
-image_cali/capture_positive_shot.png
-image_cali/capture_negative_shot.png
-```
-Then the system detects intersecting nodes for:
-
-```text
-n, w, s, e, nw, se, sw, ne
-```
-These values are inserted into the matching ICT direction columns.
+Either way, a full calculation follows the same order: update the side layer and round number, calculate ICT average, calculate PCT_CAL, update distance, calculate Alpha and ZFL for all 8 directions, calculate the Alpha and ZFL averages, update the round's aggregation, and refresh the ZFL-IH, IH-Alpha, and overlap graphs.
 
 ---
 
-## 7. Full Calculation Pipeline
+## 5. Side Layer
 
-The main calculation function is:
+The **side layer** decides which formula a row uses: the simpler top-screen formula, or the side-screen formula.
 
-```python
-calculate_result(table_index)
-```
-The pipeline follows this order:
+The controller looks for the first row in the Round column marked with `*`.
+If none is found, it falls back to a default side layer of `40`.
 
-```text
-Update side layer
-   ↓
-Update round number
-   ↓
-Remove invalid diagonal side-screen data
-   ↓
-Clear and calculate ICT average
-   ↓
-Clear and calculate PCT_CAL
-   ↓
-Update Distance
-   ↓
-Clear Alpha and ZFL columns
-   ↓
-Calculate Alpha in 8 directions
-   ↓
-Calculate ZFL in 8 directions
-   ↓
-Calculate Alpha average
-   ↓
-Calculate ZFL average
-   ↓
-Update single-round aggregation
-   ↓
-Refresh ZFL-IH, IH-Alpha, and Overlap graphs
-```
-This means the table calculation is not only a formula update. It also updates graph data and aggregation output.
-
----
-
-## 8. Side Layer Logic
-
-The side layer decides which formula is used.
-
-Related functions:
-
-```python
-update_side_layer(table_index)
-get_start_in_which_layer(table_index)
-get_side_layer(table_index)
-```
-The controller searches for the first layer in the `round` column that contains:
-
-```text
-*
-```
-If no `*` is found, the default side layer is:
-
-```text
-40
-```
-| Layer Condition | Formula Type | Behavior |
-|---|---|---|
-| `layer < side_layer` | Top-screen calculation | Uses average Alpha and average ZFL. |
-| `layer >= side_layer` | Side-screen calculation | Uses direction-specific Alpha and ZFL. |
-
-<div className="custom-note custom-important">
-  <div className="custom-note-title">Side Layer Importance</div>
-  <p>The side layer controls when the calculation changes from top-screen formula to side-screen formula. If the side marker is wrong, the system may calculate Alpha and ZFL with the wrong formula.</p>
-</div>
-
----
-
-## 9. ICT Average Calculation
-
-The ICT average is calculated by:
-
-```python
-update_ict_avg(table_index)
-calculate_ict_avg(table_index, layer)
-```
-For each layer, the controller reads 8 directional ICT values:
-
-```text
-ict_n, ict_w, ict_s, ict_e, ict_nw, ict_se, ict_sw, ict_ne
-```
-Then it calculates the average using:
-
-```python
-average_without_zero(list_data)
-```
-This helper only averages values that can be converted into numbers.
-
-```text
-Valid ICT values
-   ↓
-Sum valid values
-   ↓
-Count valid values
-   ↓
-ICT AVG = sum / count
-```
-If no valid ICT value exists, the output is empty.
-
----
-
-## 10. PCT_CAL Calculation
-
-The calibrated PCT value is calculated by:
-
-```python
-update_pct_cal(table_index)
-calculate_pct_cal(table_index, layer_pct_cal)
-```
-The system reads two pixel-size values:
-
-```python
-lineedit_pixel_size_top
-lineedit_pixel_size_side
-```
-The selected pixel size depends on the side layer.
-
-| Layer Condition | Pixel Size Used |
+| Layer Condition | Formula Used |
 |---|---|
-| `layer < side_layer` | `pixel_size_top` |
-| `layer >= side_layer` | `pixel_size_side` |
+| Before the side layer | Top-screen formula, using the average Alpha and average ZFL. |
+| At or after the side layer | Side-screen formula, using each direction's own Alpha and ZFL. Diagonal directions (NW, SE, SW, NE) are left blank, since the side-screen geometry doesn't use them. |
 
-The simplified formula is:
-
-```text
-PCT_CAL = sum(PCT values in selected section) × selected pixel size
-```
-### 10.1 Top-Screen PCT_CAL
-
-For top-screen layers, the calculation starts from layer `0` and sums PCT values until the current layer.
-
-```text
-start_layer = 0
-end_layer = current layer
-pixel_size = pixel_size_top
-```
-### 10.2 Side-Screen PCT_CAL
-
-For side-screen layers, the calculation starts from the side layer and sums PCT values until the current layer.
-
-```text
-start_layer = side_layer
-end_layer = current layer
-pixel_size = pixel_size_side
-```
-This means PCT_CAL is not always calculated from the first row. It depends on whether the current row is before or after the side layer.
+If the `*` marker is missing or placed on the wrong row, the whole table will calculate with the wrong formula from that point on, so it's worth double-checking.
 
 ---
 
-## 11. Distance Calculation
+## 6. How Each Value Is Calculated
 
-Distance is calculated by:
+### 6.1 ICT Average
 
-```python
-update_distance(table_index, lineedit_distance_range_0)
-calculate_distance(table_index, lineedit_distance_range_0)
+The ICT average is the mean of the valid (non-zero) values among the 8 directions for a row.
+If none of the directions have a valid value, the average is left empty.
+
+### 6.2 PCT_CAL
+
+```text
+PCT_CAL = sum(PCT values in the section) × pixel size
 ```
-The normal distance formula is:
+
+Which pixel size and which section of rows gets summed depends on the side layer:
+
+| Layer Condition | Pixel Size | Section Summed |
+|---|---|---|
+| Before the side layer | Pixel Size (Top) | From layer 0 up to the current layer. |
+| At or after the side layer | Pixel Size (Side) | From the side layer up to the current layer. |
+
+### 6.3 Distance
 
 ```text
 distance = base_distance + dis_per_round × (current_round - first_valid_round)
 ```
-| Term | Source | Meaning |
-|---|---|---|
-| `base_distance` | `lineedit_distance_range_0` | Base distance used as the starting distance. |
-| `dis_per_round` | `lineedit_dis_per_round` | Distance increment between rounds. |
-| `current_round` | Round metadata row | Current round number. |
-| `first_valid_round` | First table that contains valid ICT data | Reference round for the calculation. |
 
-### 11.1 Single Distance Mode
+`base_distance` and `dis_per_round` come from the Distance/Round settings, and `first_valid_round` is the first round that has valid ICT data.
 
-The checkbox **Single Distance** changes the distance behavior.
+If **Single Distance** is enabled, this formula is skipped entirely, and each round instead uses its own distance value, edited directly in that round's distance field.
 
-Related functions:
+### 6.4 Alpha
 
-```python
-connect_cb_distance()
-onclick_cb_distance_changed()
-_is_use_single_round_distance()
-update_distance_auto()
-update_distance_single_round()
-```
-When **Single Distance** is enabled, each round can use its own distance line edit:
+Which formula applies depends on the side layer, same as everywhere else on this page.
 
-```text
-lineedit_distance_round_1
-lineedit_distance_round_2
-...
-lineedit_distance_round_10
-```
-When a round distance is edited and Enter is pressed, the controller recalculates that round and updates the aggregation output.
-
----
-
-## 12. Alpha Calculation
-
-Which Alpha formula a row uses depends on the screen that row sits on. The two branches are mutually exclusive, and both feed the same ZFL step.
-
-<Figure id="fig-6" number="6" caption="What Calculate Result does to one row: pick the Alpha branch by screen, then derive ZFL.">
-
-![Calculate Result formula flow](../../assets/images/result-table-formula-panel.png)
-
-</Figure>
-
-Alpha is calculated by:
-
-```python
-update_alpha_8direction(table_index)
-calculate_alpha(table_index, direction, layer)
-```
-The controller calculates Alpha for:
-
-```text
-n, w, s, e, nw, se, sw, ne
-```
-However, diagonal directions are ignored after the side layer.
-
-```text
-If direction is NW / SE / SW / NE and layer >= side_layer:
-    Alpha becomes empty
-```
-### 12.1 Top-Screen Alpha Formula
-
-For rows before the side layer, Alpha is calculated using:
+**Before the side layer:**
 
 ```text
 α = atan(PCT_CAL / Distance)
 ```
-| Variable | Meaning |
-|---|---|
-| `α` | Alpha angle in radians. |
-| `PCT_CAL` | Calibrated PCT value after pixel-size conversion. |
-| `Distance` | Distance value used by the selected round or range. |
 
-This formula is simple because the top-screen geometry only depends on PCT_CAL and distance.
-
-### 12.2 Side-Screen Alpha Formula
-
-For rows at or after the side layer, Alpha is calculated using:
+**At or after the side layer:**
 
 ```text
-α = π / 2 - atan((Distance - PCT_CAL - V_Gap) / H_Gap)
+α = π/2 - atan((Distance - PCT_CAL - V_Gap) / H_Gap)
 ```
-| Variable | Meaning |
-|---|---|
-| `π / 2` | 90 degrees in radians. |
-| `Distance` | Current distance value. |
-| `PCT_CAL` | Calibrated PCT value. |
-| `V_Gap` | Vertical gap value for the selected direction. |
-| `H_Gap` | Horizontal gap value for the selected direction. |
 
-The code reads V_Gap and H_Gap through:
+`V_Gap` and `H_Gap` are the vertical and horizontal gap values for the direction being calculated, set on the parameter panel.
+This formula only applies to the four main directions (N, S, E, W); the diagonals are left blank after the side layer.
 
-```python
-get_dict_v_gap_4direction()
-get_dict_h_gap_4direction()
-```
-The side-screen formula only uses the four main directions:
-
-```text
-N, S, W, E
-```
-The diagonal directions are cleared because the side-screen geometry does not use diagonal directions in this calculation.
-
----
-
-## 13. ZFL Calculation
-
-ZFL is calculated by:
-
-```python
-update_zfl_8direction(table_index)
-calculate_zfl(table_index, direction, layer)
-```
-The formula is:
+### 6.5 ZFL
 
 ```text
 ZFL = 1 / tan(α) × ICT
 ```
-| Variable | Meaning |
+
+If Alpha or ICT is missing or invalid for a direction, ZFL is left empty for that direction too.
+Calculated ZFL cells are highlighted so they're easy to spot in the table.
+
+### 6.6 Alpha and ZFL Averages, and IH-ZFL Points
+
+The AVG α and AVG ZFL columns are only calculated for rows before the side layer, since side-screen rows already use direction-specific values instead.
+
+This same split decides how points are collected for the IH-ZFL curve:
+
+- **Before the side layer**, each row contributes one point using `(ICT average, ZFL average)`.
+- **At or after the side layer**, each row contributes one point per direction, using `(ICT, ZFL)` for that direction.
+
+---
+
+## 7. Aggregation and Finding the Best Distance
+
+Aggregation measures how smooth the IH-ZFL curve is.
+It's calculated by sorting the collected IH-ZFL points by IH, measuring the distance between each pair of neighboring points, and summing those distances:
+
+```text
+aggregation = sum of sqrt((x1 - x2)² + (y1 - y2)²) over neighboring points
+```
+
+Lower aggregation means a smoother, more stable curve.
+
+Aggregation can also be calculated for one specific IH range instead of the whole curve, which is what the range-analysis tools on the main window use.
+
+**Finding the best distance** works the same way, but automatically: the search evaluates aggregation at different distance values within a range (1.0 to 500.0 by default), narrows in on whichever section gives the lowest aggregation, and repeats until it converges.
+The result is written into the **Distance** and **Aggregation** fields, and the sampled points are plotted on the Aggregation vs. Distance graph.
+
+---
+
+## 8. Managing Round Data
+
+| Action | What it does |
 |---|---|
-| `ZFL` | Calculated ZFL value. |
-| `α` | Alpha angle in radians. |
-| `ICT` | ICT / IH value from the selected direction. |
-| `tan()` | Tangent trigonometric function. |
-
-If Alpha or ICT is invalid or empty, ZFL is also empty.
-
-The code highlights calculated ZFL cells with a light background color when the calculated value is finite. This makes calculated ZFL values easier to identify in the table.
-
----
-
-## 14. Alpha Average and ZFL Average
-
-The average columns are calculated by:
-
-```python
-update_alpha_avg(table_index)
-update_zfl_avg(table_index)
-```
-These two functions only process rows before the side layer.
-
-```text
-if layer >= side_layer:
-    stop average calculation
-```
-This means:
-
-| Area | Average Columns Used? | Explanation |
-|---|---|---|
-| Top-screen rows | Yes | Uses 8-direction Alpha and ZFL values to calculate average Alpha and average ZFL. |
-| Side-screen rows | No | Uses direction-specific Alpha and ZFL values instead of average columns. |
-
-The average values are important because top-screen IH-ZFL points use:
-
-```text
-x = ict_avg
-y = zfl_avg
-```
-After the side layer, the system uses direction-specific values instead.
-
----
-
-## 15. How IH-ZFL Points Are Collected
-
-IH-ZFL points are collected by:
-
-```python
-get_ict_zfl_into_xlist_ylist(table_index)
-```
-The function separates top-screen and side-screen behavior.
-
-### 15.1 Before Side Layer
-
-For layers before the side layer:
-
-```text
-x = ict_avg
-y = zfl_avg
-```
-This means the table uses average values because all 8 directions are still treated as one top-screen result.
-
-### 15.2 At and After Side Layer
-
-For layers at or after the side layer:
-
-```text
-x = ict_direction
-y = zfl_direction
-```
-The controller loops through:
-
-```text
-n, s, w, e, nw, se, sw, ne
-```
-and appends valid direction data to the IH-ZFL list.
-
----
-
-## 16. Aggregation Calculation
-
-Aggregation is calculated by:
-
-```python
-calculate_aggregation_total(xlist_ict, ylist_zfl)
-```
-The process is:
-
-```text
-Collect IH and ZFL points
-   ↓
-Pair each IH with ZFL
-   ↓
-Sort the pairs by IH
-   ↓
-Calculate the distance between each neighboring point
-   ↓
-Sum all point-to-point distances
-   ↓
-Return aggregation value
-```
-The point-to-point distance concept is:
-
-```text
-distance_between_points = sqrt((x1 - x2)^2 + (y1 - y2)^2)
-```
-Aggregation is then:
-
-```text
-aggregation = sum(distance_between_points)
-```
-| Aggregation Result | Meaning |
-|---|---|
-| Lower value | IH-ZFL curve is smoother and more stable. |
-| Higher value | IH-ZFL curve has larger jumps or unstable transitions. |
-
----
-
-## 17. Aggregation by Distance
-
-The aggregation for a specific distance is calculated by:
-
-```python
-calculate_aggregation_by_distance(distance, lineedit_distance_range_0, range_min, range_max)
-```
-This function does the following:
-
-```text
-Set distance value into distance line edit
-   ↓
-Recalculate every enabled table
-   ↓
-Collect IH-ZFL points from all enabled rounds
-   ↓
-Optional: filter points by IH range
-   ↓
-Calculate aggregation
-   ↓
-Return aggregation value
-```
-If `range_min` and `range_max` are provided, aggregation is calculated only inside that IH range. If no range is provided, aggregation is calculated globally.
-
----
-
-## 18. Best Distance Search
-
-The best distance search is handled by:
-
-```python
-find_min_aggregation_by_lineedit()
-```
-The search uses a ternary-search style method.
-
-```text
-Read distance min and max
-   ↓
-Evaluate aggregation at two internal distance points
-   ↓
-Keep the distance section with lower aggregation
-   ↓
-Repeat until tolerance or max iteration is reached
-   ↓
-Return best distance and minimum aggregation
-```
-Default search range:
-
-```text
-1.0 ~ 500.0
-```
-The function updates:
-
-| Output | Meaning |
-|---|---|
-| Distance line edit | Best distance found by the search. |
-| Aggregation line edit | Minimum aggregation at the best distance. |
-| `_dist_aggr_samples` | Sample points for the Aggregation vs Distance graph. |
-| `_dist_aggr_min` | Best point shown on the graph. |
-
----
-
-## 19. Formula Panel Explanation
-
-The formula panel shows the three main formulas used by the result table. The **Calculate Result** button sits at the top of this panel. It runs the full calculation pipeline for the selected round using the value currently in the **Distance** field, so it is the manual counterpart of **Aggr Round**, which searches for the best distance first.
-
-### 19.1 Formula 1: Alpha from PCT_CAL and Distance
-
-```text
-α = atan(PCT_CAL / Distance)
-```
-This formula is used before the side layer. In the Python code, the value is calculated using:
-
-```python
-atan(pct_cal / distance)
-```
-### 19.2 Formula 2: Alpha Adjusted by V_Gap and H_Gap
-
-```text
-α = π / 2 - atan((Distance - PCT_CAL - V_Gap) / H_Gap)
-```
-This formula is used after the side layer. It includes the physical side-screen gap values.
-
-### 19.3 Formula 3: ZFL from Alpha
-
-```text
-ZFL = 1 / tan(α) × ICT
-```
-This formula converts Alpha and ICT into ZFL. Because ZFL depends on Alpha, any change in distance, PCT_CAL, V_Gap, or H_Gap can also change ZFL.
-
----
-
-## 20. How Loaded Excel Data Becomes Calculated Result
-
-The Excel loading logic supports both single Excel loading and folder-based loading.
-
-Related functions:
-
-```python
-onclick_btn_load_excel()
-onclick_btn_load_all_excel()
-_load_all_excel_from_folder(folder_path)
-_load_excel_to_current_round(xlsx_path)
-```
-### 20.1 Load One Excel
-
-When loading one Excel file:
-
-```text
-Select active round tab
-   ↓
-Click Load Excel
-   ↓
-Select one .xlsx file
-   ↓
-Clear the active table
-   ↓
-Insert data into columns A to K
-   ↓
-Mark the tab with *
-   ↓
-Run Update All Cali Result
-```
-Only the raw columns are loaded from Excel first:
-
-```text
-Round, Side, PCT, N, S, W, E, NW, SE, SW, NE
-```
-The calculated columns are then generated by the controller.
-
-### 20.2 Load All Excel
-
-When loading all Excel files:
-
-```text
-Select main calibration folder
-   ↓
-Search folders 1 to 10
-   ↓
-Find the first .xlsx file in each round folder
-   ↓
-Load each file into its matching round table
-   ↓
-Mark loaded round tabs with *
-   ↓
-Run Update All Cali Result
-   ↓
-Load main.json if it exists
-```
-Expected folder structure:
-
-```text
-main_folder/
-├── 1/
-│   └── result.xlsx
-├── 2/
-│   └── result.xlsx
-├── 3/
-│   └── result.xlsx
-...
-└── 10/
-    └── result.xlsx
-```
----
-
-## 21. Clear Table and Clear All Table
-
-### 21.1 Clear Table
-
-Related function:
-
-```python
-onclick_btn_clear_table()
-```
-This clears only the active table.
-
-```text
-Clear all calculation columns
-   ↓
-Restore black separator columns
-   ↓
-Update round number
-   ↓
-Initialize side column
-   ↓
-Remove * mark from tab
-   ↓
-Update all calibration results
-```
-### 21.2 Clear All Table
-
-Related function:
-
-```python
-onclick_btn_clear_all_table()
-```
-This clears all round tables from round 1 to round 10. The function shows a confirmation dialog before deleting the data.
-
-<div className="custom-note custom-warning">
-  <div className="custom-note-title">Warning</div>
-  <p>Clear Table and Clear All Table remove data from the user interface. Save the result first if the table values must be kept.</p>
-</div>
-
----
-
-## 22. Update All Cali Result
-
-The **Update All Cali Result** action is handled by:
-
-```python
-onclick_btn_update_all_cali_result()
-```
-It loops through round 1 to round 10 and calculates only enabled rounds.
-
-```text
-for table_index in range(1, 11):
-    if round is enabled:
-        calculate_result(table_index)
-```
-After all enabled rounds are calculated, it refreshes:
-
-```text
-IH-Alpha graph
-ZFL-IH graph
-Overlap graph
-```
-Use **Update All Cali Result** after changing:
-
-- distance,
-- pixel size,
-- V_Gap,
-- H_Gap,
-- calibration system,
-- round data,
-- enabled / disabled round status.
-
----
-
-## 23. Round Enable / Disable and Right-Click Menu
-
-The tab widget supports a right-click menu for round tabs.
-
-Related functions:
-
-```python
-show_round_context_menu(point)
-toggle_round_enabled_status(table_index, currently_enabled)
-show_popup_zfl_ih_single_round(table_index)
-show_popup_overlap_single_round(table_index)
-```
-Right-click options:
-
-| Menu Item | Function |
-|---|---|
-| **Turn Off Round** | Excludes the round from calculation and graph plotting. |
-| **Turn On Round** | Enables the round again. |
-| **Show ZFL-IH Graph** | Opens a popup graph for one round only. |
-| **Show Overlap Graph** | Opens a popup overlap graph for one round only. |
-
-When a round is turned off:
-
-```text
-Tab text gets [OFF]
-Table becomes disabled
-Update All Cali Result runs again
-```
----
-
-## 24. Save to Excel
-
-The **Save to Excel** button is connected to:
-
-```python
-onclick_btn_save_to_excel()
-```
-The function saves the main raw columns from:
-
-```text
-round → ict_ne
-```
-This means the exported Excel mainly contains the source table data needed to reload or reproduce the calculation later.
+| **Clear Table** | Clears only the currently active round, resets its round number and side column, and removes the `*` marker. |
+| **Clear All Table** | Clears every round from 1 to 10, after a confirmation dialog. |
+| **Update All Cali Result** | Recalculates every enabled round and refreshes the IH-Alpha, ZFL-IH, and overlap graphs. Run this after changing distance, pixel size, V_Gap, H_Gap, the calibration system, round data, or which rounds are enabled. |
+| **Save to Excel** | Saves the round's raw columns (Round through the 8 ICT directions) so the data can be reloaded later. |
+
+Round tabs also have a right-click menu for turning a round off or on, and for opening a single-round ZFL-IH or overlap graph.
+A turned-off round is marked `[OFF]`, and it's skipped in every calculation and graph until it's turned back on.
 
 ---
 
 ## Recommended Workflow
 
-### Normal Table Calculation
+**Normal table calculation**
 
-1. Open **Main Cali Result**.
-2. Select the correct round tab.
-3. Load Excel data or click **Update Table**.
-4. Confirm `pos_iCx`, `pos_iCy`, `neg_iCx`, and `neg_iCy`.
-5. Confirm the side layer marker `*` or the default side layer.
-6. Confirm pixel size and distance settings.
-7. Click **Update All Cali Result**.
-8. Check calculated PCT_CAL, Alpha, and ZFL columns.
-9. Check the ZFL-IH graph and overlap graph.
-10. Use aggregation tools to find the best distance.
+1. Open **Main Cali Result** and select the correct round tab.
+2. Load Excel data, or click **Update Table**.
+3. Confirm the center positions and the side layer marker (`*` or the default 40).
+4. Confirm pixel size and distance settings.
+5. Click **Update All Cali Result**.
+6. Check the calculated PCT_CAL, Alpha, and ZFL columns, along with the ZFL-IH and overlap graphs.
+7. Use the aggregation tools to find the best distance.
 
-### Checking a Single Round
+**Checking a single round**
 
 1. Select or load the target round.
-2. Enter a distance in the round distance field.
-3. Press Enter or click the round aggregation button.
-4. The controller recalculates the round.
-5. Read the aggregation result.
-6. Open the single-round ZFL-IH graph if detailed checking is needed.
-
-### Checking Best Distance
-
-1. Make sure the table data is loaded.
-2. Make sure the correct rounds are enabled.
-3. Set the distance search range if needed.
-4. Run the aggregation search.
-5. The best distance is written into the distance field.
-6. The minimum aggregation is written into the aggregation field.
-7. Check the Aggregation vs Distance graph.
+2. Enter a distance and press Enter, or click **Aggr Round**.
+3. Read the resulting aggregation value.
+4. Open the single-round ZFL-IH graph if you need a closer look.
 
 ---
 
 ## Troubleshooting
 
-| Problem | Possible Cause | Solution |
+| Problem | Likely Cause | What to Check |
 |---|---|---|
-| Alpha column is empty | ICT, PCT_CAL, or Distance is invalid. | Check raw ICT values, PCT values, and distance field. |
-| ZFL column is empty | Alpha or ICT is empty / invalid. | Check whether Alpha was calculated correctly first. |
-| Average Alpha / ZFL is empty after side layer | This is expected behavior. | Average columns only apply before the side layer. |
-| Diagonal Alpha is empty after side layer | This is expected behavior. | The code ignores NW, SE, SW, and NE for side-screen rows. |
-| Side layer seems wrong | The `*` marker is missing or placed in the wrong row. | Check the Round column and side marker. Default side layer is 40. |
-| Aggregation is too high | ZFL-IH points are not smooth. | Check distance, center point, pixel size, V_Gap, H_Gap, and raw ICT values. |
-| Loaded Excel has data but calculated columns are blank | Required source values may be missing or invalid. | Click Update All Cali Result and inspect PCT / ICT / Distance. |
-| Search takes too long | Distance range is too wide or many rounds are enabled. | Narrow the distance range or disable unused rounds. |
-
----
-
-## Quick Reference
-
-| Task | Main Function |
-|---|---|
-| Update active table from images and pattern data | `onclick_btn_update_table()` |
-| Calculate one result table | `calculate_result(table_index)` |
-| Update all enabled rounds | `onclick_btn_update_all_cali_result()` |
-| Calculate ICT average | `update_ict_avg()` / `calculate_ict_avg()` |
-| Calculate PCT_CAL | `update_pct_cal()` / `calculate_pct_cal()` |
-| Calculate distance | `update_distance()` / `calculate_distance()` |
-| Calculate Alpha | `update_alpha_8direction()` / `calculate_alpha()` |
-| Calculate ZFL | `update_zfl_8direction()` / `calculate_zfl()` |
-| Collect IH-ZFL points | `get_ict_zfl_into_xlist_ylist()` |
-| Calculate aggregation | `calculate_aggregation_total()` |
-| Calculate aggregation by distance | `calculate_aggregation_by_distance()` |
-| Search best distance | `find_min_aggregation_by_lineedit()` |
-| Calculate single-round aggregation | `calculate_aggregation_single_round()` |
-| Save active table | `onclick_btn_save_to_excel()` |
-| Load one Excel | `onclick_btn_load_excel()` |
-| Load all Excel | `onclick_btn_load_all_excel()` |
-| Clear active table | `onclick_btn_clear_table()` |
-| Clear all round tables | `onclick_btn_clear_all_table()` |
-
----
-
-## Simple Summary
-
-The Main Cali Result calculation can be summarized as:
-
-```text
-Excel / image / pattern data
-   ↓
-PCT and ICT values
-   ↓
-PCT_CAL and ICT average
-   ↓
-Distance
-   ↓
-Alpha
-   ↓
-ZFL
-   ↓
-IH-ZFL points
-   ↓
-Aggregation
-   ↓
-Best distance search
-```
-The most important relationships are:
-
-```text
-PCT + pixel size → PCT_CAL
-PCT_CAL + Distance → Alpha
-Alpha + ICT → ZFL
-IH + ZFL → Aggregation
-Distance search → Minimum Aggregation
-```
-
-If the final ZFL-IH curve is unstable, check the center points, side layer marker, distance, pixel size, V_Gap, H_Gap, and raw ICT data first.
+| Alpha column is empty | ICT, PCT_CAL, or Distance is invalid. | The raw ICT values, PCT values, and distance field. |
+| ZFL column is empty | Alpha or ICT is empty or invalid. | Whether Alpha calculated correctly first. |
+| Average Alpha / ZFL is empty after the side layer | Expected. Averages only apply before the side layer. | Nothing; this is normal. |
+| Diagonal Alpha is empty after the side layer | Expected. NW, SE, SW, NE aren't used in side-screen rows. | Nothing; this is normal. |
+| Side layer seems wrong | The `*` marker is missing or on the wrong row. | The Round column. Default side layer is 40. |
+| Aggregation is too high | The ZFL-IH points aren't smooth. | Distance, center point, pixel size, V_Gap, H_Gap, and the raw ICT values. |
+| Excel loaded, but calculated columns are blank | A required source value is missing or invalid. | Run Update All Cali Result and inspect PCT, ICT, and Distance. |

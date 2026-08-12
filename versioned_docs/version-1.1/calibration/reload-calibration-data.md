@@ -6,14 +6,10 @@ title: Reload Calibration Data
 
 # Reload Calibration Data
 
-This page describes how to bring **previously saved calibration data** back into the **Moil Cali Result** window — so you can re-analyse a set without repeating the capture run.
-
-<div className="custom-note custom-important">
-  <div className="custom-note-title">📖 WHAT THIS PAGE IS</div>
-  <div>
-    This is the <strong>procedure</strong> for loading saved data. For what each button and field in the Cali Result window does, see <a href="/moilcalib_documentation/docs/v1.1/calibration/cali-result">3. Calibration Result</a> and its <a href="/moilcalib_documentation/docs/v1.1/calibration/cali-result/main-window-overview">full window reference</a>.
-  </div>
-</div>
+This page explains how to bring calibration data you saved earlier back into the **Moil Cali Result** window.
+That way you can re-analyse a set without repeating the capture run.
+This page only covers the loading steps.
+For what each button and field in the Cali Result window does, see [3. Calibration Result](/moilcalib_documentation/docs/v1.1/calibration/cali-result) and its [full window reference](/moilcalib_documentation/docs/v1.1/calibration/cali-result/main-window-overview).
 
 ---
 
@@ -56,12 +52,9 @@ This page describes how to bring **previously saved calibration data** back into
 | **Missing rounds** | Simply skipped; only the rounds that exist are loaded. |
 | **Selected level** | Select the **main folder**, not a round subfolder. |
 
-<div className="custom-note custom-warning">
-  <div className="custom-note-title">⚠️ THE MOST COMMON MISTAKE</div>
-  <div>
-    Selecting a round subfolder (or the folder that <em>contains</em> the main folder) instead of the main folder itself. When nothing matches, the application reports <em>"No round subfolders (1..10) with .xlsx found in: …"</em> — check the level you picked before anything else.
-  </div>
-</div>
+The most common mistake is picking a round subfolder, or the folder that contains the main folder, instead of the main folder itself.
+If nothing matches, the application shows *"No round subfolders (1..10) with .xlsx found in: …"*.
+If you see that message, check the folder level you picked before anything else.
 
 ---
 
@@ -74,28 +67,11 @@ This is the normal path.
 3. Select the **main calibration folder** (the one containing the numbered round folders).
 4. Wait for the tables to fill.
 
-What happens for each round `1`…`10`:
-
-```text
-Open <main folder>/<round>/
-   ↓
-Read the first .xlsx found there
-   ↓
-Locate the header row — the row containing a cell "pct" or "(mm)"
-   ↓
-Load every non-empty row below it (columns round … ict_ne)
-   ↓
-Mark that round's tab with a star
-   ↓
-(after all rounds) Recompute everything, then apply main.json
-```
-
-<div className="custom-note custom-tip">
-  <div className="custom-note-title">💡 THE STAR MARKERS TELL YOU WHAT LOADED</div>
-  <div>
-    Only the round tabs that actually received data are starred. Stars from a previous load are cleared first, so what you see always reflects the current load. If a round you expected is unstarred, its folder was missing, empty, or had no recognisable header row.
-  </div>
-</div>
+For each round `1`…`10`, the application opens that round's folder, reads the first `.xlsx` it finds, and looks for the header row (the row with a cell reading "pct" or "(mm)").
+Every non-empty row below that header is loaded.
+Once all rounds are done, the round tabs that actually received data are starred, and the results are recomputed and `main.json` is applied.
+Stars from a previous load are cleared first, so the stars you see always reflect the current load.
+If a round you expected is unstarred, its folder was missing, empty, or had no recognisable header row.
 
 <Figure id="fig-2" number="2" caption="The window after a successful load — round tabs and the result table filled.">
 
@@ -113,14 +89,10 @@ Use this to replace one round without touching the others.
 2. Press **Load Excel** and choose the `.xlsx`.
 3. The current table is cleared, then filled from the file.
 
-The file is read from a sheet named `Sheet`; if that sheet does not exist, the first sheet in the workbook is used. Data is taken from **row 3 onward, columns A–K** (`round` … `ict_ne`).
-
-<div className="custom-note custom-warning">
-  <div className="custom-note-title">⚠️ SINGLE-FILE LOAD DOES NOT APPLY <code>main.json</code></div>
-  <div>
-    <strong>Type of System</strong> and <strong>Distance per Round</strong> are only restored by <strong>Load All Excel</strong>. After a single-file load, check those two fields yourself.
-  </div>
-</div>
+The file is read from a sheet named `Sheet`; if that sheet does not exist, the first sheet in the workbook is used.
+Data is taken from **row 3 onward, columns A–K** (`round` … `ict_ne`).
+Unlike **Load All Excel**, this single-file load does not apply `main.json`.
+So **Type of System** and **Distance per Round** are left untouched — check those two fields yourself after loading.
 
 ---
 
@@ -134,27 +106,17 @@ Once a folder is loaded, the tree view lets you re-load without going through th
 | **Double-click a folder** in the tree | Loads all rounds from that folder, as if you had pressed **Load All Excel**. |
 | **Type a path** into the **Cali Folder** field and press Enter | A folder loads all rounds; a single `.xlsx` loads into its guessed round. |
 
-### How the Round Number Is Guessed
-
-When you load a file directly rather than through **Load All Excel**, the round is taken from the path in this order:
+When you load a file directly rather than through **Load All Excel**, the round number is guessed in this order:
 
 1. A number `1`–`10` in the **file name**.
 2. Otherwise, a path segment that is a number `1`–`10` (for example `.../3/result.xlsx` → round 3).
 3. Otherwise, **round 1**.
 
-<div className="custom-note custom-tip">
-  <div className="custom-note-title">💡 IF A FILE LANDS IN THE WRONG ROUND</div>
-  <div>
-    The guess follows the path, not the file's contents. Either place the file in its numbered round folder, or select the correct round tab and use <strong>Load Excel</strong>, which always loads into the active tab.
-  </div>
-</div>
+The guess follows the path, not the file's contents.
+If a file lands in the wrong round, either move it into its numbered round folder, or select the correct round tab and use **Load Excel**, which always loads into the active tab.
 
-<div className="custom-note custom-warning">
-  <div className="custom-note-title">⚠️ CLOUD LINKS ARE NOT SUPPORTED IN THIS BUILD</div>
-  <div>
-    Entering an <code>http://</code> or <code>https://</code> address into the <strong>Cali Folder</strong> field returns <em>"Remote (cloud) links are not supported in this build. Enter a local folder or .xlsx path."</em> Download the calibration folder to the local disk first, then load it.
-  </div>
-</div>
+The **Cali Folder** field only accepts local paths.
+Entering an `http://` or `https://` address returns an error, so download the calibration folder to your local disk before loading it.
 
 ---
 
@@ -167,13 +129,15 @@ If a `main.json` sits in the main folder, **Load All Excel** applies it after lo
 | `systemType` | The **Type of System** selection. |
 | `distance_per_round` | The **Distance per Round** value. |
 
-If the file is missing, the rounds still load — only these two settings are left as they were. `main.json` is written by **Save Configuration System**.
+If the file is missing, the rounds still load — only these two settings are left as they were.
+`main.json` is written by **Save Configuration System**.
 
 ---
 
 ## 5. Load Database
 
-**Load Database** opens the calibration record browser over `cali_system_v2.db`. The application looks for the file in this order, and asks you to locate it if none is found:
+**Load Database** opens the calibration record browser over `cali_system_v2.db`.
+The application looks for the file in this order, and asks you to locate it if none is found:
 
 ```text
 mvc_controller/database/cali_system_v2.db
@@ -181,12 +145,9 @@ database/cali_system_v2.db
 cali_system_v2.db
 ```
 
-<div className="custom-note custom-important">
-  <div className="custom-note-title">📌 THE DATABASE IS METADATA-ONLY</div>
-  <div>
-    The database stores <strong>references</strong> to calibration files rather than the round values themselves — the actual round data lives in cloud storage. You can browse and search the records here, but you <strong>cannot load rounds from the database</strong> in this build. To re-analyse a set, obtain its folder and use <strong>Load All Excel</strong>.
-  </div>
-</div>
+The database only stores references to calibration files, not the round values themselves — the actual round data lives in cloud storage.
+You can browse and search the records here, but you cannot load rounds from the database in this build.
+To re-analyse a set, obtain its folder and use **Load All Excel**.
 
 ---
 
@@ -202,12 +163,9 @@ Work down this list before trusting the results:
 | Camera parameters look sane | [Parameter View](/moilcalib_documentation/docs/v1.1/calibration/cali-result/parameter-view) |
 | The graphs redrew and are not empty | [Overlap & Aggregation View](/moilcalib_documentation/docs/v1.1/calibration/cali-result/overlap-and-aggregation-view) |
 
-<div className="custom-note custom-tip">
-  <div className="custom-note-title">💡 RECOMPUTING IS AUTOMATIC IN VERSION 1.1</div>
-  <div>
-    Both <strong>Load Excel</strong> and <strong>Load All Excel</strong> run the full recompute themselves as their last step, so the tables and graphs are already up to date when the load finishes. You only need <strong>Update All Cali Result</strong> after editing values by hand.
-  </div>
-</div>
+In version 1.1, both **Load Excel** and **Load All Excel** recompute everything automatically as their last step.
+So the tables and graphs are already up to date when the load finishes.
+You only need **Update All Cali Result** after editing values by hand.
 
 ---
 
@@ -222,12 +180,8 @@ Reloading only works if the data was saved in the layout above.
 | **Save Parameter** | The camera parameters. |
 | **Save History Distance** | The distance history entry. |
 
-<div className="custom-note custom-important">
-  <div className="custom-note-title">📌 SAVE ONE ROUND AT A TIME</div>
-  <div>
-    <strong>Save to Excel</strong> writes only the round tab that is currently open. To store a complete set, select each round tab in turn and save it into its own numbered folder.
-  </div>
-</div>
+**Save to Excel** writes only the round tab that is currently open.
+To store a complete set, select each round tab in turn and save it into its own numbered folder.
 
 ---
 
@@ -249,7 +203,11 @@ Reloading only works if the data was saved in the layout above.
 
 ## Summary
 
-Calibration data is reloaded from **Excel files on disk**, not from the database. The normal path is **Load All Excel** on a main folder containing round subfolders `1`–`10`, which fills every round table, stars the tabs that received data, recomputes automatically, and applies `main.json`. **Load Excel** replaces a single round in the active tab. The folder tree and the **Cali Folder** field offer the same two operations for local paths, and **Load Database** is a metadata browser only.
+Calibration data is reloaded from **Excel files on disk**, not from the database.
+The normal path is **Load All Excel** on a main folder containing round subfolders `1`–`10`.
+It fills every round table, stars the tabs that received data, recomputes automatically, and applies `main.json`.
+**Load Excel** replaces a single round in the active tab.
+The folder tree and the **Cali Folder** field offer the same two operations for local paths, and **Load Database** is a metadata browser only.
 
 ---
 

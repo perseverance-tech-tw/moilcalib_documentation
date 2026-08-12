@@ -6,24 +6,21 @@ title: Entrance-Pupil Shift — Graph Analysis Method
 
 # Entrance-Pupil Shift — Graph Analysis Method
 
-How to read the three graphs on the **Graphs** tab of the Cali Result window, and how to turn them from a picture into a number.
+This page explains the three graphs on the **Graphs** tab of the Cali Result window.
+It shows what they mean, and how to turn them into a single number that tells you whether your lens model is good enough.
 
-The graphs reconstruct **Figure 2 of Gennery (2006)** from your own measured calibration data. This page explains what they mean, defines a numeric **entrance-pupil-shift estimator** over that same data, and gives criteria for judging whether a lens model is good enough.
-
-<div className="custom-note custom-important">
-  <div className="custom-note-title">📄 REFERENCE</div>
-  <div>
-    D. B. Gennery, <em><a href="https://link.springer.com/article/10.1007/s11263-006-5168-1">Generalized Camera Calibration Including Fish-Eye Lenses</a></em>, International Journal of Computer Vision <strong>68</strong>(3), 239–266, 2006.
-  </div>
-</div>
+The graphs are built from Figure 2 of D. B. Gennery, *[Generalized Camera Calibration Including Fish-Eye Lenses](https://link.springer.com/article/10.1007/s11263-006-5168-1)*, International Journal of Computer Vision 68(3), 239–266, 2006, reconstructed from your own measured calibration data.
 
 ---
 
 ## 1. Why the Entrance Pupil Moves
 
-An ideal pinhole lens has one fixed **entrance pupil** — the single point the camera "looks from". Every ray, on-axis or not, passes through it. That single point is what makes the pinhole model work.
+An ideal pinhole lens has one fixed point that it "looks from," called the entrance pupil.
+Every ray of light, no matter its angle, passes through that single point.
 
-A fish-eye lens does **not** behave this way. As the off-axis angle of the incoming ray grows, the point the camera effectively looks from *slides along the optical axis*. The lens has no single viewpoint; it has a **locus** of viewpoints.
+A fish-eye lens does not work this way.
+As a ray comes in at a steeper angle, the point the lens effectively looks from slides along the optical axis.
+Instead of one fixed viewpoint, the lens has a whole line of possible viewpoints.
 
 <Figure id="fig-1" number="1" caption={<>Gennery (2006), Figure 2. <strong>c</strong> is the entrance pupil for on-axis rays; the thick dashed line is the locus of the entrance pupil as the incident chief-ray angle changes. Each ray's intersection with the optical axis is the shifted point <strong>c′<sub>i</sub></strong>.</>}>
 
@@ -31,40 +28,32 @@ A fish-eye lens does **not** behave this way. As the off-axis angle of the incom
 
 </Figure>
 
-Gennery models this as a displacement along the optical-axis direction `o`:
+Gennery describes this as a shift along the optical axis:
 
 ```text
 c'(θ) = c + s(θ) · o                      (Gennery Eq. 1)
 ```
 
-where `c` is the on-axis entrance pupil, `θ` is the off-axis angle of the chief ray, and `s(θ)` is the scalar **shift**. His Eq. 3 expresses that shift in lens-design terms:
+Here `c` is the on-axis entrance pupil, `θ` is the off-axis angle of the ray, and `s(θ)` is how far the pupil has shifted.
+Gennery's Eq. 3 gives that shift in terms of the lens's optical prescription, which we don't have access to.
+What we do have is a set of measurements of where the camera looks from at different angles, and the shift can be recovered directly from those instead.
+That estimator is defined in Section 3.
 
-```text
-s_i = ζ_i − λ_i / tan θ_i                 (Gennery Eq. 3)
-```
-
-with `ζ_i` and `λ_i` taken from a ray trace of the lens prescription.
-
-<div className="custom-note custom-warning">
-  <div className="custom-note-title">⚠️ EQ. 3 CANNOT BE USED DIRECTLY</div>
-  <div>
-    It requires the optical prescription of the lens, which we do not have. What we <em>do</em> have is a set of measurements of where the camera looks from at different angles — and the shift can be recovered directly from those. That is the estimator in Section 3.
-  </div>
-</div>
-
-**Why this matters.** If the shift varies by more than the reprojection tolerance you care about, a single-viewpoint camera model **cannot** fit your lens across the full field — no matter how many polynomial terms you add. The shift is a physical property of the glass, not a fitting artefact. Measuring it tells you whether your residual error is *reducible* or *structural*.
+**Why this matters:** if the shift is bigger than the reprojection error you're willing to tolerate, a single-viewpoint camera model cannot fit your lens across the full field, no matter how many polynomial terms you add.
+The shift is a physical property of the glass, not something a better fit can remove.
+Measuring it tells you whether your remaining error is fixable or built into the lens.
 
 ---
 
 ## 2. What the System Measures
 
-Each **range** (up to 20, individually enabled) contributes one measured pair:
+Each enabled range (up to 20) produces one measured pair of numbers:
 
-1. **Capture** — the positive and negative pattern shots are taken and the intersecting nodes are detected per PCT ring and per direction, giving the `ict_*` columns.
-2. **Compute** — the core turns those into, per round and layer, the off-axis angle `alpha_*` and the physical pattern-to-pupil distance (the **PCT to Pupil** / `distance` columns).
-3. **Aggregate** — per enabled range these become the single pair shown in the range panel: Alpha Min/Max and Distance.
+1. **Capture** — the positive and negative pattern shots are taken, and the intersecting nodes are detected per PCT ring and direction.
+2. **Compute** — these are turned into the off-axis angle (`alpha_*`) and the pattern-to-pupil distance (**PCT to Pupil** / `distance`) for that range.
+3. **Aggregate** — each enabled range ends up as one Alpha Min/Max and Distance pair in the range panel.
 
-For range `i` the analysis uses:
+For range `i`, the analysis uses:
 
 | Symbol | From the UI | Meaning |
 |---|---|---|
@@ -72,12 +61,9 @@ For range `i` the analysis uses:
 | `d_i` | Distance ("PCT to Pupil") | Pattern-to-pupil distance at that angle |
 | `h_i` | ½ (Aggregation Min + Aggregation Max) | Mid image height of the range, in % |
 
-<div className="custom-note custom-important">
-  <div className="custom-note-title">📌 THE CRITICAL OBSERVATION</div>
-  <div>
-    The pattern (PCT) does not move between ranges — it sits at a fixed physical location. So if the measured pattern-to-pupil distance changes from one angle to the next, <strong>the only thing that can have moved is the pupil itself</strong>. That distance is therefore a direct, if offset, reading of the pupil position along the optical axis. This is why the estimator below is so simple: the shift is already in the data.
-  </div>
-</div>
+The calibration pattern does not move between ranges; it sits at a fixed physical location.
+So if the measured pattern-to-pupil distance changes from one range to the next, the pupil is what moved.
+That distance is therefore a direct reading of the pupil's position along the optical axis, which is why the estimator below is so simple: the shift is already sitting in the data you already have.
 
 ---
 
@@ -85,42 +71,40 @@ For range `i` the analysis uses:
 
 ### 3.1 Definition
 
-Define the shift relative to the on-axis pupil position:
+The shift is defined relative to the on-axis pupil position:
 
 ```text
 s(θ_i) = d_0 − d_i
 ```
 
-where `d_0` is the pattern-to-pupil distance extrapolated to `θ = 0`.
+Here `d_0` is the pattern-to-pupil distance extrapolated to `θ = 0`, so the shift at `θ = 0` is zero by definition.
+A positive shift means the pupil moved toward the pattern, shortening the measured distance.
+A negative shift means it moved away.
 
-**Sign convention:** a positive shift means the pupil moved *toward the pattern* (forward along `o`), shortening the measured distance; a negative shift means it retreated. The shift at `θ = 0` is zero by construction.
-
-This maps onto Gennery Eq. 1 with `c` as the on-axis pupil and `s(θ)` the same scalar shift — recovered from measurement rather than from a ray trace.
+This is the same relationship as Gennery's Eq. 1, with `c` as the on-axis pupil and `s(θ)` as the shift, just recovered from measurement instead of a ray trace.
 
 ### 3.2 Estimating `d_0`
 
-`θ = 0` is never measured directly: a range at exactly zero off-axis angle covers no image area, so `d_0` has to be extrapolated.
+`θ = 0` is never measured directly, because a range at exactly zero off-axis angle covers no image area.
+So `d_0` has to be extrapolated from the ranges you did measure.
 
-A fish-eye is rotationally symmetric about its optical axis, so the distance must be an **even** function of `θ` — approaching zero from either side gives the same value, and the curve is flat there. Fit an even polynomial:
+A fish-eye lens is rotationally symmetric about its optical axis, so distance must be an even function of `θ`: it looks the same approaching zero from either side, and the curve is flat there.
+Fit an even polynomial:
 
 ```text
 d(θ) ≈ d_0 + a_1·θ² + a_2·θ⁴            (θ in radians)
 ```
 
-Two terms are normally enough. Use ordinary least squares over the enabled ranges; `d_0` is the intercept. Then:
+Two terms are normally enough.
+Use ordinary least squares over the enabled ranges; `d_0` is the intercept.
+Then:
 
 ```text
 s(θ) = −(a_1·θ² + a_2·θ⁴)
 ```
 
-which is the measured counterpart of Gennery's Eq. 2 — his model of shift versus off-axis angle.
-
-<div className="custom-note custom-warning">
-  <div className="custom-note-title">⚠️ DO NOT FIT AN ODD-POWERED OR UNCONSTRAINED POLYNOMIAL</div>
-  <div>
-    It will produce a non-zero slope at the origin, which is physically impossible for a symmetric lens, and it will bias the extrapolated on-axis distance.
-  </div>
-</div>
+which is the measured counterpart of Gennery's Eq. 2, his model of shift versus off-axis angle.
+Don't fit an odd-powered or unconstrained polynomial here: it would give a non-zero slope at the origin, which is impossible for a symmetric lens, and it would throw off the extrapolated `d_0`.
 
 ### 3.3 Algorithm
 
@@ -148,21 +132,17 @@ The two headline numbers are:
 
 ### 3.4 Interpreting the Two Numbers
 
-They must be read **together** — the interesting cases are the mixed ones.
+Read Δs and RMS together; the mixed cases are the interesting ones.
 
 | Δs | RMS | Reading |
 |---|---|---|
 | small | small | The lens is near-single-viewpoint over this field. A pinhole-style model will fit well. |
 | large | small | The pupil genuinely moves, but smoothly and predictably. Expected for a fish-eye — model it, don't fight it. |
-| small | large | **Suspicious.** The pupil is not really moving, so the scatter is measurement noise. Check detection quality, pattern flatness, and range setup before trusting any of it. |
-| large | large | Both real shift *and* bad data. Fix the data first; Δs is not trustworthy until RMS comes down. |
+| small | large | Suspicious. The pupil is not really moving, so the scatter is measurement noise. Check detection quality, pattern flatness, and range setup before trusting any of it. |
+| large | large | Both real shift and bad data. Fix the data first; Δs is not trustworthy until RMS comes down. |
 
-<div className="custom-note custom-tip">
-  <div className="custom-note-title">💡 JUDGE THEM IN CONTEXT, NOT IN THE ABSTRACT</div>
-  <div>
-    Judge <strong>Δs against your working distance</strong> — an excursion of a few millimetres is irrelevant when the pattern sits metres away, and serious in close-range work. Judge <strong>RMS against Δs</strong> — a residual that is a large fraction of the excursion means the fit is not describing the movement.
-  </div>
-</div>
+Judge Δs against your working distance: an excursion of a few millimetres is irrelevant when the pattern sits metres away, and serious in close-range work.
+Judge RMS against Δs: a residual that is a large fraction of the excursion means the fit is not really describing the movement.
 
 ---
 
@@ -176,68 +156,59 @@ They must be read **together** — the interesting cases are the mixed ones.
 
 ### 4.1 Shift of Entrance Pupil
 
-Axes: **Lateral displacement** (x) × **Optical Axis (distance)** (y).
+Axes: **Lateral displacement** (x) by **Optical Axis (distance)** (y).
 
-For each enabled range this draws one chief ray, starting on the optical axis at that range's measured distance and leaving at its measured mid-angle:
+For each enabled range, this draws one ray, starting on the optical axis at that range's measured distance and leaving at its measured mid-angle:
 
 ```text
 p0 = (0, d_i)
 p1 = (L·sin θ_i,  d_i + L·cos θ_i)          with ray length L = 300
 ```
 
-This is the ray fan of Gennery's Figure 2 — but every ray's origin and angle come from *your* measured data, so the fan traces the real pupil movement of your lens.
+This reproduces the ray fan from Gennery's Figure 2, but every ray's starting point and angle come from your own measured data, so the fan traces the real pupil movement of your lens.
 
-<div className="custom-note custom-important">
-  <div className="custom-note-title">📌 THE WHITE SCATTER DOTS ARE THE ANSWER</div>
-  <div>
-    Each dot sits on the optical axis at that range's distance — the point that range looks from. The dots <em>are</em> the shifted points of Eq. 1, and the dashed entrance-pupil locus of Figure 1 is the curve through them.
-    <br /><br />
-    So <strong>the vertical spread of the white dots is Δs, read straight off the plot</strong>. A single tight cluster means a stable viewpoint; a spread-out column means the pupil is travelling. Everything in Section 3 is a way of putting a number on the length of that column.
-  </div>
-</div>
-
-The rays themselves are context — they show which angle produced which dot. It is the dots that carry the measurement.
+The white dots are the part to actually read.
+Each one sits on the optical axis at that range's distance, the point that range looks from.
+A single tight cluster of dots means a stable viewpoint; a spread-out column means the pupil is travelling.
+**The vertical spread of the white dots is Δs**, readable straight off the plot.
+The rays themselves are just context, showing which angle produced which dot.
 
 ### 4.2 Distance vs Alpha
 
-Axes: **Alpha Mean (degree)** × **Distance**. Plots each range's angle against its distance, sorted by angle.
+Axes: **Alpha Mean (degree)** by **Distance**. Plots each range's angle against its distance, sorted by angle.
 
-This is the estimator's raw input curve — the sampled function from which `d_0` and the shift are derived. It is the most useful of the three for judging data quality, because both failure modes are visible by eye:
+This is the raw data the estimator is built from, and it's the most useful of the three graphs for judging data quality, because both failure modes are visible by eye:
 
-- A **smooth monotone or gently curved trend** is real pupil shift. Good.
-- **Scatter with no trend**, or points jumping around the curve, is measurement noise — the "small Δs, large RMS" row of the table above.
+- A smooth, monotone or gently curved trend means real pupil shift. Good.
+- Scatter with no trend, or points jumping around, means measurement noise (the "small Δs, large RMS" row above).
 
-Flip the axis mentally and this graph *is* the shift function, up to the offset `d_0` and a sign. If it looks like noise here, no amount of fitting will rescue it.
+Flip the axis mentally and this graph is the shift function, up to the offset `d_0` and a sign.
+If it looks like noise here, no amount of fitting will fix it.
 
 ### 4.3 Distance vs IH Range
 
-Axes: **IH Range Mean (%)** × **Distance**.
+Axes: **IH Range Mean (%)** by **Distance**.
 
-The same distances plotted against **image height** instead of angle — where the effect lands on the sensor rather than in object space. Use it to see which part of the frame the pupil movement affects, and to spot ranges that cover too little image area to be reliable.
+The same distances, now plotted against image height instead of angle, showing where the effect lands on the sensor rather than in object space.
+Use this to see which part of the frame the pupil movement affects, and to spot ranges that cover too little image area to be reliable.
 
 ---
 
 ## 5. Practical Procedure
 
-1. **Enable the ranges you want to analyse.** Use **at least three**, and spread them across the field — clustering every range at similar angles leaves the fit unconstrained near `θ = 0` and makes `d_0` unreliable.
-2. **Make sure each enabled range has its Distance and Alpha Min/Max filled**, via **Update** or **History Distance**. Blank or unparseable fields are silently skipped by all three graphs.
+1. **Enable at least three ranges**, spread across the field. Clustering every range at similar angles leaves the fit unconstrained near `θ = 0` and makes `d_0` unreliable.
+2. **Fill in each range's Distance and Alpha Min/Max**, via **Update** or **History Distance**. A blank or unparseable field is silently skipped by all three graphs, so an unexpectedly sparse plot usually means a missing value.
 3. **Open the Graphs tab and press "Update Shift of Entrance Pupil"** to draw the ray fan from the current data.
-4. **Check Distance vs Alpha first.** If it is noise, stop and fix the capture — the other two graphs will only launder the same bad numbers.
+4. **Check Distance vs Alpha first.** If it looks like noise, stop and fix the capture; the other two graphs will only launder the same bad numbers.
 5. **Read Δs off the vertical spread of the white dots** in the shift plot.
 6. **Compute `d_0`, the shift, Δs and RMS** per Section 3.3 for the numeric result.
-
-<div className="custom-note custom-warning">
-  <div className="custom-note-title">⚠️ BLANK FIELDS FAIL SILENTLY</div>
-  <div>
-    A range with an empty or unreadable Distance or Alpha value is skipped without a message. If the fan has fewer rays than you enabled ranges, that is why — check the range panel before reading anything into the plot.
-  </div>
-</div>
 
 ---
 
 ## 6. Implementation Status
 
-The graphs in Section 4 are implemented. **The estimator in Section 3 is not** — it is specified here, not coded.
+The graphs in Section 4 are implemented.
+The numeric estimator in Section 3 is specified here but not yet coded.
 
 | Piece | Status |
 |---|---|
@@ -246,19 +217,16 @@ The graphs in Section 4 are implemented. **The estimator in Section 3 is not** �
 | Distance vs IH Range | ✅ Implemented |
 | Theory dialog (Fig. 2, Eq. 1 / 3), via **Information — Entrance Pupil** | ✅ Implemented |
 | Inputs — alpha and PCT-to-Pupil distance | ✅ Implemented |
-| `d_0`, `s(θ)`, Δs, RMS | ❌ **Not implemented** |
+| `d_0`, `s(θ)`, Δs, RMS | ❌ Not implemented |
 
-Nothing in the application currently computes the shift values or fits Gennery's Eq. 2 — the tooling draws the fan and leaves the axis crossings to visual inspection. Until the estimator is added, **Δs is read by eye from the spread of the white dots**, and the numeric procedure in Section 3.3 has to be done outside the application.
-
-<div className="custom-note custom-tip">
-  <div className="custom-note-title">💡 ADDING IT NEEDS NO NEW CAPTURE</div>
-  <div>
-    The estimator reads the same angle/distance pairs the <strong>Distance vs Alpha</strong> graph already collects — no new columns and no re-shooting. The work is the least-squares fit and somewhere to display Δs and RMS.
-  </div>
-</div>
+Until the estimator is added, Δs has to be read by eye from the spread of the white dots, and the calculation in Section 3.3 has to be done outside the application.
+Adding it later needs no new capture: it would reuse the same angle/distance pairs the Distance vs Alpha graph already collects, with the remaining work being the least-squares fit and somewhere to display Δs and RMS.
 
 ---
 
 ## Summary
 
-A fish-eye lens has no single viewpoint: its entrance pupil slides along the optical axis as the off-axis angle grows. Because the calibration pattern is fixed in space, any change in the measured **PCT to Pupil** distance between ranges *is* that movement. The **Shift of Entrance Pupil** graph draws it as a ray fan whose axis crossings mark the viewpoint of each range — the vertical spread of those points is the total excursion, **Δs**. A large but smooth excursion is normal for a fish-eye and should be modelled; scatter without a trend means the data, not the lens, is the problem.
+A fish-eye lens has no single viewpoint: its entrance pupil slides along the optical axis as the off-axis angle grows.
+Because the calibration pattern is fixed in space, any change in the measured PCT-to-Pupil distance between ranges is that movement.
+The Shift of Entrance Pupil graph draws it as a ray fan whose axis crossings mark the viewpoint of each range, and the vertical spread of those points is the total excursion, Δs.
+A large but smooth excursion is normal for a fish-eye and should be modelled; scatter without a trend means the data, not the lens, is the problem.
