@@ -111,18 +111,6 @@
       "type": "doc",
       "id": "database/database-overview",
       "label": "Database Overview"
-    },
-    {
-      "type": "category",
-      "label": "Development",
-      "collapsed": true,
-      "items": [
-        {
-          "type": "doc",
-          "id": "development/codebase-overview",
-          "label": "Codebase Overview"
-        }
-      ]
     }
   ]
 }

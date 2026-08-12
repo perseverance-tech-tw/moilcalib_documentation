@@ -75,9 +75,6 @@ Version 1.1 adds **[Setup Center](/moilcalib_documentation/docs/v1.1/verificatio
 
 It verifies the camera centre point (`iCx`, `iCy`) in a camera-parameter JSON: load a fisheye image, nudge the centre by clicking the image or using the spin boxes, and confirm it against guide rings, a panorama preview, and an anypoint view. If the centre is wrong, every result computed from those parameters is wrong — so this check now has its own tool, and the corrected centre can be saved straight back into the parameter file.
 
-Working on the client itself?
-The toolchain, source layout, compute-core tests, and packaging are documented in [Codebase Overview](/moilcalib_documentation/docs/v1.1/development/codebase-overview).
-
 ---
 
 ## Known Limitations in Version 1.1

@@ -47,11 +47,11 @@ The formula panel on the right is there so you can see why Alpha and ZFL change 
 
 | No. | UI Component | Explanation |
 |---:|---|---|
-| 1 | **Positive / Negative Center Position** | The fisheye center from the positive and negative calibration images, copied in from the main window when **Update Table** is pressed. |
-| 2 | **Aggr Round** | Searches for the distance that gives the lowest aggregation for this round, writes it into **Distance**, and recalculates the table. |
-| 3 | **Clean Noise** | Opens a dialog that removes false intersection nodes caused by the bezel gap between calibration monitors. |
-| 4 | **Aggregation** | The aggregation value calculated from the round's IH-ZFL points. |
-| 5 | **Distance** | The distance value used in the Alpha formula for this round. |
+| 1, 2 | **Positive / Negative Center Position** | The fisheye center from the positive and negative calibration images, copied in from the main window when **Update Table** is pressed. |
+| 3 | **Aggr Round** | Searches for the distance that gives the lowest aggregation for this round, writes it into **Distance**, and recalculates the table. |
+| 4 | **Clean Noise** | Opens a dialog that removes false intersection nodes caused by the bezel gap between calibration monitors. |
+| 5 | **Aggregation** | The aggregation value calculated from the round's IH-ZFL points. |
+| 6 | **Distance** | The distance value used in the Alpha formula for this round. |
 
 ### 2.1 Center Positions
 
