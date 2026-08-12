@@ -2,8 +2,6 @@
 id: parameter-view
 slug: /calibration/cali-result/parameter-view
 title: Parameter View
-sidebar_label: Parameter View
-sidebar_position: 4
 ---
 
 # Parameter View

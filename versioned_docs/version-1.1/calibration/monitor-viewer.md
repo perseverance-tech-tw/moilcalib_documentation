@@ -2,7 +2,6 @@
 id: monitor-viewer
 slug: /calibration/monitor-viewer
 title: Monitor Viewer
-sidebar_label: Monitor Viewer
 ---
 
 # Monitor Viewer

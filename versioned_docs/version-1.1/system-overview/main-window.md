@@ -2,7 +2,6 @@
 id: main-window
 slug: /system-overview/main-window
 title: Main Window Reference
-sidebar_label: Main Window Reference
 ---
 
 # Main Window Reference

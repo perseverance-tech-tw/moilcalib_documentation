@@ -2,7 +2,6 @@
 id: camera-calibration
 slug: /calibration/camera-calibration
 title: Camera Calibration
-sidebar_label: "2. Camera Calibration"
 ---
 
 # Camera Calibration

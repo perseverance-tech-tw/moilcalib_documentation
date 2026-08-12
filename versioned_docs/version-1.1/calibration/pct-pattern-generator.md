@@ -2,7 +2,6 @@
 id: pct-pattern-generator
 slug: /calibration/pct-pattern-generator
 title: PCT Pattern Generator
-sidebar_label: PCT Pattern Generator
 ---
 
 # PCT Pattern Generator

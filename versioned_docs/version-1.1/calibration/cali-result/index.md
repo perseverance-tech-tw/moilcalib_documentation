@@ -2,8 +2,6 @@
 id: index
 slug: /calibration/cali-result
 title: Main Cali Result Overview
-sidebar_label: Overview
-sidebar_position: 1
 ---
 
 # Main Cali Result Overview

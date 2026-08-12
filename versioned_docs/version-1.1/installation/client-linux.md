@@ -2,7 +2,6 @@
 id: client-linux
 slug: /installation/client/linux
 title: Client Installation on Linux
-sidebar_label: Linux
 ---
 
 # Client Installation on Linux
@@ -13,9 +12,13 @@ No prior CMake or C++ experience is assumed.
 
 Linux is the platform the client was originally written for, so it is the most straightforward of the three builds.
 Every dependency comes from `apt`, and there is no manual library installation.
+Version 1.1 no longer uses Python, a `venv`, or `requirements.client`.
+Everything is compiled with **CMake** instead.
+`CMakeLists.txt` only calls `find_package`, so it never downloads anything: every dependency must already be installed before you configure the project.
 
 This page covers the **client only**.
-The three HTTP servers run on the Windows server computer and are unchanged in version 1.1 (see [Server Installation](/moilcalib_documentation/docs/v1.1/installation/server)).
+The three HTTP servers run on the Windows server computer and are unchanged in version 1.1.
+See [Server Installation](/moilcalib_documentation/docs/v1.1/installation/server).
 
 ---
 
@@ -30,13 +33,6 @@ The three HTTP servers run on the Windows server computer and are unchanged in v
 | **Disk Space** | Roughly 5 GB for the toolchain and libraries |
 | **Memory** | 8 GB or more. See [Always Use `-j2`](#31-always-use--j2) |
 
-<div className="custom-note custom-important">
-  <div className="custom-note-title">📌 NO PYTHON, NO VIRTUAL ENVIRONMENT</div>
-  <div>
-    Version 1.1 no longer uses Python, a <code>venv</code>, or <code>requirements.client</code>. Everything is compiled with <strong>CMake</strong>. <code>CMakeLists.txt</code> only calls <code>find_package</code>, so it never downloads anything: every dependency must be installed <em>before</em> configuring.
-  </div>
-</div>
-
 ---
 
 ## Quick Start
@@ -47,11 +43,21 @@ If anything fails, or you want to understand what these do, use the numbered sec
 ```bash
 # 1. One-time setup
 sudo apt update
-sudo apt install -y \
-    build-essential cmake \
-    qt6-base-dev qt6-base-dev-tools qt6-serialport-dev \
-    libqt6sql6-sqlite \
-    libopencv-dev libeigen3-dev
+
+# Compiler and build tools
+sudo apt install -y build-essential cmake
+
+# Qt6 user interface and networking
+sudo apt install -y qt6-base-dev qt6-base-dev-tools
+
+# Qt6 serial port (separate package from qtbase)
+sudo apt install -y qt6-serialport-dev
+
+# Qt6 SQLite driver
+sudo apt install -y libqt6sql6-sqlite
+
+# Image processing and calibration math
+sudo apt install -y libopencv-dev libeigen3-dev
 
 # 2. Configure (from the project root)
 cmake -S cpp -B cpp/build
@@ -66,28 +72,8 @@ cd cpp/build
 
 ---
 
-## How the Build Works
-
-Understanding the shape of this makes every later error message much easier to read.
-
-Turning source code into a running app is like cooking a meal from a recipe:
-
-| Cooking | Software | What it means here |
-|---|---|---|
-| The recipe | `CMakeLists.txt` | A file describing what to build and what it needs |
-| Ingredients | Qt, OpenCV, Eigen | Pre-written libraries this app depends on |
-| Checking the pantry | **Configure** | CMake looks for each library and records where it found it |
-| Actually cooking | **Build** | The compiler turns source code into a program |
-| Eating | **Run** | Launching the finished app |
-
-**Configure**, **build**, and **run** are three separate steps that fail in three different ways.
-Knowing which step you are on tells you where to look:
-
-| Step that failed | What it means |
-|---|---|
-| **Configure** | A library is missing entirely |
-| **Build** | The libraries are present but do not fit together |
-| **Run** | The app compiled but cannot start |
+Before you continue, read [How the Build Works](/moilcalib_documentation/docs/v1.1/installation/client#how-the-build-works) on the Client Installation Guide.
+It explains what configure, build, and run each do, and why knowing which one failed tells you where to look.
 
 ---
 
@@ -105,37 +91,67 @@ git --version
 
 ### 1.2 Install the Libraries
 
+Install these one group at a time.
+Each command below covers one part of the app, so it is clear what you are adding and why.
+
+**Compiler and build tools**
+
+`build-essential` is the GCC C++ compiler and the standard build tools.
+`cmake` reads the recipe and works out how to build everything.
+
 ```bash
-sudo apt install -y \
-    build-essential cmake \
-    qt6-base-dev qt6-base-dev-tools qt6-serialport-dev \
-    libqt6sql6-sqlite \
-    libopencv-dev libeigen3-dev
+sudo apt install -y build-essential cmake
 ```
 
-| Package | What it does for this app |
-|---|---|
-| **build-essential** | The GCC C++ compiler and the standard build tools |
-| **cmake** | Reads the recipe and works out how to build everything |
-| **qt6-base-dev** | The user interface: windows, buttons, tables, plus networking |
-| **qt6-serialport-dev** | Serial port access for the axis stage |
-| **libqt6sql6-sqlite** | The SQLite driver used by the calibration result database |
-| **libopencv-dev** | Image processing, chessboard corner detection, camera geometry |
-| **libeigen3-dev** | Matrix and linear algebra math used by the calibration computations |
+**Qt6 user interface**
 
-<div className="custom-note custom-warning">
-  <div className="custom-note-title">⚠️ IF <code>qt6-serialport-dev</code> IS NOT FOUND</div>
-  <div>
-    SerialPort is a separate add-on and is <strong>not</strong> part of qtbase, so it has its own package. If your distribution does not have <code>qt6-serialport-dev</code>, try <code>libqt6serialport6-dev</code> instead. Without it, configure fails at <code>find_package(Qt6 ... SerialPort)</code>.
-  </div>
-</div>
+`qt6-base-dev` and `qt6-base-dev-tools` give the app its user interface: windows, buttons, tables, plus networking.
+This also covers the Widgets, Network, Concurrent, and OpenGLWidgets modules the app needs.
 
-The app needs Qt6 **Widgets, Network, SerialPort, Concurrent, Sql, and OpenGLWidgets**.
-All except SerialPort ship inside qtbase.
+```bash
+sudo apt install -y qt6-base-dev qt6-base-dev-tools
+```
+
+**Qt6 serial port**
+
+`qt6-serialport-dev` gives serial port access for the axis stage.
+Unlike the modules above, SerialPort does not ship inside qtbase, so it has its own package.
+
+```bash
+sudo apt install -y qt6-serialport-dev
+```
+
+If your distribution does not have `qt6-serialport-dev`, try `libqt6serialport6-dev` instead.
+Without it, configure fails at `find_package(Qt6 ... SerialPort)`.
+
+**Qt6 SQLite driver**
+
+`libqt6sql6-sqlite` is the SQLite driver used by the calibration result database.
+
+```bash
+sudo apt install -y libqt6sql6-sqlite
+```
+
+**OpenCV**
+
+`libopencv-dev` handles image processing, chessboard corner detection, and camera geometry.
+
+```bash
+sudo apt install -y libopencv-dev
+```
+
+**Eigen**
+
+`libeigen3-dev` provides the matrix and linear algebra math used by the calibration computations.
+
+```bash
+sudo apt install -y libeigen3-dev
+```
 
 ### 1.3 Clone the Repository
 
-The C++ client lives on the **`main_development`** branch, in the `cpp/` folder:
+The C++ client lives on the **`main_development`** branch, in the `cpp/` folder.
+The default branch (`main`) still holds the version 1.0 Python client, so make sure you check out the right one:
 
 ```bash
 cd ~/Documents/
@@ -143,19 +159,8 @@ git clone -b main_development https://github.com/perseverance-tech-tw/moil-fishe
 cd moil-fisheye-calisys
 ```
 
-<div className="custom-note custom-important">
-  <div className="custom-note-title">📌 BRANCH MATTERS</div>
-  <div>
-    The default branch (<code>main</code>) still holds the version 1.0 Python client. The C++ / Qt6 client is on <code>main_development</code>. If you already cloned the repository, switch with <code>git checkout main_development</code>.
-  </div>
-</div>
-
-<div className="custom-note custom-tip">
-  <div className="custom-note-title">💡 NO SUBMODULES</div>
-  <div>
-    Unlike version 1.0, this branch has <strong>no Git submodules</strong>. There is no <code>--recurse-submodules</code> flag and no <code>git submodule update</code> step. A plain clone gives you the complete source.
-  </div>
-</div>
+If you already cloned the repository on the wrong branch, switch with `git checkout main_development`.
+Unlike version 1.0, this branch has no Git submodules, so a plain clone gives you the complete source; there is no `--recurse-submodules` flag or `git submodule update` step to remember.
 
 To avoid retyping your credentials, enable the Git credential cache first:
 
@@ -188,19 +193,12 @@ cmake -S cpp -B cpp/build
 Keeping every generated file inside `cpp/build/` is what makes cleanup easy.
 Deleting that one folder resets everything, which is what [Clean Rebuild](#clean-rebuild) tells you to do when things get stuck.
 
-<div className="custom-note custom-tip">
-  <div className="custom-note-title">💡 RE-RUN CONFIGURE AFTER ADDING FILES</div>
-  <div>
-    You only need to configure once. Run it again when source files are <strong>added or removed</strong> from the project, since CMake needs to notice them. Ordinary edits to existing files do not require it.
-  </div>
-</div>
+You only need to run configure once.
+Run it again if source files are added or removed from the project, since CMake needs to notice them; ordinary edits to existing files do not require it.
 
-<div className="custom-note custom-tip">
-  <div className="custom-note-title">💡 OPTIONAL: A FASTER BUILD WITH NINJA</div>
-  <div>
-    By default CMake generates Makefiles. Installing Ninja (<code>sudo apt install -y ninja-build</code>) and adding <code>-G Ninja</code> to the configure command gives noticeably faster incremental builds. This is optional and everything on this page works either way.
-  </div>
-</div>
+By default CMake generates Makefiles.
+If you want noticeably faster incremental builds, install Ninja (`sudo apt install -y ninja-build`) and add `-G Ninja` to the configure command.
+This is optional, and everything on this page works either way.
 
 ### 2.1 What a Successful Configure Looks Like
 
@@ -212,13 +210,6 @@ The lines that matter:
 -- Generating done
 -- Build files have been written to: .../cpp/build
 ```
-
-<div className="custom-note custom-tip">
-  <div className="custom-note-title">💡 EIGEN 3 VS THE PACKAGE VERSION</div>
-  <div>
-    <code>CMakeLists.txt</code> asks for Eigen 3 via <code>find_package(Eigen3 REQUIRED)</code>, and <code>libeigen3-dev</code> provides exactly that. There is no version mismatch to work around on Linux.
-  </div>
-</div>
 
 ---
 
@@ -237,24 +228,18 @@ cmake --build cpp/build -j2
 
 ### 3.1 Always Use `-j2`
 
-<div className="custom-note custom-danger">
-  <div className="custom-note-title">🚨 A BARE <code>-j</code> CAN KILL THE MACHINE</div>
-  <div>
-    Do <strong>not</strong> use a bare <code>-j</code> or <code>-j$(nproc)</code>. Those tell the compiler to use every core at once, and this build is memory-hungry enough that it can exhaust RAM and get killed by the system. The symptom is the build stopping with <strong>exit code 137</strong>, which means the kernel terminated the process. Always pass an explicit small number.
-  </div>
-</div>
+Do **not** use a bare `-j` or `-j$(nproc)`.
+Those tell the compiler to use every core at once, and this build is memory-hungry enough that it can exhaust RAM and get killed by the system.
+The symptom is the build stopping with **exit code 137**, which means the kernel terminated the process.
+Always pass an explicit small number.
 
 `-j2` is the safe default and is what the project's own build script uses.
 If you have plenty of RAM you can raise it cautiously, but exit code 137 means you went too high.
 
 ### 3.2 Confirming the Build Really Succeeded
 
-<div className="custom-note custom-warning">
-  <div className="custom-note-title">⚠️ DO NOT TRUST THE EXIT CODE IF YOU PIPE THE BUILD</div>
-  <div>
-    When you write <code>cmake --build ... | tail -40</code>, the shell reports the exit status of the <strong>last</strong> command in the chain, which is <code>tail</code>. And <code>tail</code> succeeds at its job of printing lines even when the compiler feeding it failed. So the build can report success while nothing was produced.
-  </div>
-</div>
+If you pipe the build output, for example `cmake --build ... | tail -40`, the shell reports the exit status of `tail`, not the compiler.
+`tail` succeeds at printing lines even when the compiler feeding it failed, so the build can look successful while nothing was produced.
 
 The reliable check is to look for the file itself:
 
@@ -293,27 +278,12 @@ cd cpp/build
 
 ### 4.1 You Must Run It From `cpp/build`
 
-<div className="custom-note custom-danger">
-  <div className="custom-note-title">🚨 RUNNING FROM THE PROJECT ROOT SILENTLY BREAKS THE APP</div>
-  <div>
-    After compiling, CMake copies <code>config/cali_system/*.json</code> and <code>config/camera_parameters.json</code> into <code>cpp/build/config/</code>, next to the binary. The app looks for those files relative to the <strong>current working directory</strong>, not relative to where the executable lives. There is no <code>config/</code> folder at the project root, so launching with <code>./cpp/build/moilcali</code> from the root means the app still starts, with no error message, but the <strong>Select Cali System</strong> dropdown is silently empty. Always <code>cd cpp/build</code> first.
-  </div>
-</div>
+After compiling, CMake copies `config/cali_system/*.json` and `config/camera_parameters.json` into `cpp/build/config/`, next to the binary.
+The app looks for those files relative to the **current working directory**, not relative to where the executable lives.
+There is no `config/` folder at the project root, so launching with `./cpp/build/moilcali` from the root means the app still starts, with no error message, but the **Select Cali System** dropdown is silently empty.
+Always `cd cpp/build` first.
 
 The same applies to the `image_cali/` and `pattern_json/` folders that the capture, pattern generator, and monitor viewer windows read and write.
-
-### 4.2 What a Healthy Launch Looks Like
-
-**Nothing.**
-
-No output at all on the terminal is the success case.
-Qt is quite noisy when something is wrong, so silence means the theme, fonts, `.ui` layouts, and resource bundle all loaded correctly.
-
-You can confirm it is alive from another terminal:
-
-```bash
-pgrep -lx moilcali
-```
 
 ---
 
@@ -327,55 +297,8 @@ In the app, fill in the server URL fields and click **Update**:
 | **Monitor** | `http://127.0.0.1:8001/` | `http://<rig-ip>:8001/` |
 | **Camera** | `http://127.0.0.1:8002/` | `http://<rig-ip>:8002/` |
 
-<div className="custom-note custom-important">
-  <div className="custom-note-title">📌 GOOD TO KNOW</div>
-  <div>
-    Changing the <strong>Axis</strong> URL and clicking <strong>Update</strong> re-runs the sensor-init dialog. To change the default server IP the app starts with, edit <code>ControllerMain::initUrls()</code> in <code>cpp/src/controllers/controller_main.cpp</code>.
-  </div>
-</div>
-
----
-
-## 6. Install as a Desktop App (optional)
-
-The launcher icon runs `~/.local/bin/moilcali`.
-After building, update it with:
-
-```bash
-cp -f cpp/build/moilcali ~/.local/bin/moilcali
-```
-
-<div className="custom-note custom-warning">
-  <div className="custom-note-title">⚠️ DO NOT USE <code>cmake --install</code></div>
-  <div>
-    <code>cmake --install cpp/build</code> targets <code>/usr/local/bin</code>, which needs <code>sudo</code> and is <strong>not</strong> where the desktop launcher looks. The <code>cp</code> above is the simple path.
-  </div>
-</div>
-
-Note that a binary launched from the desktop icon inherits whatever working directory the launcher sets, so the [working directory rule](#41-you-must-run-it-from-cppbuild) still applies.
-
----
-
-## 7. Package a Portable `.7z` (optional)
-
-```bash
-bash cpp/packaging/make_linux_7z.sh 2.1.1     # -> moilcali-2.1.1-linux.7z
-```
-
-The archive is self-contained: it bundles Qt, OpenCV, and the plugins.
-On the target machine:
-
-```bash
-cmake -E tar xf moilcali-2.1.1-linux.7z        # or: 7z x …
-cd moilcali-linux && ./run.sh
-```
-
-<div className="custom-note custom-warning">
-  <div className="custom-note-title">⚠️ NO CROSS-BUILDING</div>
-  <div>
-    A Windows <code>.exe</code> cannot be built on Linux. It must be built on Windows. The Windows installer script is <code>cpp/packaging/moilcali.iss</code> (Inno Setup); there is no CI workflow for it in this repository.
-  </div>
-</div>
+Changing the **Axis** URL and clicking **Update** re-runs the sensor-init dialog.
+To change the default server IP the app starts with, edit `ControllerMain::initUrls()` in `cpp/src/controllers/controller_main.cpp`.
 
 ---
 
@@ -414,17 +337,15 @@ This ensures the running binary matches the current source.
 ### Clean Rebuild
 
 Try this first for anything build-related.
+CMake caches what it found at configure time inside `cpp/build/`, so installing a missing library and reconfiguring doesn't always pick it up.
 
-CMake **remembers** what it found during configure, caching it inside `cpp/build/`.
-This trips people up constantly: installing a missing library and re-running configure does **not** necessarily take effect, because CMake reuses the cached answer from last time.
-
-When in doubt, delete the build folder and start over:
+Delete the build folder and start fresh:
 
 ```bash
 rm -rf cpp/build && cmake -S cpp -B cpp/build && cmake --build cpp/build -j2
 ```
 
-This is always safe.
+Safe to run anytime.
 Everything in `cpp/build/` is generated, so nothing of yours is lost.
 
 ### Quick Reference
@@ -441,19 +362,3 @@ Everything in `cpp/build/` is generated, so nothing of yours is lost.
 | Installing a library did not fix configure | CMake cached the old result | Do a [clean rebuild](#clean-rebuild) |
 | GitHub authentication failed | Password used instead of a token | Use a personal access token as the password |
 | App starts but cannot reach the servers | Servers not running, or wrong URLs | Check the ports in [section 5](#5-connect-to-the-servers) and click **Update** |
-
----
-
-## Glossary
-
-| Term | Meaning |
-|---|---|
-| **Configure** | The step where CMake locates libraries and writes a build plan |
-| **Build** | The step where the compiler turns source code into a program |
-| **Compiler** | The tool that translates C++ source into machine code |
-| **Linker** | Combines all compiled pieces plus libraries into one executable. The final build step |
-| **Library** | Reusable pre-written code, such as Qt or OpenCV |
-| **Header file** (`.h`, `.hpp`) | Declares what a library offers, so the compiler knows what exists |
-| **`-dev` package** | On Debian-based systems, the package holding a library's header files. Needed to *build* against a library, not just run it |
-| **ELF** | The executable file format used by Linux |
-| **Exit code 137** | The process was killed by the system, almost always for running out of memory |

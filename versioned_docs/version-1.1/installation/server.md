@@ -1,8 +1,6 @@
 ---
-id: server
 slug: /installation/server
 title: Server Installation
-sidebar_label: Server Installation
 ---
 
 # Server Installation
@@ -20,7 +18,7 @@ sidebar_label: Server Installation
 
 This page explains how to install and configure the **Calibration System Server** on **Windows 11 x64**.
 
-The server computer is responsible for running the HTTP services used by the calibration client. These services control the axis stage, monitor display, and camera capture system.
+The server computer is responsible for running the HTTP services used by the calibration client. These services control the axis stage, monitor display, and camera capture system. The server must run three HTTP services: an **Axis Server**, a **Monitor Server**, and a **Camera Server**. The calibration client connects to these services through the server IP address.
 
 ---
 
@@ -57,11 +55,6 @@ Before beginning the installation, make sure the server computer has the require
 | **Hardware Access** | Axis stage, monitor displays, and camera hardware must be connected correctly. |
 | **Administrator Permission** | Required for driver installation and running server CMD terminals. |
 
-<div className="custom-note custom-important">
-  <div className="custom-note-title">📌 Read First</div>
-  <p>This installation guide is for the server-side computer. The server must run three HTTP services: <strong> Axis Server</strong>, <strong>Monitor Server</strong>, and <strong>Camera Server</strong>. The calibration client connects to these services through the server IP address.</p>
-</div>
-
 ---
 
 ## Overview
@@ -86,6 +79,10 @@ Camera API  → http://<Server IP>:8002/docs
 
 ## 1. Install Required Software
 
+This section installs the tools the server needs before any project code is touched: Git to fetch the repository, Python to run the server, Visual Studio Build Tools to compile some Python dependencies, and (for one specific hardware setup) Arduino IDE and an axis stage driver.
+
+Each tool below is installed the normal Windows way: download the installer file from the vendor's own website in a browser, then double-click the downloaded file in File Explorer to run its setup wizard. None of these are typed into a terminal — the filename shown for each one is just what the downloaded file is called, so you can confirm you got the right thing.
+
 ### 1.1 Install Git
 
 Download installer:
@@ -94,12 +91,7 @@ Download installer:
 Git-2.46.0-64-bit.exe
 ```
 
-Run the installer and keep all installation options as **default settings**.
-
-<div className="custom-note custom-tip">
-  <div className="custom-note-title">Recommended</div>
-  <p>Use the default Git installation settings unless the project maintainer gives different instructions.</p>
-</div>
+This is the official 64-bit Git-for-Windows installer, downloaded from Git's own website (git-scm.com). Run the installer and keep all installation options as **default settings** unless the project maintainer gives different instructions.
 
 ---
 
@@ -111,12 +103,7 @@ Download installer:
 python-3.8.10-amd64.exe
 ```
 
-Run the installer and complete the Python installation.
-
-<div className="custom-note custom-warning">
-  <div className="custom-note-title">Important</div>
-  <p>This project uses Python 3.8.10. Avoid installing a different Python version unless the project has already been tested with that version.</p>
-</div>
+This is the official Python 3.8.10 64-bit Windows installer, downloaded from Python's own website (python.org). Run the installer and complete the Python installation. This project is built and tested against Python 3.8.10 specifically, so avoid installing a different version unless the project has already been tested with it.
 
 ---
 
@@ -128,12 +115,10 @@ Download installer:
 vs_BuildTools.exe
 ```
 
-Run the installer and install the required C++ build tools.
+This is Microsoft's Visual Studio Build Tools installer, downloaded from Microsoft's Visual Studio downloads page. It doesn't install the full Visual Studio IDE — only the C++ compiler tools some Python packages need to build.
 
-<div className="custom-note custom-important">
-  <div className="custom-note-title">Restart Required</div>
-  <p>Restart the computer after Visual Studio Build Tools installation is complete.</p>
-</div>
+1. Run `vs_BuildTools.exe` and install the required C++ build tools.
+2. Restart the computer once installation finishes — the build tools are not fully active until after a reboot.
 
 ---
 
@@ -147,12 +132,7 @@ Download installer:
 arduino-ide_2.3.2_Windows_64bit.exe
 ```
 
-Run the installer and keep the default installation options.
-
-<div className="custom-note custom-warning">
-  <div className="custom-note-title">Permission Notice</div>
-  <p>During installation, accept all required permission inquiries.</p>
-</div>
+This is the official Arduino IDE Windows installer, downloaded from Arduino's own website (arduino.cc). Run the installer, keep the default installation options, and accept any permission prompts Windows shows during installation.
 
 ---
 
@@ -166,7 +146,9 @@ Driver file:
 KOHZU_USB_DRIVER.zip
 ```
 
-Extract the ZIP file, then install the driver manually.
+This is a USB driver package provided by the axis stage's manufacturer (KOHZU), not something downloaded from a general software site — it should come from wherever your team keeps hardware driver files (for example, the O365 / OneDrive source mentioned above).
+
+Extract the ZIP file, then install the driver manually. There is no dedicated Windows 11 installer for this hardware, so even on Windows 11 you use the Windows 7 driver directly:
 
 Driver installation path:
 
@@ -186,11 +168,6 @@ Installation steps:
 
 4. Right-click `CRUX_USB_DRIVE64.inf`.
 5. Select **Install**.
-
-<div className="custom-note custom-important">
-  <div className="custom-note-title">Windows 11 Driver Note</div>
-  <p>For Windows 11, use the Windows 7 installer directly. The KOHZU Windows 7 driver is used because a dedicated Windows 11 installer is not provided.</p>
-</div>
 
 ---
 
@@ -234,16 +211,11 @@ Go to the Documents folder:
 cd C:\Users\%USERNAME%\Documents
 ```
 
-Clone the project with submodules:
+Clone the project with submodules. This repository is private, so Git will prompt for a GitHub account or token with permission to access it:
 
 ```bat
 git clone --recurse-submodules https://github.com/perseverance-tech-tw/moil-fisheye-calisys.git
 ```
-
-<div className="custom-note custom-warning">
-  <div className="custom-note-title">GitHub Authentication Required</div>
-  <p>This repository may require GitHub authentication. Use a GitHub account or token that has permission to access the repository.</p>
-</div>
 
 ---
 
@@ -264,6 +236,8 @@ git submodule update --remote
 ---
 
 ## 4. Create Python Virtual Environment
+
+A virtual environment keeps this project's Python packages separate from any other Python installation on the computer, so its dependencies don't conflict with anything else.
 
 Inside the project folder, create a Python virtual environment:
 
@@ -287,7 +261,7 @@ After activation, the CMD line should show:
 
 ## 5. Install Python Modules
 
-Run the following commands inside the activated virtual environment:
+Run the following commands inside the activated virtual environment, in this exact order — the project needs these specific versions of `pip` and `setuptools` for the rest of the dependencies to install correctly:
 
 ```bat
 pip install setuptools==59.6
@@ -296,16 +270,11 @@ pip install wheel
 pip install -r requirements.server
 ```
 
-<div className="custom-note custom-tip">
-  <div className="custom-note-title">Installation Order</div>
-  <p>Follow the command order above. The project requires specific versions of pip and setuptools for stable dependency installation.</p>
-</div>
-
 ---
 
 ## 6. Install Moildev 2.7
 
-Moildev 2.7 must be installed manually into the virtual environment.
+Moildev 2.7 is a private package that isn't published to pip, so it must be installed manually into the virtual environment instead of via `pip install`.
 
 Download these folders or ZIP files from the authorized O365 / OneDrive source:
 
@@ -331,10 +300,7 @@ moil-fisheye-calisys/
             └── Moildev-2.7.0.dist-info/
 ```
 
-<div className="custom-note custom-warning">
-  <div className="custom-note-title">Important</div>
-  <p>Make sure Moildev is extracted into the virtual environment's <code>site-packages</code> folder, not into the project root folder.</p>
-</div>
+Double-check both folders end up inside the virtual environment's `site-packages` folder shown above, not in the project root — Python will not find Moildev otherwise.
 
 ---
 
@@ -349,16 +315,11 @@ Before starting any HTTP server, confirm that the hardware is connected and conf
 | **Camera** | Camera connected and correct driver selected. |
 | **Network** | Server computer connected to the same network as the client computer. |
 
-<div className="custom-note custom-important">
-  <div className="custom-note-title">Hardware Check</div>
-  <p>Do not start calibration testing before the axis stage, camera, and monitor hardware are connected correctly.</p>
-</div>
-
 ---
 
 ## 8. Configure Axis USB COM Port
 
-The Axis HTTP Server requires the correct USB COM port.
+The Axis HTTP Server talks to the axis stage over a serial connection, so it needs to know the exact USB COM port the stage is connected to — this must match the physical hardware or the server won't be able to control the stage.
 
 ### 8.1 Yuanman / 元滿 Axis Module
 
@@ -368,12 +329,7 @@ For Yuanman hardware, edit:
 moil-fisheye-calisys\mvc_model\moil_axis\axis_module\axis_module_yuanman.py
 ```
 
-Check and update the USB COM port according to the connected axis controller.
-
-<div className="custom-note custom-warning">
-  <div className="custom-note-title">Baud Rate Note</div>
-  <p>The baud rate should follow the document provided by the Yuanman company.</p>
-</div>
+Check and update the USB COM port according to the connected axis controller. Set the baud rate to match the document provided by the Yuanman company.
 
 ---
 
@@ -390,6 +346,8 @@ Check and update the USB COM port according to the connected axis controller.
 ---
 
 ## 9. Start HTTP Server - Axis
+
+The Axis, Monitor, and Camera servers each run as their own long-lived process, so each one needs its own CMD terminal window that stays open while the server is in use.
 
 Open a new **Windows CMD terminal as Administrator**.
 
@@ -553,10 +511,7 @@ Example:
 http://192.168.113.52:8002/docs
 ```
 
-<div className="custom-note custom-tip">
-  <div className="custom-note-title">Verification Result</div>
-  <p>If the <code>/docs</code> page opens successfully, the HTTP server is running and can receive API requests.</p>
-</div>
+If each `/docs` page opens successfully, that HTTP server is running and can receive API requests.
 
 ---
 
@@ -688,37 +643,3 @@ Before using the client, confirm the following:
 | Monitor `/docs` page opens | ☐ |
 | Camera `/docs` page opens | ☐ |
 | Monitor direction assignment completed | ☐ |
-
----
-
-## Summary
-
-The **Server Installation** process prepares the Windows 11 x64 server computer to control the calibration system hardware.
-
-The installation flow is:
-
-```text
-Install required software
-   ↓
-Install hardware driver
-   ↓
-Clone project repository
-   ↓
-Create Python virtual environment
-   ↓
-Install Python modules
-   ↓
-Install Moildev 2.7
-   ↓
-Configure Axis COM port and Camera driver
-   ↓
-Start Axis, Monitor, and Camera HTTP servers
-   ↓
-Check server IP address
-   ↓
-Verify /docs pages
-   ↓
-Assign monitor display directions
-```
-
-After all server services are running successfully, continue with the **Client Installation Guide** and enter the server URLs into the client application.

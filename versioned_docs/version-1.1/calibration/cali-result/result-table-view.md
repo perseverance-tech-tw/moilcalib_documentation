@@ -2,8 +2,6 @@
 id: result-table-view
 slug: /calibration/cali-result/result-table-view
 title: Result Table View
-sidebar_label: Result Table View
-sidebar_position: 3
 ---
 
 # Result Table View

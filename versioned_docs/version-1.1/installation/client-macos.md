@@ -2,7 +2,6 @@
 id: client-macos
 slug: /installation/client/macos
 title: Client Installation on macOS
-sidebar_label: macOS
 ---
 
 # Client Installation on macOS
@@ -14,12 +13,11 @@ No prior CMake or C++ experience is assumed.
 This page covers the **client only**.
 The three HTTP servers are a separate project on the server computer, and they are unchanged in version 1.1 (see [Server Installation](/moilcalib_documentation/docs/v1.1/installation/server)).
 
-<div className="custom-note custom-important">
-  <div className="custom-note-title">📌 NO SOURCE CHANGES ARE NEEDED</div>
-  <div>
-    The client was originally written for Linux, so it is fair to expect some Mac-specific patching. There is none. The source has no platform <code>#ifdef</code> guards, no Linux-only headers, and no hardcoded absolute paths. The two external programs it calls, <code>zip</code> and <code>unzip</code> (used by <code>XlsxIO.cpp</code> for Excel export), both ship with macOS. Everything on this page is about setting up the <strong>build environment</strong>, not editing code.
-  </div>
-</div>
+The client was originally written for Linux, so it is fair to expect some Mac-specific patching.
+There is none.
+The source has no platform `#ifdef` guards, no Linux-only headers, and no hardcoded absolute paths.
+The two external programs it calls, `zip` and `unzip` (used by `XlsxIO.cpp` for Excel export), both ship with macOS.
+Everything on this page is about setting up the **build environment**, not editing code.
 
 ---
 
@@ -34,12 +32,10 @@ The three HTTP servers are a separate project on the server computer, and they a
 | **GitHub Access** | Required to clone the private repository |
 | **Disk Space** | Roughly 5 GB for the toolchain and libraries |
 
-<div className="custom-note custom-danger">
-  <div className="custom-note-title">🚨 THE ONE THING THAT BREAKS EVERYTHING</div>
-  <div>
-    Install <strong><code>opencv@4</code></strong>, not <code>opencv</code>. Homebrew's default <code>opencv</code> formula is now version <strong>5</strong>, which this codebase <strong>cannot compile against</strong>. Worse, the mistake does not surface when you make it: configure succeeds happily, and the failure appears later as a wall of compiler errors. If you read nothing else on this page, read <a href="#22-why-the-opencv-path-must-come-first">Why the OpenCV Path Must Come First</a>.
-  </div>
-</div>
+The one thing that breaks everything: install **`opencv@4`**, not `opencv`.
+Homebrew's default `opencv` formula is now version 5, which this codebase cannot compile against.
+Worse, the mistake does not surface when you make it: configure succeeds happily, and the failure appears later as a wall of compiler errors.
+If you read nothing else on this page, read [Why the OpenCV Path Must Come First](#22-why-the-opencv-path-must-come-first).
 
 ---
 
@@ -51,7 +47,18 @@ If anything fails, or you want to understand what these do, use the numbered sec
 ```bash
 # 1. One-time setup
 xcode-select --install
-brew install qt opencv@4 eigen libomp cmake ninja
+
+# Compiler and build tools
+brew install cmake ninja
+
+# Qt6 user interface, networking, and serial port
+brew install qt
+
+# Image processing and calibration math
+brew install opencv@4 eigen
+
+# Optional: lets Eigen use multiple CPU cores
+brew install libomp
 
 # 2. Configure (from the project root)
 /opt/homebrew/bin/cmake -S cpp -B cpp/build -G Ninja \
@@ -68,35 +75,11 @@ cd cpp/build
 
 ---
 
-## How the Build Works
+Before you continue, read [How the Build Works](/moilcalib_documentation/docs/v1.1/installation/client#how-the-build-works) on the Client Installation Guide.
+It explains what configure, build, and run each do, and why knowing which one failed tells you where to look.
 
-Understanding the shape of this makes every later error message much easier to read.
-
-Turning source code into a running app is like cooking a meal from a recipe:
-
-| Cooking | Software | What it means here |
-|---|---|---|
-| The recipe | `CMakeLists.txt` | A file describing what to build and what it needs |
-| Ingredients | Qt, OpenCV, Eigen | Pre-written libraries this app depends on |
-| Checking the pantry | **Configure** | CMake looks for each library and records where it found it |
-| Actually cooking | **Build** | The compiler turns source code into a program |
-| Eating | **Run** | Launching the finished app |
-
-**Configure**, **build**, and **run** are three separate steps that fail in three different ways.
-Knowing which step you are on tells you where to look:
-
-| Step that failed | What it means |
-|---|---|
-| **Configure** | A library is missing entirely |
-| **Build** | The libraries are present but do not fit together |
-| **Run** | The app compiled but cannot start |
-
-<div className="custom-note custom-warning">
-  <div className="custom-note-title">⚠️ WHY THE OPENCV MISTAKE IS SO CONFUSING</div>
-  <div>
-    The OpenCV 5 problem is made at <strong>configure</strong> time but only fails at <strong>build</strong> time. The error appears in a completely different step from the one where you caused it, which is exactly what makes it hard to diagnose.
-  </div>
-</div>
+On macOS specifically, the OpenCV 5 mistake described later on this page is made at **configure** time but only fails at **build** time.
+The error appears in a completely different step from the one where you caused it, which is exactly what makes it hard to diagnose.
 
 ---
 
@@ -121,27 +104,48 @@ A printed path means the tools are present.
 
 ### 1.2 Homebrew Packages
 
-```bash
-brew install qt opencv@4 eigen libomp cmake ninja
-```
-
-| Package | What it does for this app |
-|---|---|
-| **qt** | The entire user interface: windows, buttons, tables, plus networking and serial port access |
-| **opencv@4** | Image processing, chessboard corner detection, camera geometry |
-| **eigen** | Matrix and linear algebra math used by the calibration computations |
-| **cmake** | Reads the recipe and works out how to build everything |
-| **ninja** | Does the actual compiling, quickly and in parallel |
-| **libomp** | Optional. Would let Eigen use multiple CPU cores. See [OpenMP Is Not Enabled](#openmp-is-not-enabled) |
-
+Install these one group at a time.
+Each command below covers one part of the app, so it is clear what you are adding and why.
 Qt and OpenCV are both large, so expect this to take a while on a slow connection.
 
-<div className="custom-note custom-danger">
-  <div className="custom-note-title">🚨 IT SAYS <code>opencv@4</code>, NOT <code>opencv</code></div>
-  <div>
-    This is deliberate. Typing <code>brew install opencv</code> gets you OpenCV 5, and the build will fail later with errors about <code>findChessboardCornersSB</code> and <code>__sort3</code>. See <a href="#why-opencv-4-is-pinned">Why OpenCV 4 Is Pinned</a> for the full story.
-  </div>
-</div>
+**Compiler and build tools**
+
+`cmake` reads the recipe and works out how to build everything.
+`ninja` does the actual compiling, quickly and in parallel.
+
+```bash
+brew install cmake ninja
+```
+
+**Qt6 user interface**
+
+`qt` provides the entire user interface: windows, buttons, tables, plus networking and serial port access.
+
+```bash
+brew install qt
+```
+
+**OpenCV and Eigen**
+
+`opencv@4` handles image processing, chessboard corner detection, and camera geometry.
+`eigen` provides the matrix and linear algebra math used by the calibration computations.
+
+It says `opencv@4`, not `opencv`, and that is deliberate.
+Typing `brew install opencv` gets you OpenCV 5, and the build will fail later with errors about `findChessboardCornersSB` and `__sort3`.
+See [Why OpenCV 4 Is Pinned](#why-opencv-4-is-pinned) for the full story.
+
+```bash
+brew install opencv@4 eigen
+```
+
+**libomp (optional)**
+
+`libomp` would let Eigen use multiple CPU cores.
+See [OpenMP Is Not Enabled](#openmp-is-not-enabled).
+
+```bash
+brew install libomp
+```
 
 ### 1.3 If You Already Have OpenCV 5 Installed
 
@@ -167,12 +171,9 @@ You have to point at it explicitly, which is exactly what `CMAKE_PREFIX_PATH` do
 | CMake | 4.4.2 (Homebrew) |
 | Ninja | 1.13.2 |
 
-<div className="custom-note custom-tip">
-  <div className="custom-note-title">💡 WHY EIGEN 5 WORKS DESPITE <code>find_package(Eigen3)</code></div>
-  <div>
-    Homebrew installs Eigen 5, but <code>CMakeLists.txt</code> asks for Eigen 3. This works anyway because Eigen 5 still ships a compatibility file named <code>Eigen3Config.cmake</code>, so the <code>Eigen3::Eigen</code> target still resolves. Unlike OpenCV, Eigen did not break the parts of its API this project uses.
-  </div>
-</div>
+Homebrew installs Eigen 5, but `CMakeLists.txt` asks for Eigen 3, and this works anyway.
+Eigen 5 still ships a compatibility file named `Eigen3Config.cmake`, so the `Eigen3::Eigen` target still resolves.
+Unlike OpenCV, Eigen did not break the parts of its API this project uses.
 
 ---
 
@@ -259,12 +260,9 @@ These are the ones that matter:
 -- Build files have been written to: .../cpp/build
 ```
 
-<div className="custom-note custom-danger">
-  <div className="custom-note-title">🚨 CHECK THE OPENCV LINE SAYS 4.x</div>
-  <div>
-    If it reports <code>5.x</code>, stop now and fix <code>CMAKE_PREFIX_PATH</code>, because the build will fail. You will also need a <a href="#clean-rebuild">clean rebuild</a>, since CMake caches this decision and simply re-running configure will not change it.
-  </div>
-</div>
+Check that the OpenCV line says 4.x.
+If it reports `5.x`, stop now and fix `CMAKE_PREFIX_PATH`, because the build will fail.
+You will also need a [clean rebuild](#clean-rebuild), since CMake caches this decision and simply re-running configure will not change it.
 
 Two warnings are **expected** and harmless:
 
@@ -300,21 +298,14 @@ More is faster, until you run out of memory and the machine starts struggling.
 `-j6` was verified comfortable on a 16 GB Mac.
 Lower it to `-j4` or `-j2` if you have 8 GB, or if your Mac becomes unresponsive while building.
 
-<div className="custom-note custom-tip">
-  <div className="custom-note-title">💡 COMPARED TO LINUX</div>
-  <div>
-    The Linux guide insists on <code>-j2</code>, because higher values can exhaust memory and get the compiler killed by the system (exit code 137). Macs generally tolerate more, but the underlying build is memory-hungry, so do not go wild.
-  </div>
-</div>
+Compared to Linux: the Linux guide insists on `-j2`, because higher values can exhaust memory and get the compiler killed by the system (exit code 137).
+Macs generally tolerate more, but the underlying build is memory-hungry, so do not go wild.
 
 ### 3.2 Confirming the Build Really Succeeded
 
-<div className="custom-note custom-warning">
-  <div className="custom-note-title">⚠️ DO NOT TRUST THE EXIT CODE IF YOU PIPE THE BUILD</div>
-  <div>
-    When you write <code>cmake --build ... | tail -40</code>, the shell reports the exit status of the <strong>last</strong> command in the chain, which is <code>tail</code>. And <code>tail</code> succeeds at its job of printing lines even when the compiler feeding it failed. So the build can report success while nothing was produced.
-  </div>
-</div>
+Do not trust the exit code if you pipe the build.
+When you write `cmake --build ... | tail -40`, the shell reports the exit status of the **last** command in the chain, which is `tail`.
+`tail` succeeds at its job of printing lines even when the compiler feeding it failed, so the build can report success while nothing was produced.
 
 The reliable check is to look for the file itself:
 
@@ -364,36 +355,13 @@ cd cpp/build
 
 ### 4.1 You Must Run It From `cpp/build`
 
-<div className="custom-note custom-warning">
-  <div className="custom-note-title">⚠️ THIS IS NOT A STYLE PREFERENCE</div>
-  <div>
-    After compiling, CMake copies <code>config/cali_system/*.json</code> and <code>config/camera_parameters.json</code> to sit next to the binary. The app looks for those files using a path relative to the <strong>current working directory</strong>, not relative to where the executable lives. Launch from anywhere else and the app still starts, with no error message, but the <strong>Select Cali System</strong> dropdown is silently empty. That silent failure is exactly why this is worth remembering.
-  </div>
-</div>
+This is not a style preference.
+After compiling, CMake copies `config/cali_system/*.json` and `config/camera_parameters.json` to sit next to the binary.
+The app looks for those files using a path relative to the **current working directory**, not relative to where the executable lives.
+Launch from anywhere else and the app still starts, with no error message, but the **Select Cali System** dropdown is silently empty.
+That silent failure is exactly why this is worth remembering.
 
-### 4.2 What a Healthy Launch Looks Like
-
-**Nothing.**
-
-No output at all on the terminal is the success case.
-Qt is quite noisy when something is wrong, so silence means the theme, fonts, `.ui` layouts, and resource bundle all loaded correctly.
-
-The app window opens as a normal macOS application.
-
-<div className="custom-note custom-tip">
-  <div className="custom-note-title">💡 MULTI-MONITOR TIP</div>
-  <div>
-    If you have more than one display, the window may open on a different screen than you expect. Check your other monitors before concluding it failed to start.
-  </div>
-</div>
-
-You can confirm it is alive from another terminal:
-
-```bash
-pgrep -lx moilcali
-```
-
-### 4.3 Do Not Run `cmake --install`
+### 4.2 Do Not Run `cmake --install`
 
 The `install()` section of `CMakeLists.txt` was written for Linux desktops.
 It writes a `.desktop` launcher file and copies icons into `share/icons/hicolor/`, and neither of those means anything on macOS.
@@ -492,12 +460,8 @@ Apple has deprecated OpenGL in favour of Metal, but it still functions.
 Expect a deprecation warning in the console when the 3D view opens.
 That warning is noise, not an error.
 
-<div className="custom-note custom-warning">
-  <div className="custom-note-title">⚠️ NOT YET VERIFIED</div>
-  <div>
-    The main window launches cleanly, but the 3D viewer had not been opened at the time of writing. If <strong>Auto 3D Measurement</strong> renders blank or crashes, this compatibility profile is the first thing to investigate.
-  </div>
-</div>
+This has not yet been verified: the main window launches cleanly, but the 3D viewer had not been opened at the time of writing.
+If **Auto 3D Measurement** renders blank or crashes, this compatibility profile is the first thing to investigate.
 
 ### Serial Port Device Names Differ
 
@@ -523,19 +487,15 @@ ls /dev/cu.*
 ### Clean Rebuild
 
 Try this first for anything build-related.
+CMake caches what it found at configure time inside `cpp/build/`, so changing `CMAKE_PREFIX_PATH` and reconfiguring doesn't always pick it up.
 
-CMake **remembers** what it found during configure, caching it inside `cpp/build/`.
-This trips people up constantly: changing `CMAKE_PREFIX_PATH` and re-running configure does **not** necessarily take effect, because CMake reuses the cached answer from last time.
-
-When in doubt, delete the build folder and start over:
+Delete the build folder and start fresh, then repeat [Configure](#2-configure) and [Build](#3-build):
 
 ```bash
 rm -rf cpp/build
 ```
 
-Then repeat [Configure](#2-configure) and [Build](#3-build).
-
-This is always safe.
+Safe to run anytime.
 Everything in `cpp/build/` is generated, so nothing of yours is lost.
 
 ### Quick Reference
@@ -617,23 +577,3 @@ Building natively, as documented above, avoids all of that and gives full GPU an
 
 The existing `packaging/Dockerfile.ubuntu2004` is still the correct tool for its actual job, which is producing distributable Linux binaries linked against an old glibc for maximum compatibility.
 It was never intended as a development environment.
-
----
-
-## Glossary
-
-| Term | Meaning |
-|---|---|
-| **Configure** | The step where CMake locates libraries and writes a build plan |
-| **Build** | The step where the compiler turns source code into a program |
-| **Compiler** | The tool that translates C++ source into machine code |
-| **Linker** | Combines all compiled pieces plus libraries into one executable. The final build step |
-| **Library** | Reusable pre-written code, such as Qt or OpenCV |
-| **Header file** (`.h`, `.hpp`) | Declares what a library offers, so the compiler knows what exists |
-| **Keg-only** | A Homebrew package installed but deliberately not made the default |
-| **`PATH`** | The ordered list of folders your shell searches for commands |
-| **`CMAKE_PREFIX_PATH`** | The ordered list of folders CMake searches for libraries |
-| **Mach-O** | The executable file format used by macOS |
-| **arm64** | Apple Silicon processor architecture, as opposed to Intel `x86_64` |
-| **OpenMP** | A system for spreading computation across multiple CPU cores |
-| **Fixed-function pipeline** | An older style of OpenGL drawing, using calls like `glBegin` |

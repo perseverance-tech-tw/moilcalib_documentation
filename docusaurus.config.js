@@ -40,14 +40,19 @@ const config = {
           editUrl: 'https://github.com/perseverance-tech-tw/moilcalib_documentation/tree/main/',
           // See VERSIONING.md at the repo root for the full folder map and
           // how to cut a new version with `npx docusaurus docs:version X`.
-          lastVersion: '1.1', // the latest released version (named by the "unreleased" banner on v2.0)
+          lastVersion: '1.1', // the latest released version
+          // The in-progress v2.0 docs in `docs/` are hidden from the site while
+          // v1.1 is being finished. The folder is untouched; flip this back to
+          // `true` (and restore the `current` entry in `versions` below) to
+          // publish v2.0 again.
+          includeCurrentVersion: false,
           versions: {
-            // "current" = the live docs/ folder (in-progress, unreleased)
-            current: {
-              label: 'v2.0 (ROS C++)',
-              path: 'v2.0',
-              badge: true,
-            },
+            // NOTE: no `current` entry here on purpose. Docusaurus rejects a
+            // version key it isn't building, so listing it while
+            // includeCurrentVersion is false fails the build.
+            //
+            // current: { label: 'v2.0 (ROS C++)', path: 'v2.0', badge: true },
+            //
             // frozen snapshot, lives in versioned_docs/version-1.1/
             '1.1': {
               label: 'v1.1 (HTTP C++)',

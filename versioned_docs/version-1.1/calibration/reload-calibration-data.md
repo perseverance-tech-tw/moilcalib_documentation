@@ -2,7 +2,6 @@
 id: reload-calibration-data
 slug: /calibration/reload-calibration-data
 title: Reload Calibration Data
-sidebar_label: "4. Reload Calibration Data"
 ---
 
 # Reload Calibration Data

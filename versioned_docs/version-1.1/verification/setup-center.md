@@ -2,8 +2,6 @@
 id: setup-center
 slug: /verification/setup-center
 title: Setup Center
-sidebar_label: Setup Center
-sidebar_position: 1
 ---
 
 # Setup Center

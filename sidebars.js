@@ -1,27 +1,36 @@
-// Sidebar for the CURRENT (v1.1) docs. The order follows the actual working
-// flow: install → learn the main window → run the calibration (pattern → capture
-// → result) → verify the camera parameters → manage stored data.
+// Sidebar for the CURRENT (unreleased v2.0) docs in `docs/`.
+//
+// The order follows the actual working flow: install -> learn the main window ->
+// run the calibration (pattern -> capture -> result) -> verify the camera
+// parameters -> manage stored data.
+//
+// CONVENTION: every label lives in this file. Pages must NOT set `sidebar_label`
+// in their frontmatter. Docusaurus resolves a doc label as
+// `frontMatter.sidebar_label ?? item.label ?? title` (see
+// plugin-content-docs/lib/props.js), so any frontmatter label silently wins over
+// the `label` below and the step numbers drift out of sync.
 const sidebars = {
   tutorialSidebar: [
-    'intro',
+    { type: 'doc', id: 'intro', label: 'Introduction' },
 
     {
       type: 'category',
       label: 'Installation',
       collapsed: true,
       items: [
-        'installation/server',
-        'installation/client-installation-guide',
+        { type: 'doc', id: 'installation/server', label: 'Server Installation' },
+        {
+          type: 'doc',
+          id: 'installation/client-installation-guide',
+          label: 'Client Installation Guide',
+        },
       ],
     },
 
     {
-      type: 'category',
-      label: 'System Overview',
-      collapsed: false,
-      items: [
-        'system-overview/main-window',
-      ],
+      type: 'doc',
+      id: 'system-overview/main-window',
+      label: 'Main Window Reference',
     },
 
     {
@@ -34,17 +43,24 @@ const sidebars = {
           label: '1. Pattern Setup',
           collapsed: false,
           items: [
-            'calibration/pct-pattern-generator',
-            'calibration/monitor-viewer',
+            {
+              type: 'doc',
+              id: 'calibration/pct-pattern-generator',
+              label: 'PCT Pattern Generator',
+            },
+            {
+              type: 'doc',
+              id: 'calibration/monitor-viewer',
+              label: 'Monitor Viewer',
+            },
           ],
         },
 
-        // Step numbers for plain doc items live in each page's `sidebar_label`
-        // frontmatter — Docusaurus resolves a doc label as
-        // `frontMatter.sidebar_label ?? item.label ?? title`, so a `label` here
-        // would be silently ignored. Category labels below have no frontmatter
-        // competing with them, so they are numbered here.
-        'calibration/camera-calibration',
+        {
+          type: 'doc',
+          id: 'calibration/camera-calibration',
+          label: '2. Camera Calibration',
+        },
 
         {
           type: 'category',
@@ -55,35 +71,58 @@ const sidebars = {
             id: 'calibration/cali-result/index',
           },
           items: [
-            'calibration/cali-result/main-window-overview',
-            'calibration/cali-result/result-table-view',
-            'calibration/cali-result/parameter-view',
-            'calibration/cali-result/overlap-and-aggregation-view',
-            'calibration/cali-result/entrance-pupil-analysis',
+            {
+              type: 'doc',
+              id: 'calibration/cali-result/main-window-overview',
+              label: 'Main Window Overview',
+            },
+            {
+              type: 'doc',
+              id: 'calibration/cali-result/result-table-view',
+              label: 'Result Table View',
+            },
+            {
+              type: 'doc',
+              id: 'calibration/cali-result/parameter-view',
+              label: 'Parameter View',
+            },
+            {
+              type: 'doc',
+              id: 'calibration/cali-result/overlap-and-aggregation-view',
+              label: 'Overlap & Aggregation View',
+            },
+            {
+              type: 'doc',
+              id: 'calibration/cali-result/entrance-pupil-analysis',
+              label: 'Entrance-Pupil Analysis',
+            },
           ],
         },
 
-        'calibration/reload-calibration-data',
+        {
+          type: 'doc',
+          id: 'calibration/reload-calibration-data',
+          label: '4. Reload Calibration Data',
+        },
+
+        {
+          type: 'doc',
+          id: 'verification/setup-center',
+          label: '5. Setup Center',
+        },
+
+        {
+          type: 'doc',
+          id: 'verification/3d-verification',
+          label: '6. 3D Verification',
+        },
       ],
     },
 
     {
-      type: 'category',
-      label: 'Verification',
-      collapsed: false,
-      items: [
-        'verification/setup-center',
-        'verification/3d-verification',
-      ],
-    },
-
-    {
-      type: 'category',
-      label: 'Database',
-      collapsed: true,
-      items: [
-        'database/database-overview',
-      ],
+      type: 'doc',
+      id: 'database/database-overview',
+      label: 'Database Overview',
     },
   ],
 };
