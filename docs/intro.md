@@ -128,10 +128,16 @@ not optional.
 **No single-instance guard.** Launching the Windows shortcut twice runs two
 copies, both writing to the same capture folder.
 
-**The native Windows/MSVC build cannot talk to the rig.** It builds against ROS 2
-**Lyrical**, and cross-distro DDS is not supported, so it will not see the rig's
-Jazzy nodes. It is a developer build for GUI and calibration-maths work. Use the
-packaged installer or WSL2 for real hardware.
+**The client's ROS distro has to match the rig's.** Cross-distro DDS is not
+supported, so a mismatched client never discovers the rig however the network is
+configured. The rig runs **Lyrical** — all four launchers in `Server/v2.0.0/` go
+through `C:\dev\lyrical` — and so does the
+[native Windows/MSVC build](./installation/client-windows-native.md). The Ubuntu,
+Docker and packaged-installer routes are built on **Jazzy**.
+
+Note that the repository's own `README.md` and `cpp/README.md` describe the rig as
+Jazzy, which its launchers contradict. **Confirm your rig with `ros2 node list`
+from the client you intend to use** rather than trusting either document.
 
 **Excel import and export shell out to `zip` and `unzip`.** `setup.sh` does not
 install them. Without `unzip`, *Load All Excel* reports *"No round subfolders

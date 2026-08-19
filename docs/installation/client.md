@@ -27,17 +27,31 @@ A Windows PC can do either column.
 
 ## The four routes
 
-| Route | Who it is for | Talks to a real rig? |
+| Route | Who it is for | ROS distro |
 |---|---|---|
-| [**Windows (Installer)**](./client-windows.md) | Operators. One `.exe`, a Start Menu entry, nothing else to install | ✅ Yes |
-| [**Linux (Ubuntu 24.04)**](./client-linux.md) | Developers. ROS 2 Jazzy + `setup.sh`. **Also the WSL2 route** | ✅ Yes |
-| [**Docker**](./client-docker.md) | Anyone who would rather not install ROS 2 on the host | ✅ Yes, with `--network host` |
-| [**Windows (Native MSVC)**](./client-windows-native.md) | Developers wanting a real `.exe` with no Linux | ❌ **No** |
+| [**Windows (Installer)**](./client-windows.md) | Operators. One `.exe`, a Start Menu entry, nothing else to install | Jazzy |
+| [**Linux (Ubuntu 24.04)**](./client-linux.md) | Developers. `setup.sh`. **Also the WSL2 route** | Jazzy |
+| [**Docker**](./client-docker.md) | Anyone who would rather not install ROS 2 on the host | Jazzy |
+| [**Windows (Native MSVC)**](./client-windows-native.md) | Developers wanting a real `.exe` with no Linux | **Lyrical** |
 
-<div className="custom-note custom-danger">
-  <div className="custom-note-title">⛔ THE NATIVE WINDOWS BUILD CANNOT TALK TO THE RIG</div>
+### The distro has to match the rig
+
+**Cross-distro DDS is not supported.** A client on one ROS distro will not
+discover a rig on another, however the network is configured — so this column is
+not a detail, it is the first thing to check.
+
+| Side | Distro | Where that comes from |
+|---|---|---|
+| **The rig** | **Lyrical** | `Server/v2.0.0/*.bat` — all four launchers run under `pixi --manifest-path C:\dev\lyrical` |
+| Native MSVC client | **Lyrical** | matches |
+| Jazzy clients | Jazzy | `setup.sh`, `Dockerfile`, the packaged `.exe` |
+
+<div className="custom-note custom-warning">
+  <div className="custom-note-title">⚠️ THE REPOSITORY'S READMEs CONTRADICT ITS OWN LAUNCHERS HERE</div>
   <div>
-    It builds against ROS 2 <strong>Lyrical</strong>, and cross-distro DDS is not supported, so it will never see the rig's <strong>Jazzy</strong> nodes. It is for GUI and calibration-maths work. If you need real hardware, use the installer or the WSL2 route.
+    <code>README.md:321</code> and <code>cpp/README.md:92</code> describe the rig as running <strong>Jazzy</strong> and warn the native build cannot reach it. The launchers in <code>Server/v2.0.0/</code> run <strong>Lyrical</strong>. Those cannot both be current.
+    <br /><br />
+    <strong>Confirm your own rig before choosing a route:</strong> run <code>ros2 node list</code> from the client you intend to use and see whether the three nodes appear. That answers it directly, and takes less time than reading either README.
   </div>
 </div>
 

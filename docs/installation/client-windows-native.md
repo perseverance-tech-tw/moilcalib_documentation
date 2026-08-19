@@ -12,12 +12,32 @@ This works because ROS 2 **Lyrical** ships a prebuilt Windows binary archive
 (installed through `pixi` / conda-forge) and the application's ROS surface is
 small: only `rclcpp` and `sensor_msgs`.
 
-<div className="custom-note custom-danger">
-  <div className="custom-note-title">⛔ THIS BUILD CANNOT TALK TO THE RIG</div>
+<div className="custom-note">
+  <div className="custom-note-title">📌 THIS BUILD MATCHES THE RIG'S ROS DISTRO</div>
   <div>
-    Lyrical does not interoperate with the rig's <strong>Jazzy</strong> nodes — cross-distro DDS is not supported. This build will never see a Jazzy rig, no matter how the network is configured.
+    The rig's nodes run <strong>Lyrical</strong> — all four launchers in <code>Server/v2.0.0/</code> run under <code>pixi --manifest-path C:\dev\lyrical</code> and source <code>C:\dev\lyrical\local_setup.bat</code>. So does this build. <strong>Same distro on both ends</strong>, which is the combination DDS supports.
+  </div>
+</div>
+
+## Which client matches the rig
+
+Worth knowing before you pick a route, because the repository's own READMEs are
+inconsistent on this point:
+
+| Side | ROS distro | Where that comes from |
+|---|---|---|
+| **The rig** | **Lyrical** | `Server/v2.0.0/*.bat` — all four |
+| **This build** (native MSVC) | **Lyrical** | This page |
+| Ubuntu / `setup.sh` | Jazzy | `ROS_DISTRO_WANT="${ROS_DISTRO:-jazzy}"` |
+| Docker | Jazzy | `FROM ros:jazzy` |
+| Packaged `.exe` | Jazzy | `Windows/v2.0.0/RELEASE-v2.0.0.md` |
+
+<div className="custom-note custom-warning">
+  <div className="custom-note-title">⚠️ THE READMEs SAY THE RIG IS JAZZY — THE LAUNCHERS SAY LYRICAL</div>
+  <div>
+    <code>README.md:321</code> and <code>cpp/README.md:92</code> both warn that this build "will not see a Jazzy rig". That describes a rig configuration the launchers in this repository <strong>do not</strong> use, and the warning appears to predate the rig moving to Lyrical.
     <br /><br />
-    Use it for GUI work and calibration maths. If you need real hardware today, use the <a href="./client-windows.md">packaged installer</a> or the <a href="./client-linux.md">WSL2 route</a>. Moving both ends to the same distro is the only way to make this build talk to hardware.
+    Cross-distro DDS genuinely is unsupported, so <strong>which routes reach the rig depends on which distro the rig is actually running at your site</strong>. Confirm it with <code>ros2 node list</code> from the client you intend to use, before trusting either README.
   </div>
 </div>
 
@@ -145,9 +165,9 @@ Override paths with `-Ros2`, `-Qt`, `-OpenCvBin`, `-Config`.
 
 | Gap | Detail |
 |---|---|
-| **No rig** | See the box at the top. Lyrical cannot talk to Jazzy |
 | **Excel** | Needs `zip.exe` and `unzip.exe` on `PATH` — neither exists on Windows by default. `choco install zip unzip` |
 | **No Debug builds** | The ROS Windows binaries are Release-only |
+| **Distro must match the rig** | Confirm with `ros2 node list` — see the table above |
 
 ---
 
@@ -160,8 +180,9 @@ Get-ChildItem cpp\build-win\RelWithDebInfo\*_test.exe | ForEach-Object { "== $_ 
 Covers `CaliCompute`, `CaliMath`, `CaliRound`, `Database`, `Measure3d`, `Moil3d`,
 `MoilCali`, `PatternGen`, `Regression`, `Xlsx`.
 
-> Because this build cannot reach a rig, **the tests are the main way to know it
-> works.** They exercise the compute core, which is the part this build is for.
+They exercise the compute core — every number the application reports — without
+needing a rig, so they are the fastest way to confirm a build is sound before you
+take it to hardware.
 
 ---
 
@@ -175,7 +196,7 @@ Covers `CaliCompute`, `CaliMath`, `CaliRound`, `Database`, `Measure3d`, `Moil3d`
 | `PATH` behaving strangely | `Launch-VsDevShell` was run after `pixi shell`, or two pixi shells are nested |
 | `$repo` is empty inside the pixi shell | It was set in the outer shell. Set it inside |
 | Excel import/export fails | `zip` / `unzip` are not on `PATH` |
-| The rig is never discovered | Expected. This build cannot see a Jazzy rig |
+| The rig is never discovered | Check the rig's distro matches — `ros2 node list`. If it does, it is an ordinary network problem: [Connect the App to the Rig](../ros/connect-to-rig.md) |
 
 ---
 
