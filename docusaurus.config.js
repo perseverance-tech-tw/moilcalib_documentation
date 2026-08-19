@@ -41,17 +41,17 @@ const config = {
           // See VERSIONING.md at the repo root for the full folder map and
           // how to cut a new version with `npx docusaurus docs:version X`.
           lastVersion: '1.1', // the latest released version
-          // The in-progress v2.0 docs in `docs/` are hidden from the site while
-          // v1.1 is being finished. The folder is untouched; flip this back to
-          // `true` (and restore the `current` entry in `versions` below) to
-          // publish v2.0 again.
-          includeCurrentVersion: false,
+          // The in-progress v2.0 docs in `docs/` are published again: the page
+          // tree is in place and the application's HELP buttons already point at
+          // /docs/v2.0/... (see cpp/app/Help.cpp), which 404s while this is off.
+          // Set to `false` — and comment out the `current` entry below at the
+          // same time — to hide v2.0 from the site again. Docusaurus rejects a
+          // version key it isn't building, so the two must move together.
+          includeCurrentVersion: true,
           versions: {
-            // NOTE: no `current` entry here on purpose. Docusaurus rejects a
-            // version key it isn't building, so listing it while
-            // includeCurrentVersion is false fails the build.
-            //
-            // current: { label: 'v2.0 (ROS C++)', path: 'v2.0', badge: true },
+            // the in-progress draft, lives in `docs/`. Carries the default
+            // "unreleased" banner pointing at lastVersion (v1.1).
+            current: { label: 'v2.0 (ROS 2)', path: 'v2.0', badge: true },
             //
             // frozen snapshot, lives in versioned_docs/version-1.1/
             '1.1': {

@@ -6,7 +6,7 @@ This site documents multiple releases of [moil-fisheye-calisys](https://github.c
 
 | Folder | What it is | Tracks branch | Edit it when... |
 |---|---|---|---|
-| `docs/` | The **current** (in-progress, unreleased) version. Always mutable, always named `docs/` no matter which version is being drafted (right now: **v2.0, ROS C++** — the page tree mirrors v1.1, all pages empty). | ROS port | You're writing docs for the next release. |
+| `docs/` | The **current** (in-progress, unreleased) version. Always mutable, always named `docs/` no matter which version is being drafted (right now: **v2.0, ROS 2** — the page tree mirrors v1.1 plus the v2.0 additions; most page bodies are skeletons). See `docs/_README.md` for what is written and what is not. | `calibration_inROS` | You're writing docs for the next release. |
 | `sidebars.js` | Sidebar for `docs/` (current version). | — | You add/remove/reorder a page in `docs/`. |
 | `versioned_docs/version-1.1/` | **Frozen** snapshot of v1.1 (HTTP C++) — the complete C++/Qt6 client documentation. | `main_development` | You're fixing or extending the v1.1 docs. |
 | `versioned_sidebars/version-1.1-sidebars.json` | Sidebar for `version-1.1`, frozen alongside it. | — | Same as above. |
@@ -21,7 +21,7 @@ This site documents multiple releases of [moil-fisheye-calisys](https://github.c
 
 | Version | Label in the dropdown | Lives in | URL | Banner |
 |---|---|---|---|---|
-| **v2.0** | `v2.0 (ROS C++)` | `docs/` (current, in progress) | `/docs/v2.0/…` | "unreleased — see the latest version (v1.1)" |
+| **v2.0** | `v2.0 (ROS 2)` | `docs/` (current, in progress) | `/docs/v2.0/…` | "unreleased — see the latest version (v1.1)" |
 | **v1.1** | `v1.1 (HTTP C++)` | `versioned_docs/version-1.1/` (frozen) | `/docs/v1.1/…` | none (`banner: 'none'`) |
 | **v1.0** | `v1.0 (HTTP PYTHON)` | `versioned_docs/version-1.0/` (frozen) | `/docs/1.0/…` | "no longer actively maintained" |
 

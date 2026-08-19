@@ -1,8 +1,13 @@
-// Sidebar for the CURRENT (unreleased v2.0) docs in `docs/`.
+// Sidebar for the CURRENT (unreleased v2.0, ROS 2) docs in `docs/`.
 //
-// The order follows the actual working flow: install -> learn the main window ->
-// run the calibration (pattern -> capture -> result) -> verify the camera
-// parameters -> manage stored data.
+// The order follows the actual working flow: install -> confirm the rig is
+// reachable -> learn the main window -> run the calibration (pattern -> capture
+// -> result) -> verify the camera parameters -> manage stored data.
+//
+// The "ROS 2 Rig Connection" category is new in v2.0 and sits before the main
+// window on purpose: in v1.1 you typed three URLs into that window, and in v2.0
+// there is nothing to type, so a client that cannot see the rig looks exactly
+// like a working one until you try to capture.
 //
 // CONVENTION: every label lives in this file. Pages must NOT set `sidebar_label`
 // in their frontmatter. Docusaurus resolves a doc label as
@@ -18,12 +23,44 @@ const sidebars = {
       label: 'Installation',
       collapsed: true,
       items: [
-        { type: 'doc', id: 'installation/server', label: 'Server Installation' },
+        { type: 'doc', id: 'installation/server', label: 'Server Installation (ROS 2)' },
         {
-          type: 'doc',
-          id: 'installation/client-installation-guide',
+          type: 'category',
           label: 'Client Installation Guide',
+          collapsed: false,
+          link: {
+            type: 'doc',
+            id: 'installation/client-installation-guide',
+          },
+          items: [
+            {
+              type: 'doc',
+              id: 'installation/client-windows',
+              label: 'Windows (Installer)',
+            },
+            {
+              type: 'doc',
+              id: 'installation/client-linux',
+              label: 'Linux (Ubuntu 24.04)',
+            },
+            { type: 'doc', id: 'installation/client-docker', label: 'Docker' },
+            {
+              type: 'doc',
+              id: 'installation/client-windows-native',
+              label: 'Windows (Native MSVC)',
+            },
+          ],
         },
+      ],
+    },
+
+    {
+      type: 'category',
+      label: 'ROS 2 Rig Connection',
+      collapsed: false,
+      items: [
+        { type: 'doc', id: 'ros/ros-architecture', label: 'ROS 2 Architecture' },
+        { type: 'doc', id: 'ros/connect-to-rig', label: 'Connect the App to the Rig' },
       ],
     },
 
@@ -96,6 +133,11 @@ const sidebars = {
               id: 'calibration/cali-result/entrance-pupil-analysis',
               label: 'Entrance-Pupil Analysis',
             },
+            {
+              type: 'doc',
+              id: 'calibration/cali-result/pct-recommend',
+              label: 'PCT Recommend',
+            },
           ],
         },
 
@@ -120,9 +162,33 @@ const sidebars = {
     },
 
     {
-      type: 'doc',
-      id: 'database/database-overview',
-      label: 'Database Overview',
+      type: 'category',
+      label: 'Database',
+      collapsed: true,
+      link: {
+        type: 'doc',
+        id: 'database/database-overview',
+      },
+      items: [
+        {
+          type: 'doc',
+          id: 'database/load-to-system',
+          label: 'Load to System (SharePoint)',
+        },
+      ],
+    },
+
+    {
+      type: 'category',
+      label: 'Development',
+      collapsed: true,
+      items: [
+        {
+          type: 'doc',
+          id: 'development/codebase-overview',
+          label: 'Codebase Overview',
+        },
+      ],
     },
   ],
 };

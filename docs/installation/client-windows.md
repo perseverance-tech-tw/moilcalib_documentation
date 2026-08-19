@@ -1,4 +1,10 @@
-# How to install — MoilCali for Windows, v2.0.0
+---
+id: client-windows
+slug: /installation/client/windows
+title: Client Installation on Windows (Installer)
+---
+
+# Client Installation on Windows — MoilCali v2.0.0
 
 The Moil Fisheye Calibration client for Windows. One installer; double-click it
 and you get a Start Menu entry. Nothing else has to be installed first — no ROS,
@@ -31,8 +37,9 @@ winver
 
 ## 2. Download and verify
 
-Download **`MoilCali-2.0.0-setup.exe`** (293 MB) from the Assets list on this
-release page.
+Get **`MoilCali-2.0.0-setup.exe`** (293 MB). It lives in the application
+repository at `Windows/v2.0.0/MoilCali-2.0.0-setup.exe`, and is also attached to
+the GitHub release.
 
 Then confirm it arrived intact:
 
@@ -238,5 +245,8 @@ Why WSL rather than a native `.exe`: ROS 2 Jazzy has no official Windows binary
 release. The binary shipped here is the identical one the Linux/Docker
 deployment runs.
 
-**Installing on Linux instead?** See `INSTALL.md` in the
-application repository root.
+**Installing on Linux instead?** See [Client Installation on Linux](./client-linux.md).
+
+**Cannot see the rig after all of the above?** The full diagnosis path — what
+`ros2 node list` should return, and every reason it comes back empty — is in
+[Connect the App to the Rig](../ros/connect-to-rig.md).

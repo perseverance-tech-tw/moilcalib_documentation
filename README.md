@@ -62,7 +62,7 @@ This site documents multiple releases of [moil-fisheye-calisys](https://github.c
 
 | Folder | Version | URL | Tracks | Status |
 |---|---|---|---|---|
-| `docs/` | current — **v2.0 (ROS C++)** | `/docs/v2.0/…` | ROS port | In progress — page tree in place, all pages empty |
+| `docs/` | current — **v2.0 (ROS 2)** | `/docs/v2.0/…` | `calibration_inROS` | In progress — page tree and sidebar final, most page bodies still skeletons (see `docs/_README.md`) |
 | `versioned_docs/version-1.1/` | **v1.1 (HTTP C++)** | `/docs/v1.1/…` | `main_development` | **Latest release** (`lastVersion`) — the complete C++/Qt6 client docs |
 | `versioned_docs/version-1.0/` | **v1.0 (HTTP PYTHON)** | `/docs/1.0/…` | `Feature-AutoLoadCaliResult` | Frozen — only edit to fix mistakes |
 
